@@ -15,3 +15,4 @@ Depedencies :
 - firebase_auth (https://pub.dev/packages/firebase_auth)
 - firebase_remote_config (https://pub.dev/packages/firebase_remote_config)
 - flutter_dotenv (https://pub.dev/packages/flutter_dotenv)
+- google_sign_in (https://pub.dev/packages/google_sign_in)

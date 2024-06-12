@@ -12,7 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   AuthCubit() : super(const AuthState.initial());
 
-  static const String defaultAuthError = 'Authentication failed.';
+  static const String defaultAuthError = 'Failed to retrieve user data.';
 
   emailSignUp(AuthParams params) async {
     try {
@@ -42,6 +42,9 @@ class AuthCubit extends Cubit<AuthState> {
         email: params.email,
         password: params.password,
       );
+      if ((params.name ?? '').isNotEmpty) {
+        await auth.currentUser?.updateDisplayName(params.name);
+      }
       if (userCred.user != null) {
         emit(_SignedIn(userCred: userCred));
       } else {
@@ -56,10 +59,18 @@ class AuthCubit extends Cubit<AuthState> {
 
   checkAuthState() async {
     emit(const _Loading());
-    final String? user = await auth.currentUser?.getIdToken();
-    log(user ?? 'No user found');
-    if (user != null) {
-      emit(const _SignedIn());
+    try {
+      final String? idToken = await auth.currentUser?.getIdToken();
+      final User? user = auth.currentUser;
+      log(user?.displayName ?? '--');
+      log(idToken ?? 'No user found');
+      if (idToken != null) {
+        emit(const _SignedIn());
+      }
+    } on FirebaseAuthException catch (err) {
+      emit(_Error(message: err.message ?? defaultAuthError));
+    } catch (err) {
+      emit(_Error(message: err.toString()));
     }
   }
 }

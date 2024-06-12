@@ -17,6 +17,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   bool obsecurePassword = true;
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -35,6 +36,10 @@ class _RegisterFormState extends State<RegisterForm> {
               }
               return null;
             },
+          ),
+          TextFormField(
+            controller: nameController,
+            decoration: const InputDecoration(labelText: 'Name (Optionals)'),
           ),
           TextFormField(
             controller: passwordController,
@@ -75,6 +80,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       AuthParams(
                         email: emailController.text,
                         password: passwordController.text,
+                        name: nameController.text,
                       ),
                     );
               }

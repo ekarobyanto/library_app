@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           signedIn: (cred) {
+            context.pop();
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -37,12 +38,23 @@ class LoginScreen extends StatelessWidget {
           },
         );
       },
-      child: const Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: LoginForm(),
+      child: PopScope(
+        canPop: context.read<AuthCubit>().state != const AuthState.loading(),
+        child: Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    const LoginForm(),
+                    ElevatedButton(
+                      onPressed: () => {},
+                      child: const Text('login gugel'),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ),
