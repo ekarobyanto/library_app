@@ -64,6 +64,7 @@ class AuthCubit extends Cubit<AuthState> {
       final User? user = auth.currentUser;
       log(user?.displayName ?? '--');
       log(idToken ?? 'No user found');
+      log(auth.currentUser?.displayName ?? '--');
       if (idToken != null) {
         emit(const _SignedIn());
       }
