@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_app/src/core/cubit/auth_cubit.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 import 'package:library_app/src/router/router.dart';
 

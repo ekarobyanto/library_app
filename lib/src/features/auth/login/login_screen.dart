@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_app/src/core/cubit/auth_cubit.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/auth/login/listeners/auth_listener.dart';
 import 'package:library_app/src/features/auth/login/widgets/login_form.dart';
+import 'package:library_app/src/features/auth/widgets/background_decoration.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -13,14 +15,21 @@ class LoginScreen extends StatelessWidget {
       listener: authStateListener,
       child: PopScope(
         canPop: context.read<AuthCubit>().state != const AuthState.loading(),
-        child: const Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            backgroundColor: color.grayShade,
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Stack(
                   children: [
-                    LoginForm(),
+                    const AuthBackgroundDecoration(),
+                    Padding(
+                      padding: EdgeInsetsDirectional.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.1,
+                      ),
+                      child: const LoginForm(),
+                    ),
                   ],
                 ),
               ),
