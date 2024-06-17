@@ -29,7 +29,6 @@ class _RegisterFormState extends State<RegisterForm> {
     return Padding(
       padding: EdgeInsets.all(constraints.xxl),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.6,
         padding: EdgeInsets.all(constraints.xl),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -42,71 +41,90 @@ class _RegisterFormState extends State<RegisterForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Create New Account",
-                    textDirection: TextDirection.ltr,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Create New Account",
+                      textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: constraints.large),
-                  AppTextField(
-                    label: "Name",
-                    placeholder: "Enter your name",
-                    controller: nameController,
-                    leftIcon: const Icon(
-                      Icons.person,
-                      color: Colors.grey,
+                    SizedBox(height: constraints.large),
+                    AppTextField(
+                      label: "Name",
+                      placeholder: "Enter your name",
+                      controller: nameController,
+                      leftIcon: const Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                      ),
+                      onValidate: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Name is required.';
+                        }
+                        return null;
+                      },
                     ),
-                    onValidate: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return 'Name is required.';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: constraints.medium),
-                  AppTextField(
-                    label: "Email",
-                    placeholder: "Enter your email",
-                    controller: emailController,
-                    leftIcon: const Icon(
-                      Icons.email,
-                      color: Colors.grey,
+                    SizedBox(height: constraints.medium),
+                    AppTextField(
+                      label: "Email",
+                      placeholder: "Enter your email",
+                      controller: emailController,
+                      leftIcon: const Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                      onValidate: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Email is required.';
+                        }
+                        if (!EmailValidator.validate(value ?? '')) {
+                          return 'Email is invalid.';
+                        }
+                        return null;
+                      },
                     ),
-                    onValidate: (value) {
-                      if (value?.isEmpty ?? true) {
-                        return 'Email is required.';
-                      }
-                      if (!EmailValidator.validate(value ?? '')) {
-                        return 'Email is invalid.';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: constraints.medium),
-                  AppTextField(
-                    label: "Password",
-                    placeholder: "Enter your password",
-                    controller: passwordController,
-                    obscureText: true,
-                    leftIcon: const Icon(
-                      Icons.lock,
-                      color: Colors.grey,
+                    SizedBox(height: constraints.medium),
+                    AppTextField(
+                      label: "Password",
+                      placeholder: "Enter your password",
+                      controller: passwordController,
+                      obscureText: true,
+                      leftIcon: const Icon(
+                        Icons.lock,
+                        color: Colors.grey,
+                      ),
+                      onValidate: (value) {
+                        if ((value?.length ?? 0) < 6) {
+                          return 'Password must be at least 6 characters long.';
+                        }
+                        return null;
+                      },
                     ),
-                    onValidate: (value) {
-                      if ((value?.length ?? 0) < 6) {
-                        return 'Password must be at least 6 characters long.';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
+                    SizedBox(height: constraints.medium),
+                    AppTextField(
+                      label: "Validate Password",
+                      placeholder: "Validate your password",
+                      obscureText: true,
+                      leftIcon: const Icon(
+                        Icons.lock,
+                        color: Colors.grey,
+                      ),
+                      onValidate: (value) {
+                        if (value != passwordController.text) {
+                          return 'Wrong Password';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
               AuthButtonLayout(
                 buttons: [
@@ -117,7 +135,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       backgroundColor: color.primaryShade,
                     ),
                     textStyle: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: color.primaryColor,
                     ),
                   ),

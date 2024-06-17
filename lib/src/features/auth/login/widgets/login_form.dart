@@ -102,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
                       backgroundColor: color.primaryShade,
                     ),
                     textStyle: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                       color: color.primaryColor,
                     ),
                   ),

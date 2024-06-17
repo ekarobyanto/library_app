@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:library_app/src/core/auth/repository/auth_repository.dart';
 import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 
@@ -11,25 +12,20 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuthService firebaseAuthService;
-  AuthCubit({required this.firebaseAuthService})
-      : super(const AuthState.loading());
+  final AuthRepository authRepository;
+  AuthCubit({
+    required this.firebaseAuthService,
+    required this.authRepository,
+  }) : super(const AuthState.loading());
 
   static const String defaultAuthError = 'Failed to retrieve user data.';
 
   emailSignUp(AuthParams params) async {
     try {
-      emit(const _Loading());
-      await firebaseAuthService
-          .createUserWithEmailAndPassword(
-            email: params.email,
-            password: params.password,
-          )
-          .then(
-            (UserCredential userCred) => (userCred.user != null)
-                ? emailSignIn(params)
-                : emit(const _Error(message: defaultAuthError)),
-          )
-          .catchError(onError);
+      emit(const _Loading('Signing up...'));
+      await authRepository
+          .createUserWithEmailAndPassword(params)
+          .then((_) => emailSignIn(params));
     } on FirebaseAuthException catch (err) {
       emit(_Error(message: err.message ?? defaultAuthError));
     } catch (err) {
@@ -39,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   emailSignIn(AuthParams params) async {
     try {
-      emit(const _Loading());
+      emit(const _Loading('Signing in...'));
       UserCredential? userCred =
           await firebaseAuthService.signInWithEmailAndPassword(
         email: params.email,

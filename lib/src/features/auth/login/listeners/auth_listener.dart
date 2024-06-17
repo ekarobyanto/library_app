@@ -12,7 +12,7 @@ void authStateListener(BuildContext context, AuthState state) {
         message: 'Welcome, ${cred?.user?.displayName}!',
       );
     },
-    loading: () => Overlay.of(context).insert(loadingOverlay),
+    loading: (message) => Overlay.of(context).insert(loadingOverlay),
     error: (message) {
       loadingOverlay.remove();
       showAlert(context: context, message: message);
