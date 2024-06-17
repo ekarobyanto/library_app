@@ -3,31 +3,29 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:library_app/src/core/auth/repository/auth_repository.dart';
+import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  AuthCubit() : super(const AuthState.initial());
+  final FirebaseAuthService firebaseAuthService;
+  final AuthRepository authRepository;
+  AuthCubit({
+    required this.firebaseAuthService,
+    required this.authRepository,
+  }) : super(const AuthState.loading());
 
   static const String defaultAuthError = 'Failed to retrieve user data.';
 
   emailSignUp(AuthParams params) async {
     try {
-      emit(const _Loading());
-      await auth
-          .createUserWithEmailAndPassword(
-            email: params.email,
-            password: params.password,
-          )
-          .then(
-            (UserCredential userCred) => (userCred.user != null)
-                ? emailSignIn(params)
-                : emit(const _Error(message: defaultAuthError)),
-          )
-          .catchError(onError);
+      emit(const _Loading('Signing up...'));
+      await authRepository
+          .createUserWithEmailAndPassword(params)
+          .then((_) => emailSignIn(params));
     } on FirebaseAuthException catch (err) {
       emit(_Error(message: err.message ?? defaultAuthError));
     } catch (err) {
@@ -37,13 +35,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   emailSignIn(AuthParams params) async {
     try {
-      emit(const _Loading());
-      UserCredential? userCred = await auth.signInWithEmailAndPassword(
+      emit(const _Loading('Signing in...'));
+      UserCredential? userCred =
+          await firebaseAuthService.signInWithEmailAndPassword(
         email: params.email,
         password: params.password,
       );
       if ((params.name ?? '').isNotEmpty) {
-        await auth.currentUser?.updateDisplayName(params.name);
+        await firebaseAuthService.currentUser?.updateDisplayName(params.name);
       }
       if (userCred.user != null) {
         emit(_SignedIn(userCred: userCred));
@@ -60,11 +59,12 @@ class AuthCubit extends Cubit<AuthState> {
   checkAuthState() async {
     emit(const _Loading());
     try {
-      final String? idToken = await auth.currentUser?.getIdToken();
-      final User? user = auth.currentUser;
+      final String? idToken =
+          await firebaseAuthService.currentUser?.getIdToken();
+      final User? user = firebaseAuthService.currentUser;
       log(user?.displayName ?? '--');
       log(idToken ?? 'No user found');
-      log(auth.currentUser?.displayName ?? '--');
+      log(firebaseAuthService.currentUser?.displayName ?? '--');
       if (idToken != null) {
         emit(const _SignedIn());
       }

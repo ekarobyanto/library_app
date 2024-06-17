@@ -18,8 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function(String message) error,
@@ -27,8 +26,7 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function(String message)? error,
@@ -36,8 +34,7 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function(String message)? error,
@@ -46,7 +43,6 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
@@ -55,7 +51,6 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
@@ -64,7 +59,6 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
@@ -92,130 +86,12 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'AuthState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(UserCredential? userCred) signedIn,
-    required TResult Function() signedUp,
-    required TResult Function(String message) error,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
-    TResult? Function()? signedUp,
-    TResult? Function(String message)? error,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
-    TResult Function()? signedUp,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_SignedIn value) signedIn,
-    required TResult Function(_SignedUp value) signedUp,
-    required TResult Function(_Error value) error,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_SignedIn value)? signedIn,
-    TResult? Function(_SignedUp value)? signedUp,
-    TResult? Function(_Error value)? error,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_SignedIn value)? signedIn,
-    TResult Function(_SignedUp value)? signedUp,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements AuthState {
-  const factory _Initial() = _$InitialImpl;
-}
-
-/// @nodoc
 abstract class _$$LoadingImplCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
           _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
       __$$LoadingImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? message});
 }
 
 /// @nodoc
@@ -225,63 +101,84 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_$LoadingImpl(
+      freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+  const _$LoadingImpl([this.message]);
+
+  @override
+  final String? message;
 
   @override
   String toString() {
-    return 'AuthState.loading()';
+    return 'AuthState.loading(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function(String message) error,
   }) {
-    return loading();
+    return loading(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function(String message)? error,
   }) {
-    return loading?.call();
+    return loading?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(message);
     }
     return orElse();
   }
@@ -289,7 +186,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
@@ -301,7 +197,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
@@ -313,7 +208,6 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
@@ -328,7 +222,12 @@ class _$LoadingImpl implements _Loading {
 }
 
 abstract class _Loading implements AuthState {
-  const factory _Loading() = _$LoadingImpl;
+  const factory _Loading([final String? message]) = _$LoadingImpl;
+
+  String? get message;
+  @JsonKey(ignore: true)
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -396,8 +295,7 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function(String message) error,
@@ -408,8 +306,7 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function(String message)? error,
@@ -420,8 +317,7 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function(String message)? error,
@@ -436,7 +332,6 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
@@ -448,7 +343,6 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
@@ -460,7 +354,6 @@ class _$SignedInImpl implements _SignedIn {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
@@ -521,8 +414,7 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function(String message) error,
@@ -533,8 +425,7 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function(String message)? error,
@@ -545,8 +436,7 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function(String message)? error,
@@ -561,7 +451,6 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
@@ -573,7 +462,6 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
@@ -585,7 +473,6 @@ class _$SignedUpImpl implements _SignedUp {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
@@ -667,8 +554,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function(String message) error,
@@ -679,8 +565,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function(String message)? error,
@@ -691,8 +576,7 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function(String message)? error,
@@ -707,7 +591,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
@@ -719,7 +602,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
@@ -731,7 +613,6 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
