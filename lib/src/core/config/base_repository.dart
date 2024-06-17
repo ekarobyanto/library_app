@@ -11,6 +11,5 @@ class BaseRepository {
 
   void _initSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
-    service.dio.options.baseUrl = prefs.getString('base_url') ?? '';
   }
 }
