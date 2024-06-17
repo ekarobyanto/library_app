@@ -7,11 +7,13 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     required this.label,
     this.buttonStyle,
+    this.textStyle,
   });
 
   final String label;
   final Function()? onPressed;
   final ButtonStyle? buttonStyle;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +25,11 @@ class AppButton extends StatelessWidget {
           ),
       child: Text(
         label,
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: color.primaryShade,
-        ),
+        style: textStyle ??
+            TextStyle(
+              fontWeight: FontWeight.w600,
+              color: color.primaryShade,
+            ),
       ),
     );
   }

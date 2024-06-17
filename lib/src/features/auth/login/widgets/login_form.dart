@@ -98,6 +98,13 @@ class _LoginFormState extends State<LoginForm> {
                   AppButton(
                     label: "Register",
                     onPressed: () => router.push('/register'),
+                    buttonStyle: ElevatedButton.styleFrom(
+                      backgroundColor: color.primaryShade,
+                    ),
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: color.primaryColor,
+                    ),
                   ),
                   AppButton(
                     label: "Submit",
