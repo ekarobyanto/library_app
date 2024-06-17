@@ -5,6 +5,5 @@ class DioService {
 
   DioService() {
     dio.interceptors.add(LogInterceptor());
-    dio.options.baseUrl = 'https://perpus-app-zlrfuncrya-uc.a.run.app/';
   }
 }

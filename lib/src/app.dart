@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/core/auth/repository/auth_repository.dart';
 import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
+import 'package:library_app/src/core/service/remote_config_service.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
@@ -16,6 +17,10 @@ class App extends StatelessWidget {
         RepositoryProvider(
           lazy: false,
           create: (context) => FirebaseAuthService(),
+        ),
+        RepositoryProvider(
+          lazy: false,
+          create: (context) => FirebaseRemoteConfigService()..initialize(),
         ),
         RepositoryProvider(
           create: (context) => AuthRepository(),
