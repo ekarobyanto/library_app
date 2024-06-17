@@ -6,7 +6,11 @@ import 'package:library_app/src/utils/show_alert.dart';
 void authStateListener(BuildContext context, AuthState state) {
   state.whenOrNull(
     signedIn: (cred) {
-      loadingOverlay.remove();
+      try {
+        loadingOverlay.remove();
+      } catch (e) {
+        debugPrint(e.toString());
+      }
       showAlert(
         context: context,
         message: 'Welcome, ${cred?.user?.displayName}!',
