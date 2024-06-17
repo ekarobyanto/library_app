@@ -1,9 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
+import 'package:library_app/src/features/auth/models/auth_params.dart';
 import 'package:library_app/src/features/auth/widgets/button_layout.dart';
-import 'package:library_app/src/overlay/loading_overlay.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
+import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 // ignore: must_be_immutable
@@ -92,25 +95,22 @@ class _LoginFormState extends State<LoginForm> {
               ),
               AuthButtonLayout(
                 buttons: [
-                  ElevatedButton(
-                    onPressed: () => router.pushNamed('register'),
-                    child: const Text('Register'),
+                  AppButton(
+                    label: "Register",
+                    onPressed: () => router.push('/register'),
                   ),
-                  ElevatedButton(
+                  AppButton(
+                    label: "Submit",
                     onPressed: () {
-                      Overlay.of(context).insert(loadingOverlay);
+                      if (formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().emailSignIn(
+                              AuthParams(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                            );
+                      }
                     },
-                    // onPressed: () {
-                    //   if (formKey.currentState!.validate()) {
-                    //     context.read<AuthCubit>().emailSignIn(
-                    //           AuthParams(
-                    //             email: emailController.text,
-                    //             password: passwordController.text,
-                    //           ),
-                    //         );
-                    //   }
-                    // },
-                    child: const Text('Submit'),
                   ),
                 ],
               )

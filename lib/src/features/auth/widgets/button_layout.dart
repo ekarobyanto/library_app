@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AuthButtonLayout extends StatelessWidget {
   AuthButtonLayout({super.key, required this.buttons});
 
-  List<ElevatedButton> buttons;
+  List<Widget> buttons;
 
   @override
   Widget build(BuildContext context) {
