@@ -8,20 +8,23 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color.grayShade,
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Stack(
-            children: [
-              const AuthBackgroundDecoration(),
-              Padding(
-                padding: EdgeInsetsDirectional.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.1,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: color.grayShade,
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Stack(
+              children: [
+                const AuthBackgroundDecoration(),
+                Padding(
+                  padding: EdgeInsetsDirectional.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  child: const RegisterForm(),
                 ),
-                child: const RegisterForm(),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
