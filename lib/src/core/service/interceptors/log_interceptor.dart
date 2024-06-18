@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 
-class LogInterceptor extends Interceptor {
+class LoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     logger.i('Request: ${options.method} ${options.uri}');
