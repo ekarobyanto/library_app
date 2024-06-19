@@ -30,9 +30,8 @@ class DashboardAppbar extends StatelessWidget {
                 color: color.primaryColor,
                 constraints: BoxConstraints.loose(const Size(30, 30)),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(color.primaryShade),
-                  shape: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(color.primaryShade),
+                  shape: WidgetStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

@@ -11,6 +11,7 @@ class DashboardScreen extends StatelessWidget {
       backgroundColor: color.primaryColor,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const DashboardAppbar(),
             Container(),
