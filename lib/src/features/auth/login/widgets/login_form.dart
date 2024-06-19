@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 import 'package:library_app/src/features/auth/widgets/button_layout.dart';
-import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 // ignore: must_be_immutable
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({super.key, required this.onRegister});
+
+  final Function() onRegister;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -31,6 +32,14 @@ class _LoginFormState extends State<LoginForm> {
         height: MediaQuery.of(context).size.height * 0.6,
         padding: EdgeInsets.all(constraints.xl),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
           color: Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(constraints.large),
@@ -97,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
                 buttons: [
                   AppButton(
                     label: "Register",
-                    onPressed: () => router.push('/register'),
+                    onPressed: () => widget.onRegister(),
                     buttonStyle: ElevatedButton.styleFrom(
                       backgroundColor: color.primaryShade,
                     ),

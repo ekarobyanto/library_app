@@ -4,13 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 import 'package:library_app/src/features/auth/widgets/button_layout.dart';
-import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+  const RegisterForm({super.key, required this.onLogin});
+
+  final Function() onLogin;
 
   @override
   State<RegisterForm> createState() => _RegisterFormState();
@@ -32,6 +33,14 @@ class _RegisterFormState extends State<RegisterForm> {
         padding: EdgeInsets.all(constraints.xl),
         decoration: BoxDecoration(
           color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 5,
+              offset: const Offset(0, 5),
+            ),
+          ],
           borderRadius: BorderRadius.all(
             Radius.circular(constraints.large),
           ),
@@ -39,7 +48,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Form(
           key: formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 60),
@@ -130,7 +139,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 buttons: [
                   AppButton(
                     label: "Login",
-                    onPressed: () => router.pop(),
+                    onPressed: () => widget.onLogin(),
                     buttonStyle: ElevatedButton.styleFrom(
                       backgroundColor: color.primaryShade,
                     ),

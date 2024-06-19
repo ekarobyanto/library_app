@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/overlay/loading_overlay.dart';
+import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 
 void authStateListener(BuildContext context, AuthState state) {
@@ -11,10 +12,7 @@ void authStateListener(BuildContext context, AuthState state) {
       } catch (e) {
         debugPrint(e.toString());
       }
-      showAlert(
-        context: context,
-        message: 'Welcome, ${cred?.user?.displayName}!',
-      );
+      router.go('/dashboard');
     },
     loading: (message) => Overlay.of(context).insert(loadingOverlay),
     error: (message) {
