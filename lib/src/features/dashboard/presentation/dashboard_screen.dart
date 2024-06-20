@@ -7,16 +7,22 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: color.primaryColor,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const DashboardAppbar(),
-            Container(),
-          ],
-        ),
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: color.primaryColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const DashboardAppbar(),
+                  Container(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

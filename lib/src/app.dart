@@ -43,6 +43,14 @@ class App extends StatelessWidget {
             primaryColor: color.primaryColor,
             splashColor: color.primaryShade,
             fontFamily: appFont.fontFamily,
+            checkboxTheme: CheckboxThemeData(
+              fillColor: WidgetStateProperty.all(color.primaryShade),
+              checkColor: WidgetStateProperty.all(color.primaryColor),
+              side: BorderSide(
+                width: 1.5,
+                color: color.primaryColor,
+              ),
+            ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
                 foregroundColor: color.primaryShade,

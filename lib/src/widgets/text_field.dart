@@ -9,6 +9,9 @@ class AppTextField extends StatefulWidget {
   final TextStyle? labelStyle;
   final String? placeholder;
   final Icon? leftIcon;
+  final int? minLines;
+  final int? maxLines;
+  final bool? enabled;
 
   const AppTextField({
     super.key,
@@ -19,6 +22,9 @@ class AppTextField extends StatefulWidget {
     this.labelStyle,
     this.placeholder,
     this.leftIcon,
+    this.minLines,
+    this.maxLines,
+    this.enabled,
   });
 
   @override
@@ -52,33 +58,36 @@ class _AppTextFieldState extends State<AppTextField> {
             : const SizedBox.shrink(),
         const SizedBox(height: 8),
         TextFormField(
+          minLines: widget.minLines ?? 1,
+          maxLines: widget.maxLines ?? 1,
+          enabled: (widget.enabled ?? true),
           controller: widget.controller,
           validator: widget.onValidate,
           obscureText: (obsecureText) ? obsecureText : false,
           decoration: InputDecoration(
             hintText: widget.placeholder,
-            contentPadding: EdgeInsets.all(constraints.medium),
+            contentPadding: EdgeInsets.all(constraints.large),
             filled: true,
             isDense: true,
             fillColor: const Color.fromRGBO(158, 158, 158, 0.1),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(constraints.large),
+              borderRadius: BorderRadius.circular(constraints.medium),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(constraints.large),
+              borderRadius: BorderRadius.circular(constraints.medium),
               borderSide: BorderSide(
                 color: color.primaryColor,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(constraints.large),
+              borderRadius: BorderRadius.circular(constraints.medium),
               borderSide: BorderSide(
                 color: color.primaryColor,
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(constraints.large),
+              borderRadius: BorderRadius.circular(constraints.medium),
               borderSide: BorderSide(
                 color: color.danger,
               ),

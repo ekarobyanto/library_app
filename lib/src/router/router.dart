@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:library_app/src/features/library/presentation/library_screen.dart';
+import 'package:library_app/src/features/library/presentation/library_search.dart';
+import 'package:library_app/src/features/library/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
@@ -13,7 +16,10 @@ final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   debugLogDiagnostics: true,
   routes: [
-    createGoRouteInstance(route: '/', screen: AuthScreen()),
+    createGoRouteInstance(
+      route: '/',
+      screen: AuthScreen(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) {
@@ -28,9 +34,19 @@ final GoRouter router = GoRouter(
         ),
         createGoRouteInstance(
           route: '/library',
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: Container(),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: LibraryScreen(),
           ),
+          routes: [
+            createGoRouteInstance(
+              route: 'search-books',
+              routeName: 'search-books',
+              navigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: LibrarySearchScreen(),
+              ),
+            ),
+          ],
         ),
         createGoRouteInstance(
           route: '/report',
@@ -45,6 +61,10 @@ final GoRouter router = GoRouter(
           ),
         ),
       ],
+    ),
+    createGoRouteInstance(
+      route: '/create-book',
+      screen: const BookForm(),
     )
   ],
 );
