@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
@@ -16,15 +17,19 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (context) => DioService(),
-        ),
-        RepositoryProvider(
           lazy: false,
           create: (context) => FirebaseAuthService(),
         ),
         RepositoryProvider(
           lazy: false,
           create: (context) => FirebaseRemoteConfigService()..initialize(),
+        ),
+        RepositoryProvider(
+          create: (context) => DioService.initialize(
+            Dio(),
+            context.read<FirebaseAuthService>(),
+            context.read<FirebaseRemoteConfigService>(),
+          ),
         ),
         RepositoryProvider(
           create: (context) => AuthRepository(

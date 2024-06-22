@@ -4,19 +4,21 @@ import 'package:library_app/src/overlay/loading_overlay.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 
-void authStateListener(BuildContext context, AuthState state) {
+void authStateListener(
+  BuildContext context,
+  AuthState state,
+  LoadingOverlay loadingOverlay,
+) {
   state.whenOrNull(
     signedIn: (cred) {
-      try {
-        loadingOverlay.remove();
-      } catch (e) {
-        debugPrint(e.toString());
-      }
+      loadingOverlay.hide();
       router.go('/dashboard');
     },
-    loading: (message) => Overlay.of(context).insert(loadingOverlay),
+    loading: (message) {
+      loadingOverlay.show(context, message);
+    },
     error: (message) {
-      loadingOverlay.remove();
+      loadingOverlay.hide();
       showAlert(context: context, message: message);
     },
   );

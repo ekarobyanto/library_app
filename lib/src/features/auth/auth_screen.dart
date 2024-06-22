@@ -5,17 +5,20 @@ import 'package:library_app/src/features/auth/listeners/auth_listener.dart';
 import 'package:library_app/src/features/auth/login/widgets/login_form.dart';
 import 'package:library_app/src/features/auth/register/widgets/register_form.dart';
 import 'package:library_app/src/features/auth/widgets/background_decoration.dart';
+import 'package:library_app/src/overlay/loading_overlay.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
 class AuthScreen extends StatelessWidget {
   AuthScreen({super.key});
 
   final PageController pageController = PageController();
+  final LoadingOverlay loadingOverlay = LoadingOverlay();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: authStateListener,
+      listener: (context, state) =>
+          authStateListener(context, state, loadingOverlay),
       child: PopScope(
         canPop: context.read<AuthCubit>().state != const AuthState.loading(),
         child: GestureDetector(

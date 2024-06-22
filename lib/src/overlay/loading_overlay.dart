@@ -1,33 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
-OverlayEntry loadingOverlay = OverlayEntry(
-  builder: (context) => Stack(
-    children: [
-      ModalBarrier(
-        dismissible: false,
-        color: Colors.grey.withOpacity(0.3),
-      ),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: SpinKitFoldingCube(
-              itemBuilder: (context, index) => DecoratedBox(
-                decoration: BoxDecoration(
-                  color: index.isEven ? color.primaryShade : color.primaryColor,
-                ),
-              ),
+class LoadingOverlay {
+  late OverlayEntry _overlayEntry;
+
+  set _overlay(OverlayEntry overlay) => _overlayEntry = overlay;
+
+  OverlayEntry get _overlay => _overlayEntry;
+
+  void show(BuildContext context, [String? message]) {
+    _overlay = createOverlay(message);
+    Overlay.of(context).insert(_overlay);
+  }
+
+  void hide() => _overlay.remove();
+
+  OverlayEntry createOverlay([String? message]) => OverlayEntry(
+        builder: (context) => Stack(
+          children: [
+            ModalBarrier(
+              dismissible: false,
+              color: Colors.grey.withOpacity(0.3),
             ),
-          ),
-          BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              return state.maybeWhen(
-                loading: (message) => message != null
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: SpinKitFoldingCube(
+                    itemBuilder: (context, index) => DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: index.isEven
+                            ? color.primaryShade
+                            : color.primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+                message != null
                     ? Material(
                         color: Colors.transparent,
                         child: DefaultTextStyle(
@@ -39,12 +50,9 @@ OverlayEntry loadingOverlay = OverlayEntry(
                         ),
                       )
                     : const SizedBox.shrink(),
-                orElse: () => const SizedBox.shrink(),
-              );
-            },
-          )
-        ],
-      ),
-    ],
-  ),
-);
+              ],
+            ),
+          ],
+        ),
+      );
+}
