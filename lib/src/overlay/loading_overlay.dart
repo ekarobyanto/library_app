@@ -7,14 +7,12 @@ class LoadingOverlay {
 
   set _overlay(OverlayEntry overlay) => _overlayEntry = overlay;
 
-  OverlayEntry get _overlay => _overlayEntry;
-
   void show(BuildContext context, [String? message]) {
     _overlay = createOverlay(message);
-    Overlay.of(context).insert(_overlay);
+    Overlay.of(context).insert(_overlayEntry);
   }
 
-  void hide() => _overlay.remove();
+  void hide() => _overlayEntry.remove();
 
   OverlayEntry createOverlay([String? message]) => OverlayEntry(
         builder: (context) => Stack(
