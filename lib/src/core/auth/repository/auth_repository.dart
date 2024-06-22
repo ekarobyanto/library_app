@@ -1,7 +1,9 @@
-import 'package:library_app/src/core/config/base_repository.dart';
+import 'package:library_app/src/core/config/app_repository.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 
-class AuthRepository extends BaseRepository {
+class AuthRepository extends AppRepository {
+  AuthRepository({required super.service});
+
   Future<void> createUserWithEmailAndPassword(AuthParams params) async {
     try {
       await service.dio.post('/register', data: {

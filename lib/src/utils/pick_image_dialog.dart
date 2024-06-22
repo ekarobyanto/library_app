@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+/// Function to show an image picker dialog with options to pick from camera or gallery.
+///
+/// @param ctx The BuildContext to show the dialog in.
+/// @return A Future<ImageSource> representing the selected image source (camera or gallery).
 Future<ImageSource?> showImagePickerDialog(BuildContext ctx) => showDialog(
       context: ctx,
       builder: (context) {

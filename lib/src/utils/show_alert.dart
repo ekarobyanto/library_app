@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+/// Function to show an alert dialog with the provided title, message, and action buttons.
+///
+/// Parameters:
+///   - context: The BuildContext in which the dialog should be shown.
+///   - title: The title of the alert dialog (optional).
+///   - message: The message content of the alert dialog (optional).
+///   - actionButtons: List of TextButton widgets for custom actions (optional).
+///
+/// Returns:
+///   - void
 showAlert({
   required BuildContext context,
   String? title,

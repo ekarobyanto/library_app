@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class AppMultiDropdown extends StatelessWidget {
   final String label;
   final String? placeholder;
+  final String? searchPlaceholder;
   final List<String> items;
   final List<String> selectedItems;
   final Function(List<String>)? onChanged;
@@ -13,6 +14,7 @@ class AppMultiDropdown extends StatelessWidget {
     Key? key,
     required this.label,
     this.placeholder,
+    this.searchPlaceholder,
     required this.items,
     required this.selectedItems,
     required this.onChanged,
@@ -25,7 +27,7 @@ class AppMultiDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Categories',
+          label,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             color: const Color(0xFF000000).withOpacity(0.6),
@@ -71,7 +73,7 @@ class AppMultiDropdown extends StatelessWidget {
             searchFieldProps: TextFieldProps(
               decoration: InputDecoration(
                 filled: true,
-                hintText: 'Find Categories',
+                hintText: searchPlaceholder ?? 'Find Something',
                 fillColor: Colors.grey[200],
                 border: OutlineInputBorder(
                   borderSide: BorderSide.none,

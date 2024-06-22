@@ -1,52 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/features/library/presentation/widgets/horizontal_book_list.dart';
-import 'package:library_app/src/router/router.dart';
-import 'package:library_app/src/widgets/button.dart';
-import 'package:library_app/src/widgets/searchbar.dart';
+import 'package:library_app/src/features/library/presentation/widgets/library_appbar.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Scaffold(
+      appBar: libraryAppbar(),
+      body: Container(
+        color: Colors.white,
+        child: RefreshIndicator(
+          onRefresh: () async {},
+          color: Theme.of(context).primaryColor,
+          child: const SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Library',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  HorizontalBookList(
+                    canUploadBook: true,
+                    label: "Uploaded Books",
+                    books: [],
                   ),
-                  AppButton(
-                    onPressed: () => router.push('/create-book'),
-                    label: "Upload Book",
-                  )
+                  SizedBox(height: 12),
+                  HorizontalBookList(
+                    label: "Recently Read",
+                    books: ["", "", "", ""],
+                  ),
+                  SizedBox(height: 12),
+                  HorizontalBookList(
+                    label: "Favorite Books",
+                    books: ["", "", "", ""],
+                  ),
                 ],
               ),
-              const SizedBox(height: 12),
-              AppSearchbar(
-                isEnable: false,
-                placeholder: "Find books",
-                onPress: () => router.pushNamed('search-books'),
-              ),
-              const SizedBox(height: 12),
-              const HorizontalBookList(
-                label: "Recently Read",
-              ),
-              const SizedBox(height: 12),
-              const HorizontalBookList(
-                label: "Favorite Books",
-              ),
-            ],
+            ),
           ),
         ),
       ),

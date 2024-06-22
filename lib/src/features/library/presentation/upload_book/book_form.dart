@@ -4,8 +4,8 @@ import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/back_button.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/doc_field.dart';
-import 'package:library_app/src/widgets/dropdown.dart';
 import 'package:library_app/src/widgets/image_field.dart';
+import 'package:library_app/src/widgets/multi_dropdown.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 class BookForm extends StatefulWidget {
@@ -25,6 +25,12 @@ class _BookFormState extends State<BookForm> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void setDocument(String path) {
+    setState(() {
+      docPath = path;
+    });
   }
 
   void setImage(String path) {
@@ -70,7 +76,7 @@ class _BookFormState extends State<BookForm> {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -90,8 +96,8 @@ class _BookFormState extends State<BookForm> {
                   AppMultiDropdown(
                     label: "Categories",
                     placeholder: "Select categories",
-                    items: [],
-                    selectedItems: [],
+                    items: const [],
+                    selectedItems: const [],
                     onChanged: updateCategories,
                     validator: (_) {
                       if (selectedCategories.isEmpty) {
@@ -109,11 +115,7 @@ class _BookFormState extends State<BookForm> {
                   const SizedBox(height: 12),
                   DocumentField(
                     docPath: docPath,
-                    onDocumentChanged: (path) {
-                      setState(() {
-                        docPath = path;
-                      });
-                    },
+                    onDocumentChanged: setDocument,
                   )
                 ],
               ),

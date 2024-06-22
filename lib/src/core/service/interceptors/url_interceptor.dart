@@ -11,6 +11,9 @@ class UrlInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     _baseUrl ??= await _getBaseUrl();
+    if (_baseUrl == null) {
+      throw Exception('Base Url is not set, check remote config');
+    }
     logger.i('Set Base Url $_baseUrl');
     options.baseUrl = _baseUrl ?? options.baseUrl;
     super.onRequest(options, handler);

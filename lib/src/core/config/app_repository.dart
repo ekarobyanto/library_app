@@ -1,12 +1,13 @@
 import 'package:library_app/src/core/service/dio_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BaseRepository {
+class AppRepository {
   late SharedPreferences prefs;
-  final DioService service = DioService();
+  late DioService service;
 
-  BaseRepository() {
+  AppRepository({required this.service}) {
     _initSharedPreferences();
+    service;
   }
 
   void _initSharedPreferences() async {

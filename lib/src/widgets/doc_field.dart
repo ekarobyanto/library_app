@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/src/utils/check_uri.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 class DocumentField extends StatelessWidget {
@@ -52,7 +53,7 @@ class DocumentField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          docPath != null
+          (docPath != null && !isStringAUrl(docPath!))
               ? 'Size : ${(File(docPath!).lengthSync() / 1024).toStringAsFixed(2)} KB'
               : '',
           style: TextStyle(
