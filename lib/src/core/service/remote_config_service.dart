@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:library_app/src/core/internal/logger.dart';
@@ -7,12 +5,9 @@ import 'package:library_app/src/core/internal/logger.dart';
 class FirebaseRemoteConfigService {
   late FirebaseRemoteConfig _remoteConfig;
 
-  FirebaseRemoteConfigService() {
-    _remoteConfig = FirebaseRemoteConfig.instance;
-  }
-
+  FirebaseRemoteConfigService(this._remoteConfig);
   Future<void> initialize() async {
-    log("Initializing remote config");
+    logger.i("Initializing remote config");
     try {
       await setConfigSettings();
       await _remoteConfig.fetchAndActivate();
@@ -21,7 +16,7 @@ class FirebaseRemoteConfigService {
     }
   }
 
-  getString(String key) => _remoteConfig.getString(key);
+  String getString(String key) => _remoteConfig.getString(key);
 
   Future<void> setConfigSettings() async => _remoteConfig.setConfigSettings(
         RemoteConfigSettings(

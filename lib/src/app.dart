@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
@@ -18,11 +20,15 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(
           lazy: false,
-          create: (context) => FirebaseAuthService(),
+          create: (context) => FirebaseAuthService(
+            FirebaseAuth.instance,
+          ),
         ),
         RepositoryProvider(
           lazy: false,
-          create: (context) => FirebaseRemoteConfigService()..initialize(),
+          create: (context) => FirebaseRemoteConfigService(
+            FirebaseRemoteConfig.instance,
+          )..initialize(),
         ),
         RepositoryProvider(
           create: (context) => DioService.initialize(
