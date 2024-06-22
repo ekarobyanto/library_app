@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:library_app/src/overlay/overlay.dart';
+import 'package:library_app/src/core/overlay/overlay.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
 class LoadingOverlay implements AppOverlay {

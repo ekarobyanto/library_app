@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
+import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/auth/listeners/auth_listener.dart';
 import 'package:library_app/src/features/auth/login/widgets/login_form.dart';
 import 'package:library_app/src/features/auth/register/widgets/register_form.dart';
 import 'package:library_app/src/features/auth/widgets/background_decoration.dart';
-import 'package:library_app/src/overlay/loading_overlay.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
 class AuthScreen extends StatelessWidget {
