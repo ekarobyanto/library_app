@@ -64,6 +64,9 @@ class App extends StatelessWidget {
     primaryColor: color.primaryColor,
     splashColor: color.primaryShade,
     fontFamily: appFont.fontFamily,
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: color.primaryColor,
+    ),
     checkboxTheme: CheckboxThemeData(
       fillColor: WidgetStateProperty.all(color.primaryShade),
       checkColor: WidgetStateProperty.all(color.primaryColor),

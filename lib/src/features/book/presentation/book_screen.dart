@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/presentation/widgets/book_information.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
+import 'package:library_app/src/widgets/button.dart';
 
 class BookScreen extends StatelessWidget {
   final String bookId;
@@ -10,7 +12,15 @@ class BookScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: applicationAppbar(title: 'Book'),
-      body: Text(bookId),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(8),
+        child: AppButton(onPressed: () {}, label: "Read Book"),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: BookInformation(),
+      ),
     );
   }
 }
