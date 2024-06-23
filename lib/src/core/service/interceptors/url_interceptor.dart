@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:library_app/src/core/constants/index.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/core/service/remote_config_service.dart';
 
@@ -12,12 +13,12 @@ class UrlInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final baseUrl = await _remoteConfigService.getString('base_url');
-    if (baseUrl == null) {
+    final baseUrl = _remoteConfigService.getString(BASE_URL);
+    if (baseUrl.isEmpty) {
       throw Exception('Base Url is not set, check remote config');
     }
     logger.i('Set Base Url $baseUrl');
-    options.baseUrl = baseUrl ?? options.baseUrl;
+    options.baseUrl = baseUrl;
     super.onRequest(options, handler);
   }
 }

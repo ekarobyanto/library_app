@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
+import 'package:library_app/src/features/book/presentation/book_screen.dart';
+import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_search.dart';
-import 'package:library_app/src/features/library/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
@@ -61,6 +62,14 @@ final GoRouter router = GoRouter(
           ),
         ),
       ],
+    ),
+    createGoRouteInstance(
+      route: '/book-detail/:id',
+      pageBuilder: (context, state) => MaterialPage(
+        child: BookScreen(
+          bookId: state.pathParameters['id']!,
+        ),
+      ),
     ),
     createGoRouteInstance(
       route: '/create-book',

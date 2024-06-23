@@ -12,20 +12,18 @@ import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          lazy: false,
           create: (context) => FirebaseAuthService(
             FirebaseAuth.instance,
           ),
         ),
         RepositoryProvider(
-          lazy: false,
           create: (context) => FirebaseRemoteConfigService(
             FirebaseRemoteConfig.instance,
           )..initialize(),
@@ -56,31 +54,33 @@ class App extends StatelessWidget {
           title: 'Library App',
           routerConfig: router,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primaryColor: color.primaryColor,
-            splashColor: color.primaryShade,
-            fontFamily: appFont.fontFamily,
-            checkboxTheme: CheckboxThemeData(
-              fillColor: WidgetStateProperty.all(color.primaryShade),
-              checkColor: WidgetStateProperty.all(color.primaryColor),
-              side: BorderSide(
-                width: 1.5,
-                color: color.primaryColor,
-              ),
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: color.primaryShade,
-                backgroundColor: color.primaryColor,
-                textStyle: TextStyle(
-                  color: color.primaryShade,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
+          theme: appThemeData,
         ),
       ),
     );
   }
+
+  final ThemeData appThemeData = ThemeData(
+    primaryColor: color.primaryColor,
+    splashColor: color.primaryShade,
+    fontFamily: appFont.fontFamily,
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.all(color.primaryShade),
+      checkColor: WidgetStateProperty.all(color.primaryColor),
+      side: BorderSide(
+        width: 1.5,
+        color: color.primaryColor,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: color.primaryShade,
+        backgroundColor: color.primaryColor,
+        textStyle: TextStyle(
+          color: color.primaryShade,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  );
 }

@@ -22,6 +22,7 @@ PreferredSizeWidget libraryAppbar() {
     bottom: AppSearchbar(
       isEnable: false,
       placeholder: "Find books",
+      padding: const EdgeInsets.all(8.0),
       onPress: () => router.pushNamed('search-books'),
     ),
   );

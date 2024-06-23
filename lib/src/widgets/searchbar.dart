@@ -6,6 +6,18 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
   final FocusNode? focusNode;
   final bool? isEnable;
   final void Function()? onPress;
+  final AlignmentGeometry? alignment;
+  final EdgeInsetsGeometry? padding;
+  final Color? color;
+  final Decoration? decoration;
+  final Decoration? foregroundDecoration;
+  final double? width;
+  final double? height;
+  final BoxConstraints? constraints;
+  final EdgeInsetsGeometry? margin;
+  final Matrix4? transform;
+  final AlignmentGeometry? transformAlignment;
+  final Clip clipBehavior = Clip.none;
 
   const AppSearchbar({
     super.key,
@@ -14,14 +26,35 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
     this.focusNode,
     this.isEnable,
     this.onPress,
+    this.alignment,
+    this.padding,
+    this.color,
+    this.decoration,
+    this.foregroundDecoration,
+    this.width,
+    this.height,
+    this.constraints,
+    this.margin,
+    this.transform,
+    this.transformAlignment,
   });
 
   @override
   Widget build(BuildContext context) {
     return Hero(
       tag: 'searchbar',
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Container(
+        padding: padding,
+        color: color,
+        decoration: decoration,
+        foregroundDecoration: foregroundDecoration,
+        width: width,
+        height: height,
+        constraints: constraints,
+        margin: margin,
+        transform: transform,
+        transformAlignment: transformAlignment,
+        alignment: alignment,
         child: GestureDetector(
           onTap: onPress,
           child: Container(
@@ -34,11 +67,11 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
               focusNode: focusNode,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
-                hintText: placeholder ?? 'Search',
-                border: InputBorder.none,
-                prefixIcon: const Icon(Icons.search),
-                alignLabelWithHint: true,
                 isDense: true,
+                alignLabelWithHint: true,
+                border: InputBorder.none,
+                hintText: placeholder ?? 'Search',
+                prefixIcon: const Icon(Icons.search),
               ),
             ),
           ),

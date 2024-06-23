@@ -34,18 +34,22 @@ class HorizontalBookList extends StatelessWidget {
           LimitedBox(
             maxHeight: 240,
             child: ListView.separated(
-              itemCount: canUploadBook && books.isEmpty ? 1 : books.length,
               shrinkWrap: true,
+              clipBehavior: Clip.none,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => books.isEmpty
-                  ? canUploadBook && books.isEmpty
-                      ? UploadBookCard(
-                          onPressed: () => router.push('/create-book'),
-                        )
-                      : const SizedBox.shrink()
-                  : const BookCard(),
+              itemCount: canUploadBook && books.isEmpty ? 1 : books.length,
               separatorBuilder: (context, index) => const SizedBox(width: 8),
+              itemBuilder: (context, index) {
+                if (canUploadBook && books.isEmpty) {
+                  return UploadBookCard(
+                    onPressed: () => router.push('/create-book'),
+                  );
+                }
+                return BookCard(
+                  onPress: () => router.push('/book-detail/${1}'),
+                );
+              },
             ),
           )
         ],

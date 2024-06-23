@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 
 class FirebaseRemoteConfigService {
-  late FirebaseRemoteConfig _remoteConfig;
+  final FirebaseRemoteConfig _remoteConfig;
 
   FirebaseRemoteConfigService(this._remoteConfig);
   Future<void> initialize() async {
