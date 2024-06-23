@@ -70,12 +70,6 @@ class _BookFormState extends State<BookForm> {
                     controller: titleController,
                   ),
                   const SizedBox(height: 12),
-                  AppTextField(
-                    label: 'Description',
-                    placeholder: 'Enter book description',
-                    controller: descriptionController,
-                  ),
-                  const SizedBox(height: 12),
                   AppMultiDropdown(
                     label: "Categories",
                     placeholder: "Select categories",
@@ -88,6 +82,14 @@ class _BookFormState extends State<BookForm> {
                       }
                       return null;
                     },
+                  ),
+                  const SizedBox(height: 12),
+                  AppTextField(
+                    minLines: 4,
+                    maxLines: 4,
+                    label: 'Description',
+                    placeholder: 'Enter book description',
+                    controller: descriptionController,
                   ),
                   const SizedBox(height: 12),
                   ImageField(
