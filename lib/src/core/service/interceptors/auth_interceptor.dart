@@ -10,8 +10,12 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await firebaseAuth.currentUser?.getIdToken() ?? '';
-    if (token.isNotEmpty) {
+    final token = await firebaseAuth.currentUser
+        ?.getIdToken()
+        .then((idToken) => idToken)
+        .catchError((_) => '');
+
+    if (token?.isNotEmpty ?? false) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     super.onRequest(options, handler);

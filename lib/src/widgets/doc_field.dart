@@ -44,10 +44,10 @@ class DocumentField extends StatelessWidget {
           },
           child: AppTextField(
             enabled: false,
+            placeholder: "Select a document",
             label: label ?? defaultLabel,
             controller:
                 TextEditingController(text: docPath?.split('/').last ?? ''),
-            placeholder: "Select a document",
             leftIcon: const Icon(Icons.file_present),
           ),
         ),
@@ -57,8 +57,8 @@ class DocumentField extends StatelessWidget {
               ? 'Size : ${(File(docPath!).lengthSync() / 1024).toStringAsFixed(2)} KB'
               : '',
           style: TextStyle(
-            color: Colors.grey[400],
             fontSize: 12,
+            color: Colors.grey[400],
           ),
         ),
       ],

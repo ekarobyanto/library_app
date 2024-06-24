@@ -13,12 +13,12 @@ class AppMultiDropdown extends StatelessWidget {
   const AppMultiDropdown({
     Key? key,
     required this.label,
-    this.placeholder,
-    this.searchPlaceholder,
     required this.items,
     required this.selectedItems,
     required this.onChanged,
     required this.validator,
+    this.placeholder,
+    this.searchPlaceholder,
   }) : super(key: key);
 
   @override
