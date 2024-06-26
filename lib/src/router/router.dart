@@ -7,6 +7,7 @@ import 'package:library_app/src/features/dashboard/presentation/dashboard_screen
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_search.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
+import 'package:library_app/src/features/report/presentation/report_screen.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -51,8 +52,8 @@ final GoRouter router = GoRouter(
         ),
         createGoRouteInstance(
           route: '/report',
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: Container(),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: ReportScreen(),
           ),
         ),
         createGoRouteInstance(
