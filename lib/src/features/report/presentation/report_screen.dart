@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/features/report/presentation/widgets/report_card.dart';
+import 'package:library_app/src/widgets/button.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
@@ -12,10 +13,20 @@ class ReportScreen extends StatelessWidget {
         title: const Text('Report'),
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppButton(
+              onPressed: () {},
+              label: "New Report",
+              icon: Icons.post_add_outlined,
+            ),
+          )
+        ],
       ),
       body: Scrollbar(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: ListView.separated(
             itemCount: 25,
             shrinkWrap: true,

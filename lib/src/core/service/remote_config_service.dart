@@ -11,6 +11,7 @@ class FirebaseRemoteConfigService {
     try {
       await setConfigSettings();
       await _remoteConfig.fetchAndActivate();
+      logger.i("remote config initialized");
     } on PlatformException catch (e) {
       logger.e('Failed to initialize remote config: ${e.message}');
     }
