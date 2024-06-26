@@ -24,6 +24,7 @@ class _LibrarySearchScreenState extends State<LibrarySearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

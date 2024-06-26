@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/doc_field.dart';
@@ -54,7 +55,10 @@ class _BookFormState extends State<BookForm> {
           onPressed: () {},
         ),
       ),
-      appBar: applicationAppbar(title: 'Upload Book'),
+      appBar: ApplicationAppbar(
+        title: 'Upload Book',
+        onBackButtonPressed: () => router.pop(),
+      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),

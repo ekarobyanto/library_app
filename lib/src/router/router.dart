@@ -7,6 +7,7 @@ import 'package:library_app/src/features/dashboard/presentation/dashboard_screen
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_search.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
+import 'package:library_app/src/features/report/presentation/create_report.dart';
 import 'package:library_app/src/features/report/presentation/report_screen.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
@@ -75,6 +76,10 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/create-book',
       screen: const BookForm(),
-    )
+    ),
+    createGoRouteInstance(
+      route: '/create-report',
+      screen: const CreateReport(),
+    ),
   ],
 );
