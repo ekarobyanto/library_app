@@ -9,6 +9,9 @@ createGoRouteInstance({
   List<GoRoute>? routes,
   GlobalKey<NavigatorState>? navigatorKey,
 }) {
+  if (screen == null && pageBuilder == null) {
+    throw AssertionError('screen or pageBuilder must be provided');
+  }
   return GoRoute(
     path: route,
     name: routeName ?? route,

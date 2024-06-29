@@ -19,8 +19,6 @@ Future<String?> pickImage(BuildContext context) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile == null) return null;
     final croppedFile = await ImageCropper().cropImage(
-      maxWidth: 150,
-      maxHeight: 250,
       sourcePath: pickedFile.path,
     );
     return croppedFile?.path;
