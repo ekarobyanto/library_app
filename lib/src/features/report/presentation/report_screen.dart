@@ -25,15 +25,23 @@ class ReportScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Scrollbar(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: ListView.separated(
-            itemCount: 25,
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemBuilder: (context, index) => const ReportCard(),
+      body: RefreshIndicator(
+        onRefresh: () async {},
+        color: Theme.of(context).primaryColor,
+        child: Scrollbar(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListView.separated(
+              itemCount: 25,
+              shrinkWrap: true,
+              clipBehavior: Clip.none,
+              physics: const ClampingScrollPhysics(),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) => InkWell(
+                onTap: () => router.push('/report/2'),
+                child: const ReportCard(),
+              ),
+            ),
           ),
         ),
       ),

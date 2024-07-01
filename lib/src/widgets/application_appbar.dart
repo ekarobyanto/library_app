@@ -14,6 +14,7 @@ class ApplicationAppbar extends AppBar {
           backgroundColor: Colors.white,
           title: Text(
             title,
+            maxLines: 1,
             style: TextStyle(color: color.primaryColor),
           ),
           leading: Padding(

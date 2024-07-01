@@ -8,6 +8,7 @@ import 'package:library_app/src/features/library/presentation/library_screen.dar
 import 'package:library_app/src/features/library/presentation/library_search.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
 import 'package:library_app/src/features/report/presentation/create_report.dart';
+import 'package:library_app/src/features/report/presentation/report_detail.dart';
 import 'package:library_app/src/features/report/presentation/report_screen.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
@@ -56,6 +57,17 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) => const NoTransitionPage(
             child: ReportScreen(),
           ),
+          routes: [
+            createGoRouteInstance(
+              route: ':id',
+              navigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) => NoTransitionPage(
+                child: ReportDetail(
+                  reportId: state.pathParameters['id']!,
+                ),
+              ),
+            ),
+          ],
         ),
         createGoRouteInstance(
           route: '/profile',
@@ -66,7 +78,7 @@ final GoRouter router = GoRouter(
       ],
     ),
     createGoRouteInstance(
-      route: '/book-detail/:id',
+      route: '/book/:id',
       pageBuilder: (context, state) => MaterialPage(
         child: BookScreen(
           bookId: state.pathParameters['id']!,

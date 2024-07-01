@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/src/widgets/book_header.dart';
 
 class BookInformation extends StatelessWidget {
   const BookInformation({
@@ -8,80 +8,15 @@ class BookInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.grey[200],
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: CachedNetworkImage(
-                width: 180,
-                height: 240,
-                imageUrl: 'https://via.placeholder.com/150',
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
-            const SizedBox(width: 8),
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    maxLines: 3,
-                    "BOOK TITLE WLEOWLEOWLEO WLEOWLEOWLEO",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    "Author Name",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Upload Date",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    "Category:\nHorror, Harem, Brutal, Action, Comedy, Wtf",
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-        const SizedBox(
+        BookHeader(),
+        SizedBox(
           height: 16,
         ),
-        const Text(
+        Text(
           'Description',
           style: TextStyle(
             fontSize: 16,
@@ -89,7 +24,7 @@ class BookInformation extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        const Expanded(
+        Expanded(
           child: Scrollbar(
             child: SingleChildScrollView(
               child: Text(

@@ -47,7 +47,7 @@ class HorizontalBookList extends StatelessWidget {
                   );
                 }
                 return BookCard(
-                  onPress: () => router.push('/book-detail/${1}'),
+                  onPress: () => router.push('/book/${1}'),
                 );
               },
             ),

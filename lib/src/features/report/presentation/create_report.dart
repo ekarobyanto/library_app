@@ -5,8 +5,32 @@ import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/dropdown.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
-class CreateReport extends StatelessWidget {
+class CreateReport extends StatefulWidget {
   const CreateReport({super.key});
+
+  @override
+  State<CreateReport> createState() => _CreateReportState();
+}
+
+class _CreateReportState extends State<CreateReport> {
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _reportDateController = TextEditingController(
+    text: DateTime.now()
+        .toLocal()
+        .toString()
+        .split(' ')
+        .first
+        .split('-')
+        .reversed
+        .join('/'),
+  );
+
+  @override
+  void dispose() {
+    _descriptionController.dispose();
+    _reportDateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +58,7 @@ class CreateReport extends StatelessWidget {
                   AppTextField(
                     enabled: false,
                     label: 'Report Date',
-                    placeholder: DateTime.now()
-                        .toLocal()
-                        .toString()
-                        .split(' ')
-                        .first
-                        .split('-')
-                        .reversed
-                        .join('/'),
+                    controller: _reportDateController,
                   ),
                   const SizedBox(
                     height: 8,
@@ -58,11 +75,12 @@ class CreateReport extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  const AppTextField(
+                  AppTextField(
                     label: 'Description',
                     maxLines: 4,
                     minLines: 4,
                     placeholder: 'Enter a description',
+                    controller: _descriptionController,
                   ),
                 ],
               ),

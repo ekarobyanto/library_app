@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/features/library/presentation/widgets/horizontal_book_list.dart';
-import 'package:library_app/src/features/library/presentation/widgets/library_appbar.dart';
+import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/widgets/button.dart';
+import 'package:library_app/src/widgets/searchbar.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -8,7 +10,28 @@ class LibraryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: libraryAppbar(),
+      appBar: AppBar(
+        toolbarOpacity: 1,
+        scrolledUnderElevation: 0,
+        shadowColor: Colors.black12,
+        title: const Text('Library'),
+        backgroundColor: Colors.white,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppButton(
+              label: "Upload Book",
+              onPressed: () => router.push('/create-book'),
+            ),
+          )
+        ],
+        bottom: AppSearchbar(
+          isEnable: false,
+          placeholder: "Find books",
+          padding: const EdgeInsets.all(8.0),
+          onPress: () => router.pushNamed('search-books'),
+        ),
+      ),
       body: Container(
         color: Colors.white,
         child: RefreshIndicator(
