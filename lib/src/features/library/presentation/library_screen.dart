@@ -37,26 +37,36 @@ class LibraryScreen extends StatelessWidget {
         child: RefreshIndicator(
           onRefresh: () async {},
           color: Theme.of(context).primaryColor,
-          child: const SingleChildScrollView(
+          child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HorizontalBookList(
+                  const HorizontalBookList(
                     canUploadBook: true,
                     label: "Uploaded Books",
                     books: [],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   HorizontalBookList(
                     label: "Recently Read",
-                    books: ["", "", "", ""],
+                    showAll: true,
+                    showAllCallback: () => router.push('/book-list', extra: {
+                      'title': 'Recently Read',
+                      'url': '/recently-read',
+                    }),
+                    books: const ["", "", "", ""],
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   HorizontalBookList(
                     label: "Favorite Books",
-                    books: ["", "", "", ""],
+                    showAll: true,
+                    showAllCallback: () => router.push('/book-list', extra: {
+                      'title': 'Favorite Books',
+                      'url': '/favorite-books',
+                    }),
+                    books: const ["", "", "", ""],
                   ),
                 ],
               ),

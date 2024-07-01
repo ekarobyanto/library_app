@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
+import 'package:library_app/src/features/book/presentation/book_list.dart';
 import 'package:library_app/src/features/book/presentation/book_screen.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
@@ -10,6 +11,7 @@ import 'package:library_app/src/features/main_scaffold.dart';
 import 'package:library_app/src/features/report/presentation/create_report.dart';
 import 'package:library_app/src/features/report/presentation/report_detail.dart';
 import 'package:library_app/src/features/report/presentation/report_screen.dart';
+import 'package:library_app/src/features/user/presentation/user_screen.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -71,8 +73,8 @@ final GoRouter router = GoRouter(
         ),
         createGoRouteInstance(
           route: '/profile',
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: Container(),
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: UserScreen(),
           ),
         ),
       ],
@@ -92,6 +94,18 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/create-report',
       screen: const CreateReport(),
+    ),
+    createGoRouteInstance(
+      route: '/book-list',
+      pageBuilder: (context, state) {
+        final parameters = state.extra as Map<String, String>;
+        return MaterialPage(
+          child: BookList(
+            title: parameters['title']!,
+            url: parameters['url']!,
+          ),
+        );
+      },
     ),
   ],
 );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/book_card.dart';
 import 'package:library_app/src/widgets/upload_book_card.dart';
 
@@ -7,11 +8,15 @@ class HorizontalBookList extends StatelessWidget {
   final String? label;
   final List<String> books;
   final bool canUploadBook;
+  final bool showAll;
+  final Function()? showAllCallback;
   const HorizontalBookList({
     super.key,
     this.label,
     this.books = const [],
     this.canUploadBook = false,
+    this.showAll = false,
+    this.showAllCallback,
   });
 
   @override
@@ -21,15 +26,31 @@ class HorizontalBookList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          label != null
-              ? Text(
+          if (label != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
                   label!,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
-                )
-              : const SizedBox.shrink(),
+                ),
+                if (showAll)
+                  InkWell(
+                    onTap: showAllCallback,
+                    child: Text(
+                      'Show all',
+                      style: TextStyle(
+                        color: color.primaryColor,
+                      ),
+                    ),
+                  ),
+              ],
+            )
+          else
+            const SizedBox.shrink(),
           const SizedBox(height: 8),
           LimitedBox(
             maxHeight: 240,

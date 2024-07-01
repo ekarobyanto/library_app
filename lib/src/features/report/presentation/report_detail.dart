@@ -28,7 +28,7 @@ class ReportDetail extends StatelessWidget {
                 height: 16,
               ),
               Text(
-                'Report Description',
+                'Report',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
