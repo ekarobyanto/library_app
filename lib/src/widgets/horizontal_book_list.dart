@@ -37,7 +37,7 @@ class HorizontalBookList extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                if (showAll)
+                if (showAll && books.isNotEmpty)
                   InkWell(
                     onTap: showAllCallback,
                     child: Text(
@@ -54,24 +54,30 @@ class HorizontalBookList extends StatelessWidget {
           const SizedBox(height: 8),
           LimitedBox(
             maxHeight: 240,
-            child: ListView.separated(
-              shrinkWrap: true,
-              clipBehavior: Clip.none,
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemCount: canUploadBook && books.isEmpty ? 1 : books.length,
-              separatorBuilder: (context, index) => const SizedBox(width: 8),
-              itemBuilder: (context, index) {
-                if (canUploadBook && books.isEmpty) {
-                  return UploadBookCard(
-                    onPressed: () => router.push('/create-book'),
-                  );
-                }
-                return BookCard(
-                  onPress: () => router.push('/book/${1}'),
-                );
-              },
-            ),
+            child: books.isEmpty && !canUploadBook
+                ? const Center(
+                    child: Text('No Books'),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    clipBehavior: Clip.none,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount:
+                        canUploadBook && books.isEmpty ? 1 : books.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(width: 8),
+                    itemBuilder: (context, index) {
+                      if (canUploadBook && books.isEmpty) {
+                        return UploadBookCard(
+                          onPressed: () => router.push('/create-book'),
+                        );
+                      }
+                      return BookCard(
+                        onPress: () => router.push('/book/${1}'),
+                      );
+                    },
+                  ),
           )
         ],
       ),

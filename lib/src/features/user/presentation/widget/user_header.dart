@@ -21,8 +21,8 @@ class UserHeader extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 120,
-            height: 120,
+            width: 80,
+            height: 80,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(120)),

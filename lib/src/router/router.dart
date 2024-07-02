@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
+import 'package:library_app/src/features/book/presentation/book_category_list.dart';
 import 'package:library_app/src/features/book/presentation/book_list.dart';
 import 'package:library_app/src/features/book/presentation/book_screen.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
@@ -50,6 +51,14 @@ final GoRouter router = GoRouter(
               navigatorKey: _rootNavigatorKey,
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: LibrarySearchScreen(),
+              ),
+            ),
+            createGoRouteInstance(
+              route: 'book-category',
+              routeName: 'book-category',
+              navigatorKey: _rootNavigatorKey,
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: BookCategoryList(),
               ),
             ),
           ],
