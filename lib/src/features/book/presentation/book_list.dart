@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
-import 'package:library_app/src/widgets/book_card.dart';
+import 'package:library_app/src/widgets/book_list_tile.dart';
+import 'package:library_app/src/widgets/searchbar.dart';
 
 class BookList extends StatelessWidget {
   final String title;
@@ -10,23 +11,26 @@ class BookList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: ApplicationAppbar(
-        title: title,
-        onBackButtonPressed: router.pop,
-      ),
-      body: GridView.builder(
-        itemCount: 10,
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(8),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 4.5 / 10,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: ApplicationAppbar(
+          title: title,
+          onBackButtonPressed: router.pop,
+          bottom: const AppSearchbar(
+            padding: EdgeInsets.all(8),
+          ),
         ),
-        itemBuilder: (context, index) => const BookCard(),
+        body: ListView.separated(
+          itemCount: 10,
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(8),
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, index) => BookListTile(
+            onPress: () => router.push('/book/1'),
+          ),
+        ),
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/presentation/widgets/book_bottom_bar.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_information.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
-import 'package:library_app/src/widgets/button.dart';
 
 class BookScreen extends StatelessWidget {
   final String bookId;
@@ -16,11 +16,7 @@ class BookScreen extends StatelessWidget {
         title: 'Book',
         onBackButtonPressed: () => router.pop(),
       ),
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(8),
-        child: AppButton(onPressed: () {}, label: "Read Book"),
-      ),
+      bottomNavigationBar: const BookDetailBottomBar(),
       body: const Padding(
         padding: EdgeInsets.all(8.0),
         child: BookInformation(),

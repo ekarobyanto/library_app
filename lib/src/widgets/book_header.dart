@@ -13,21 +13,24 @@ class BookHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.grey[200],
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: CachedNetworkImage(
-            width: 180,
-            height: 240,
-            imageUrl: 'https://via.placeholder.com/150',
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
+        Hero(
+          tag: 'book-image',
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.grey[200],
             ),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+            clipBehavior: Clip.hardEdge,
+            child: CachedNetworkImage(
+              width: 180,
+              height: 240,
+              imageUrl: 'https://via.placeholder.com/150',
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -37,7 +40,7 @@ class BookHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
-                maxLines: 3,
+                maxLines: 2,
                 "BOOK TITLE WLEOWLEOWLEO WLEOWLEOWLEO",
                 style: TextStyle(
                   fontSize: 16,
@@ -63,6 +66,23 @@ class BookHeader extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
+                "Favorite :",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                "Total Read :",
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
                 "Category:\nHorror, Harem, Brutal, Action, Comedy, Wtf",
                 maxLines: 3,
                 style: TextStyle(
@@ -71,7 +91,6 @@ class BookHeader extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
               showDetailButton
                   ? AppButton(
                       onPressed: () => router.push('/book/1'),

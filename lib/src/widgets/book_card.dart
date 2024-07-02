@@ -28,20 +28,23 @@ class BookCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.grey[200],
-              ),
-              child: CachedNetworkImage(
-                imageUrl: 'https://via.placeholder.com/150',
-                height: 160,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
+            Hero(
+              tag: 'book-image',
+              child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.grey[200],
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                child: CachedNetworkImage(
+                  imageUrl: 'https://via.placeholder.com/150',
+                  height: 160,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
             ),
             const SizedBox(height: 8),

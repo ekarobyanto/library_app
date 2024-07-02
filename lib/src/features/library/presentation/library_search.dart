@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/router/router.dart';
-import 'package:library_app/src/widgets/back_button.dart';
+import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class LibrarySearchScreen extends StatefulWidget {
@@ -12,6 +12,7 @@ class LibrarySearchScreen extends StatefulWidget {
 
 class _LibrarySearchScreenState extends State<LibrarySearchScreen> {
   FocusNode focusNode = FocusNode();
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -25,29 +26,14 @@ class _LibrarySearchScreenState extends State<LibrarySearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    AppBackButton(
-                      onPressed: () => router.pop(),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: AppSearchbar(
-                        focusNode: focusNode,
-                        placeholder: "Search books by name...",
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+      appBar: ApplicationAppbar(
+        title: "Find Book",
+        onBackButtonPressed: () => router.pop(),
+        bottom: AppSearchbar(
+          focusNode: focusNode,
+          controller: controller,
+          padding: const EdgeInsets.all(8.0),
+          placeholder: "Search books by name...",
         ),
       ),
     );

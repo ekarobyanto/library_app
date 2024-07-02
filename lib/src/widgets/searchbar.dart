@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/theme/app_theme.dart' as theme;
 
 class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
   final String? placeholder;
@@ -18,6 +19,7 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
   final Matrix4? transform;
   final AlignmentGeometry? transformAlignment;
   final Clip clipBehavior = Clip.none;
+  final TextEditingController? controller;
 
   const AppSearchbar({
     super.key,
@@ -37,6 +39,7 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
     this.margin,
     this.transform,
     this.transformAlignment,
+    this.controller,
   });
 
   @override
@@ -63,8 +66,10 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: TextField(
+              controller: controller,
               enabled: isEnable ?? true,
               focusNode: focusNode,
+              cursorColor: theme.color.primaryColor,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 isDense: true,

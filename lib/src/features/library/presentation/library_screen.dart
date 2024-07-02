@@ -53,6 +53,7 @@ class LibraryScreen extends StatelessWidget {
                     label: "Find books by category",
                     icon: Icons.chevron_right,
                     iconPosition: IconPosition.right,
+                    mode: ButtonMode.contained,
                     onPressed: () => router.push('/library/book-category'),
                   ),
                   const SizedBox(height: 12),
