@@ -43,18 +43,18 @@ class LibraryScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const HorizontalBookList(
-                    canUploadBook: true,
-                    label: "Uploaded Books",
-                    books: [],
-                  ),
-                  const SizedBox(height: 12),
                   AppButton(
                     label: "Find books by category",
                     icon: Icons.chevron_right,
                     iconPosition: IconPosition.right,
                     mode: ButtonMode.contained,
                     onPressed: () => router.push('/library/book-category'),
+                  ),
+                  const SizedBox(height: 12),
+                  const HorizontalBookList(
+                    canUploadBook: true,
+                    label: "Uploaded Books",
+                    books: [],
                   ),
                   const SizedBox(height: 12),
                   HorizontalBookList(
