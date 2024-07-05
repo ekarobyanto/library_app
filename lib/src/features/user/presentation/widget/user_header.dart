@@ -11,15 +11,15 @@ class UserHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.primaryShade,
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       child: Row(
         children: [
           Container(
-            width: 80,
-            height: 80,
+            width: 40,
+            height: 40,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(120)),
@@ -48,7 +48,7 @@ class UserHeader extends StatelessWidget {
                   'John Doe',
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -56,7 +56,7 @@ class UserHeader extends StatelessWidget {
                   'johnDoe@doe.mail',
                   maxLines: 1,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

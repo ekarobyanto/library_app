@@ -63,6 +63,7 @@ class _AppTextFieldState extends State<AppTextField> {
           enabled: (widget.enabled ?? true),
           controller: widget.controller,
           validator: widget.onValidate,
+          cursorColor: color.primaryColor,
           obscureText: (obsecureText) ? obsecureText : false,
           decoration: InputDecoration(
             hintText: widget.placeholder,
