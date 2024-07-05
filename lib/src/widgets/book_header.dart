@@ -41,7 +41,7 @@ class BookHeader extends StatelessWidget {
             children: [
               const Text(
                 maxLines: 2,
-                "BOOK TITLE WLEOWLEOWLEO WLEOWLEOWLEO",
+                "BOOK TITLE",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -83,7 +83,7 @@ class BookHeader extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const Text(
-                "Category:\nHorror, Harem, Brutal, Action, Comedy, Wtf",
+                "Category:\nHorror, Action, Comedy",
                 maxLines: 3,
                 style: TextStyle(
                   fontSize: 12,

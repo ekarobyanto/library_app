@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_app/src/features/auth/widgets/background_decoration.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/dashboard_stats.dart';
@@ -11,13 +12,18 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).primaryColor,
+      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ));
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          const AuthBackgroundDecoration(),
-          SafeArea(
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            const AuthBackgroundDecoration(),
+            SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -31,43 +37,19 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       contents: [
                         ContentRowContent(
+                          label: 'Book Uploaded',
+                          message: '100',
+                        ),
+                        ContentRowContent(
                           label: 'Book Readed',
                           message: '100',
-                        ),
-                        ContentRowContent(
-                          label: 'Book Complete',
-                          message: '100',
-                        ),
-                        ContentRowContent(
-                          label: 'Completion',
-                          message: '100%',
-                        ),
-                        ContentRowContent(
-                          label: 'Book Complete',
-                          message: '100',
-                        ),
-                        ContentRowContent(
-                          label: 'Completion',
-                          message: '100%',
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Recently Readed",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        HorizontalBookList(
-                          books: ['', '', ''],
-                        ),
-                      ],
+                    const HorizontalBookList(
+                      label: "Recently Read",
+                      books: ['', '', ''],
                     ),
                     const HorizontalBookList(
                       label: "Popular Books",
@@ -77,8 +59,8 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

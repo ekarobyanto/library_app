@@ -58,7 +58,7 @@ class LibraryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   HorizontalBookList(
-                    label: "Recent Books",
+                    label: "New Books",
                     showAll: true,
                     showAllCallback: () => router.push('/book-list', extra: {
                       'title': 'Recent Books',

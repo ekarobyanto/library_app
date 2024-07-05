@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
+import 'package:library_app/src/widgets/book_list_tile.dart';
 
 class StatsCard extends StatelessWidget {
   final String label;
@@ -49,6 +50,15 @@ class StatsCard extends StatelessWidget {
           ContentRow(
             contents: contents,
           ),
+          const Text(
+            "Last Read",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const SizedBox(width: double.maxFinite, child: BookListTile())
         ],
       ),
     );

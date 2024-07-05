@@ -56,6 +56,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  signOut() async {
+    try {
+      emit(const _Loading('Signing out...'));
+      await firebaseAuthService.signOut();
+      emit(const _SignedOut());
+    } on FirebaseAuthException catch (err) {
+      emit(_Error(message: err.message ?? defaultAuthError));
+    } catch (err) {
+      emit(_Error(message: err.toString()));
+    }
+  }
+
   checkAuthState() async {
     emit(const _Loading());
     try {

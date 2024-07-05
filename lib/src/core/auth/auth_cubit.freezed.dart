@@ -21,6 +21,7 @@ mixin _$AuthState {
     required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
+    required TResult Function() signedOut,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$AuthState {
     TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$AuthState {
     TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
+    TResult Function()? signedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$AuthState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +58,7 @@ mixin _$AuthState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
     TResult? Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +67,7 @@ mixin _$AuthState {
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -152,6 +158,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
+    required TResult Function() signedOut,
     required TResult Function(String message) error,
   }) {
     return loading(message);
@@ -163,6 +170,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
     TResult? Function(String message)? error,
   }) {
     return loading?.call(message);
@@ -174,6 +182,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
+    TResult Function()? signedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -189,6 +198,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -200,6 +210,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
     TResult? Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -211,6 +222,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -298,6 +310,7 @@ class _$SignedInImpl implements _SignedIn {
     required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
+    required TResult Function() signedOut,
     required TResult Function(String message) error,
   }) {
     return signedIn(userCred);
@@ -309,6 +322,7 @@ class _$SignedInImpl implements _SignedIn {
     TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
     TResult? Function(String message)? error,
   }) {
     return signedIn?.call(userCred);
@@ -320,6 +334,7 @@ class _$SignedInImpl implements _SignedIn {
     TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
+    TResult Function()? signedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -335,6 +350,7 @@ class _$SignedInImpl implements _SignedIn {
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
     required TResult Function(_Error value) error,
   }) {
     return signedIn(this);
@@ -346,6 +362,7 @@ class _$SignedInImpl implements _SignedIn {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
     TResult? Function(_Error value)? error,
   }) {
     return signedIn?.call(this);
@@ -357,6 +374,7 @@ class _$SignedInImpl implements _SignedIn {
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -417,6 +435,7 @@ class _$SignedUpImpl implements _SignedUp {
     required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
+    required TResult Function() signedOut,
     required TResult Function(String message) error,
   }) {
     return signedUp();
@@ -428,6 +447,7 @@ class _$SignedUpImpl implements _SignedUp {
     TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
     TResult? Function(String message)? error,
   }) {
     return signedUp?.call();
@@ -439,6 +459,7 @@ class _$SignedUpImpl implements _SignedUp {
     TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
+    TResult Function()? signedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -454,6 +475,7 @@ class _$SignedUpImpl implements _SignedUp {
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
     required TResult Function(_Error value) error,
   }) {
     return signedUp(this);
@@ -465,6 +487,7 @@ class _$SignedUpImpl implements _SignedUp {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
     TResult? Function(_Error value)? error,
   }) {
     return signedUp?.call(this);
@@ -476,6 +499,7 @@ class _$SignedUpImpl implements _SignedUp {
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -488,6 +512,126 @@ class _$SignedUpImpl implements _SignedUp {
 
 abstract class _SignedUp implements AuthState {
   const factory _SignedUp() = _$SignedUpImpl;
+}
+
+/// @nodoc
+abstract class _$$SignedOutImplCopyWith<$Res> {
+  factory _$$SignedOutImplCopyWith(
+          _$SignedOutImpl value, $Res Function(_$SignedOutImpl) then) =
+      __$$SignedOutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignedOutImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$SignedOutImpl>
+    implements _$$SignedOutImplCopyWith<$Res> {
+  __$$SignedOutImplCopyWithImpl(
+      _$SignedOutImpl _value, $Res Function(_$SignedOutImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignedOutImpl implements _SignedOut {
+  const _$SignedOutImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.signedOut()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SignedOutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? message) loading,
+    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function() signedUp,
+    required TResult Function() signedOut,
+    required TResult Function(String message) error,
+  }) {
+    return signedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? message)? loading,
+    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
+    TResult? Function(String message)? error,
+  }) {
+    return signedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? message)? loading,
+    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function()? signedUp,
+    TResult Function()? signedOut,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (signedOut != null) {
+      return signedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_SignedIn value) signedIn,
+    required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
+    required TResult Function(_Error value) error,
+  }) {
+    return signedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_SignedIn value)? signedIn,
+    TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
+    TResult? Function(_Error value)? error,
+  }) {
+    return signedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_SignedIn value)? signedIn,
+    TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (signedOut != null) {
+      return signedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignedOut implements AuthState {
+  const factory _SignedOut() = _$SignedOutImpl;
 }
 
 /// @nodoc
@@ -557,6 +701,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(String? message) loading,
     required TResult Function(UserCredential? userCred) signedIn,
     required TResult Function() signedUp,
+    required TResult Function() signedOut,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -568,6 +713,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(String? message)? loading,
     TResult? Function(UserCredential? userCred)? signedIn,
     TResult? Function()? signedUp,
+    TResult? Function()? signedOut,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -579,6 +725,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(String? message)? loading,
     TResult Function(UserCredential? userCred)? signedIn,
     TResult Function()? signedUp,
+    TResult Function()? signedOut,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -594,6 +741,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Loading value) loading,
     required TResult Function(_SignedIn value) signedIn,
     required TResult Function(_SignedUp value) signedUp,
+    required TResult Function(_SignedOut value) signedOut,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -605,6 +753,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_SignedIn value)? signedIn,
     TResult? Function(_SignedUp value)? signedUp,
+    TResult? Function(_SignedOut value)? signedOut,
     TResult? Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -616,6 +765,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Loading value)? loading,
     TResult Function(_SignedIn value)? signedIn,
     TResult Function(_SignedUp value)? signedUp,
+    TResult Function(_SignedOut value)? signedOut,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

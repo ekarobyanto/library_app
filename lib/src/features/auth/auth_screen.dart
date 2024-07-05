@@ -32,6 +32,7 @@ class AuthScreen extends StatelessWidget {
                   PageView(
                     controller: pageController,
                     allowImplicitScrolling: false,
+                    scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       SingleChildScrollView(
@@ -40,12 +41,11 @@ class AuthScreen extends StatelessWidget {
                             vertical: MediaQuery.of(context).size.height * 0.1,
                           ),
                           child: LoginForm(
-                            onRegister: () => pageController.animateToPage(
-                              2,
+                            onRegister: () => pageController.nextPage(
                               duration: const Duration(
-                                milliseconds: 300,
+                                milliseconds: 1000,
                               ),
-                              curve: Curves.easeOut,
+                              curve: Curves.easeInOutCubicEmphasized,
                             ),
                           ),
                         ),
@@ -59,9 +59,9 @@ class AuthScreen extends StatelessWidget {
                             onLogin: () => pageController.animateToPage(
                               pageController.initialPage,
                               duration: const Duration(
-                                milliseconds: 300,
+                                milliseconds: 500,
                               ),
-                              curve: Curves.easeOut,
+                              curve: Curves.easeInOutExpo,
                             ),
                           ),
                         ),
