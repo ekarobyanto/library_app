@@ -27,4 +27,59 @@ final class DioService {
       logger.e("Failed to initialize Dio Service: $err");
     }
   }
+
+  Future<Response> get(String path, {Map<String, dynamic>? params}) async {
+    try {
+      final response = await dio.get(path, queryParameters: params);
+      logger.i(response.data);
+      return response;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<Response> post(String path, {Map<String, dynamic>? data}) async {
+    try {
+      final response = await dio.post(path, data: data);
+      logger.i(response.data);
+      return response.data;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<Response> put(String path, {Map<String, dynamic>? data}) async {
+    try {
+      final response = await dio.put(path, data: data);
+      logger.i(response.data);
+      return response.data;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<Response> delete(String path, {Map<String, dynamic>? data}) async {
+    try {
+      final response = await dio.delete(path, data: data);
+      logger.i(response.data);
+      return response.data;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<Response> patch(String path, {Map<String, dynamic>? data}) async {
+    try {
+      final response = await dio.patch(path, data: data);
+      logger.i(response.data);
+      return response.data;
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
 }

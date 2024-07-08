@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_app/src/core/overlay/overlay.dart';
 import 'package:library_app/src/theme/app_theme.dart';
+import 'package:library_app/src/widgets/loading.dart';
 
 class LoadingOverlay implements AppOverlay {
   late OverlayEntry _overlayEntry;
@@ -27,18 +27,9 @@ class LoadingOverlay implements AppOverlay {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: SpinKitFoldingCube(
-                    itemBuilder: (context, index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        color: index.isEven
-                            ? color.primaryShade
-                            : color.primaryColor,
-                      ),
-                    ),
-                  ),
-                ),
+                const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: LoadingWidget()),
                 message != null
                     ? Material(
                         color: Colors.transparent,

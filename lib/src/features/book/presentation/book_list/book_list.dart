@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/presentation/book_list/cubit/book_list_cubit.dart';
-import 'package:library_app/src/model/query_params.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
@@ -39,9 +40,12 @@ class _BookListState extends State<BookList> {
   }
 
   _onSearch() {
-    context
-        .read<BookListCubit>()
-        .getBooks(widget.url, QueryParams(search: searchController.text));
+    context.read<BookListCubit>().getBooks(
+          widget.url,
+          searchController.text.isNotEmpty
+              ? {"book_name": searchController.text}
+              : {},
+        );
   }
 
   @override
@@ -49,20 +53,22 @@ class _BookListState extends State<BookList> {
     return BlocProvider(
       create: (context) =>
           BookListCubit(bookRepository: context.read<BookRepository>())
-            ..getBooks(widget.url, QueryParams(search: searchController.text)),
+            ..getBooks(
+              widget.url,
+              searchController.text.isNotEmpty
+                  ? {"book_name": searchController.text}
+                  : {},
+            ),
       child: BlocListener<BookListCubit, BookListState>(
         listener: (context, state) {
           state.whenOrNull(
-            loading: () => loadingOverlay.show(context),
             error: (message) {
-              loadingOverlay.hide();
               showAlert(
                 context: context,
                 title: 'Error',
                 message: message,
               );
             },
-            success: (books) => loadingOverlay.hide(),
           );
         },
         child: BlocBuilder<BookListCubit, BookListState>(
@@ -79,15 +85,29 @@ class _BookListState extends State<BookList> {
                     padding: const EdgeInsets.all(8),
                   ),
                 ),
-                body: ListView.separated(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemBuilder: (context, index) => BookListTile(
-                    onPress: () => router.push('/book/1'),
+                body: state.maybeWhen(
+                  loading: () => Center(
+                    child: SpinKitFoldingCube(
+                      itemBuilder: (context, index) => DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isEven
+                              ? color.primaryShade
+                              : color.primaryColor,
+                        ),
+                      ),
+                    ),
                   ),
+                  success: (books) => ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: books.length,
+                    padding: const EdgeInsets.all(8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemBuilder: (context, index) => BookListTile(
+                      onPress: () => router.push('/book/1'),
+                    ),
+                  ),
+                  orElse: () => const SizedBox.shrink(),
                 ),
               ),
             );
