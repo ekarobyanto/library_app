@@ -80,7 +80,7 @@ class UserHeader extends StatelessWidget {
               ),
               if (showLogout)
                 IconButton(
-                  icon: const Icon(Icons.logout),
+                  icon: Icon(Icons.logout, color: color.primaryColor),
                   onPressed: () => context.read<AuthCubit>().signOut(),
                 ),
             ],

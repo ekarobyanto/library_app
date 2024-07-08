@@ -62,27 +62,25 @@ class _ContentRowState extends State<ContentRow> {
         children: [
           Scrollbar(
             controller: scrollController,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               controller: scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: widget.contents.length,
-              itemBuilder: (context, index) => Row(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
+              itemBuilder: (context, index) => Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(widget.contents[index].label),
-                      Text(
-                        widget.contents[index].message,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 8),
+                  Text(widget.contents[index].label),
+                  Text(
+                    widget.contents[index].message,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  const SizedBox(width: 16),
                 ],
               ),
             ),
