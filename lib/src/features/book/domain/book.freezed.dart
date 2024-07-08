@@ -20,15 +20,19 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Book {
-  String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get description =>
+  String? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  Author? get author =>
       throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'created_at')
-  String get createdAt => throw _privateConstructorUsedError;
-  String get thumbnailUrl => throw _privateConstructorUsedError;
-  String get docUrl => throw _privateConstructorUsedError;
-  List<String> get categories => throw _privateConstructorUsedError;
+  String? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'thumbnail_url')
+  String? get thumbnailUrl => throw _privateConstructorUsedError;
+  String? get docUrl => throw _privateConstructorUsedError;
+  List<String>? get categories => throw _privateConstructorUsedError;
+  @JsonKey(name: 'read_count')
+  int? get readCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,13 +45,17 @@ abstract class $BookCopyWith<$Res> {
       _$BookCopyWithImpl<$Res, Book>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      @JsonKey(name: 'created_at') String createdAt,
-      String thumbnailUrl,
-      String docUrl,
-      List<String> categories});
+      {String? id,
+      String? name,
+      String? description,
+      Author? author,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
+      String? docUrl,
+      List<String>? categories,
+      @JsonKey(name: 'read_count') int? readCount});
+
+  $AuthorCopyWith<$Res>? get author;
 }
 
 /// @nodoc
@@ -63,44 +71,66 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? thumbnailUrl = null,
-    Object? docUrl = null,
-    Object? categories = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? author = freezed,
+    Object? createdAt = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? docUrl = freezed,
+    Object? categories = freezed,
+    Object? readCount = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      author: freezed == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as Author?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      thumbnailUrl: null == thumbnailUrl
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
           ? _value.thumbnailUrl
           : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      docUrl: null == docUrl
+              as String?,
+      docUrl: freezed == docUrl
           ? _value.docUrl
           : docUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      categories: null == categories
+              as String?,
+      categories: freezed == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      readCount: freezed == readCount
+          ? _value.readCount
+          : readCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AuthorCopyWith<$Res>? get author {
+    if (_value.author == null) {
+      return null;
+    }
+
+    return $AuthorCopyWith<$Res>(_value.author!, (value) {
+      return _then(_value.copyWith(author: value) as $Val);
+    });
   }
 }
 
@@ -112,13 +142,18 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      @JsonKey(name: 'created_at') String createdAt,
-      String thumbnailUrl,
-      String docUrl,
-      List<String> categories});
+      {String? id,
+      String? name,
+      String? description,
+      Author? author,
+      @JsonKey(name: 'created_at') String? createdAt,
+      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
+      String? docUrl,
+      List<String>? categories,
+      @JsonKey(name: 'read_count') int? readCount});
+
+  @override
+  $AuthorCopyWith<$Res>? get author;
 }
 
 /// @nodoc
@@ -131,43 +166,53 @@ class __$$BookImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? name = null,
-    Object? description = null,
-    Object? createdAt = null,
-    Object? thumbnailUrl = null,
-    Object? docUrl = null,
-    Object? categories = null,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? author = freezed,
+    Object? createdAt = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? docUrl = freezed,
+    Object? categories = freezed,
+    Object? readCount = freezed,
   }) {
     return _then(_$BookImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
+              as String?,
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
+              as String?,
+      author: freezed == author
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as Author?,
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      thumbnailUrl: null == thumbnailUrl
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
           ? _value.thumbnailUrl
           : thumbnailUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      docUrl: null == docUrl
+              as String?,
+      docUrl: freezed == docUrl
           ? _value.docUrl
           : docUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      categories: null == categories
+              as String?,
+      categories: freezed == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String>?,
+      readCount: freezed == readCount
+          ? _value.readCount
+          : readCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -177,42 +222,58 @@ class __$$BookImplCopyWithImpl<$Res>
 class _$BookImpl implements _Book {
   _$BookImpl(
       {required this.id,
-      required this.name,
-      required this.description,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      required this.thumbnailUrl,
-      required this.docUrl,
-      required final List<String> categories})
+      this.name = '',
+      this.description = '',
+      this.author = null,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'thumbnail_url') this.thumbnailUrl = '',
+      this.docUrl = '',
+      final List<String>? categories = const [],
+      @JsonKey(name: 'read_count') this.readCount = 0})
       : _categories = categories;
 
   factory _$BookImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
-  final String name;
+  @JsonKey()
+  final String? name;
   @override
-  final String description;
+  @JsonKey()
+  final String? description;
+  @override
+  @JsonKey()
+  final Author? author;
 // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'created_at')
-  final String createdAt;
+  final String? createdAt;
   @override
-  final String thumbnailUrl;
+  @JsonKey(name: 'thumbnail_url')
+  final String? thumbnailUrl;
   @override
-  final String docUrl;
-  final List<String> _categories;
+  @JsonKey()
+  final String? docUrl;
+  final List<String>? _categories;
   @override
-  List<String> get categories {
+  @JsonKey()
+  List<String>? get categories {
+    final value = _categories;
+    if (value == null) return null;
     if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categories);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
+  @JsonKey(name: 'read_count')
+  final int? readCount;
+
+  @override
   String toString() {
-    return 'Book(id: $id, name: $name, description: $description, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories)';
+    return 'Book(id: $id, name: $name, description: $description, author: $author, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories, readCount: $readCount)';
   }
 
   @override
@@ -224,19 +285,31 @@ class _$BookImpl implements _Book {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.author, author) || other.author == author) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.thumbnailUrl, thumbnailUrl) ||
                 other.thumbnailUrl == thumbnailUrl) &&
             (identical(other.docUrl, docUrl) || other.docUrl == docUrl) &&
             const DeepCollectionEquality()
-                .equals(other._categories, _categories));
+                .equals(other._categories, _categories) &&
+            (identical(other.readCount, readCount) ||
+                other.readCount == readCount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, createdAt,
-      thumbnailUrl, docUrl, const DeepCollectionEquality().hash(_categories));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      author,
+      createdAt,
+      thumbnailUrl,
+      docUrl,
+      const DeepCollectionEquality().hash(_categories),
+      readCount);
 
   @JsonKey(ignore: true)
   @override
@@ -254,31 +327,39 @@ class _$BookImpl implements _Book {
 
 abstract class _Book implements Book {
   factory _Book(
-      {required final String id,
-      required final String name,
-      required final String description,
-      @JsonKey(name: 'created_at') required final String createdAt,
-      required final String thumbnailUrl,
-      required final String docUrl,
-      required final List<String> categories}) = _$BookImpl;
+      {required final String? id,
+      final String? name,
+      final String? description,
+      final Author? author,
+      @JsonKey(name: 'created_at') final String? createdAt,
+      @JsonKey(name: 'thumbnail_url') final String? thumbnailUrl,
+      final String? docUrl,
+      final List<String>? categories,
+      @JsonKey(name: 'read_count') final int? readCount}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
-  String get name;
+  String? get name;
   @override
-  String get description;
+  String? get description;
+  @override
+  Author? get author;
   @override // ignore: invalid_annotation_target
   @JsonKey(name: 'created_at')
-  String get createdAt;
+  String? get createdAt;
   @override
-  String get thumbnailUrl;
+  @JsonKey(name: 'thumbnail_url')
+  String? get thumbnailUrl;
   @override
-  String get docUrl;
+  String? get docUrl;
   @override
-  List<String> get categories;
+  List<String>? get categories;
+  @override
+  @JsonKey(name: 'read_count')
+  int? get readCount;
   @override
   @JsonKey(ignore: true)
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>

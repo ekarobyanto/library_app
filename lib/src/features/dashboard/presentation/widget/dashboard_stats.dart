@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
 
+import '../../../book/domain/book.dart';
+
 class StatsCard extends StatelessWidget {
   final String label;
   final Icon icon;
@@ -58,7 +60,15 @@ class StatsCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          const SizedBox(width: double.maxFinite, child: BookListTile())
+          SizedBox(
+              width: double.maxFinite,
+              child: BookListTile(
+                book: Book(
+                  id: '1',
+                  name: 'The Great Gatsby',
+                  thumbnailUrl: 'https://via.placeholder.com/150',
+                ),
+              ))
         ],
       ),
     );

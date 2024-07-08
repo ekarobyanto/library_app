@@ -4,6 +4,8 @@ import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
+import '../../book/domain/book.dart';
+
 class LibrarySearchScreen extends StatefulWidget {
   const LibrarySearchScreen({super.key});
 
@@ -41,7 +43,13 @@ class _LibrarySearchScreenState extends State<LibrarySearchScreen> {
         itemCount: 12,
         padding: const EdgeInsets.all(8),
         separatorBuilder: (ctx, index) => const SizedBox(height: 8),
-        itemBuilder: (context, index) => const BookListTile(),
+        itemBuilder: (context, index) => BookListTile(
+          book: Book(
+            id: index.toString(),
+            name: "Book $index",
+            thumbnailUrl: "https://via.placeholder.com/150",
+          ),
+        ),
       ),
     );
   }

@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_app/src/core/auth/repository/auth_repository.dart';
 import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
+import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 
 part 'auth_cubit.freezed.dart';
@@ -75,11 +74,11 @@ class AuthCubit extends Cubit<AuthState> {
       final String? idToken =
           await firebaseAuthService.currentUser?.getIdToken();
       final User? user = firebaseAuthService.currentUser;
-      log(user?.displayName ?? '--');
-      log(idToken ?? 'No user found');
-      log(firebaseAuthService.currentUser?.displayName ?? '--');
-      if (idToken != null) {
-        emit(_SignedIn(userCred: firebaseAuthService.currentUser));
+      logger.i(user);
+      if (idToken == null) {
+        emit(const _SignedOut());
+      } else {
+        emit(_SignedIn(userCred: user));
       }
     } on FirebaseAuthException catch (err) {
       emit(_Error(message: err.message ?? defaultAuthError));

@@ -9,6 +9,7 @@ import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
+import 'package:library_app/src/widgets/error.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class BookList extends StatefulWidget {
@@ -25,33 +26,15 @@ class _BookListState extends State<BookList> {
   final TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => searchController.addListener(_onSearch),
-    );
-    super.initState();
-  }
-
-  @override
   void dispose() {
-    searchController.removeListener(_onSearch);
     searchController.dispose();
     super.dispose();
-  }
-
-  _onSearch() {
-    context.read<BookListCubit>().getBooks(
-          widget.url,
-          searchController.text.isNotEmpty
-              ? {"book_name": searchController.text}
-              : {},
-        );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
+      create: (_) =>
           BookListCubit(bookRepository: context.read<BookRepository>())
             ..getBooks(
               widget.url,
@@ -71,48 +54,66 @@ class _BookListState extends State<BookList> {
             },
           );
         },
-        child: BlocBuilder<BookListCubit, BookListState>(
-          builder: (context, state) {
-            return GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
-              child: Scaffold(
-                backgroundColor: Colors.white,
-                appBar: ApplicationAppbar(
-                  title: widget.title,
-                  onBackButtonPressed: router.pop,
-                  bottom: AppSearchbar(
-                    controller: searchController,
-                    padding: const EdgeInsets.all(8),
+        child: Builder(builder: (context) {
+          return BlocBuilder<BookListCubit, BookListState>(
+            builder: (context, state) {
+              return GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: Scaffold(
+                  backgroundColor: Colors.white,
+                  appBar: ApplicationAppbar(
+                    title: widget.title,
+                    onBackButtonPressed: router.pop,
+                    bottom: AppSearchbar(
+                      controller: searchController,
+                      padding: const EdgeInsets.all(8),
+                      onSearch: (_) => context.read<BookListCubit>().getBooks(
+                            widget.url,
+                            searchController.text.isNotEmpty
+                                ? {"book_name": searchController.text}
+                                : {},
+                          ),
+                    ),
                   ),
-                ),
-                body: state.maybeWhen(
-                  loading: () => Center(
-                    child: SpinKitFoldingCube(
-                      itemBuilder: (context, index) => DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: index.isEven
-                              ? color.primaryShade
-                              : color.primaryColor,
+                  body: state.maybeWhen(
+                    error: (message) => ErrorFetch(
+                      message: message,
+                      onRetry: () => context.read<BookListCubit>().getBooks(
+                            widget.url,
+                            searchController.text.isNotEmpty
+                                ? {"book_name": searchController.text}
+                                : {},
+                          ),
+                    ),
+                    loading: () => Center(
+                      child: SpinKitFoldingCube(
+                        itemBuilder: (context, index) => DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: index.isEven
+                                ? color.primaryShade
+                                : color.primaryColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  success: (books) => ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: books.length,
-                    padding: const EdgeInsets.all(8),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8),
-                    itemBuilder: (context, index) => BookListTile(
-                      onPress: () => router.push('/book/1'),
+                    success: (books) => ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: books.length,
+                      padding: const EdgeInsets.all(8),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
+                      itemBuilder: (context, index) => BookListTile(
+                        book: books[index],
+                        onPress: () => router.push('/book/${books[index].id}'),
+                      ),
                     ),
+                    orElse: () => const SizedBox.shrink(),
                   ),
-                  orElse: () => const SizedBox.shrink(),
                 ),
-              ),
-            );
-          },
-        ),
+              );
+            },
+          );
+        }),
       ),
     );
   }

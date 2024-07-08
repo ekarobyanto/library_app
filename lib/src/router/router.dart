@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
 import 'package:library_app/src/features/book/presentation/book_category_list/book_category_list.dart';
 import 'package:library_app/src/features/book/presentation/book_list/book_list.dart';
-import 'package:library_app/src/features/book/presentation/book_screen.dart';
+import 'package:library_app/src/features/book/presentation/book_screen/book_screen.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';

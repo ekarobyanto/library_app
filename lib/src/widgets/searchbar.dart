@@ -71,6 +71,7 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
               focusNode: focusNode,
               cursorColor: theme.color.primaryColor,
               textAlignVertical: TextAlignVertical.center,
+              onSubmitted: (value) => onSearch?.call(value),
               decoration: InputDecoration(
                 isDense: true,
                 alignLabelWithHint: true,

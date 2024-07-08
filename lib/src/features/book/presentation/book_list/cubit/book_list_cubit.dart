@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
 
@@ -16,6 +17,7 @@ class BookListCubit extends Cubit<BookListState> {
     try {
       final books =
           await bookRepository.getBooksFromUrl(url: url, params: params);
+      logger.i('Books: $books');
       emit(_Success(books: books));
     } catch (e) {
       emit(const _Error(message: 'Failed to get books'));

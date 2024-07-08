@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
 
 class BookListTile extends StatelessWidget {
+  final Book book;
   final Function()? onPress;
-  const BookListTile({super.key, this.onPress});
+  const BookListTile({super.key, this.onPress, required this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class BookListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: 'book-image',
+              tag: book.id!,
               child: Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
@@ -36,9 +38,11 @@ class BookListTile extends StatelessWidget {
                   color: Colors.grey[200],
                 ),
                 child: CachedNetworkImage(
+                  width: 80,
                   height: 80,
                   fit: BoxFit.cover,
-                  imageUrl: 'https://via.placeholder.com/150',
+                  imageUrl:
+                      book.thumbnailUrl ?? 'https://via.placeholder.com/150',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -47,34 +51,34 @@ class BookListTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Book Title asdasasas',
+                    book.name!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    'Author Name',
+                    book.author?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
                   Text(
                     maxLines: 2,
-                    'Categories :\nHorror, Bid Gick, Thriller, Drama, Comedy, Action, Adventure, Sci-Fi, Fantasy, Mystery, Romance, Fiction, Non-Fiction, Biography, Autobiography, History, Science, Technology, Engineering, Mathematics, Art, Music, Health, Fitness, Self-Help, Cooking, Travel, Children, Young Adult, Religion, Spirituality, Philosophy, Business, Finance, Economics, Politics, Social Science, Education, Reference, Languages, Communication, Computers, Internet, Programming, Software, Hardware, Mobile, Web, Networking, Security, Databases, Games, Entertainment, Sports, Hobbies, Crafts, Home, Garden, Pets, Architecture, Design, Photography, Fashion, Beauty, Medical, Law, Parenting, Family, Relationships, Psychology, Sociology, Anthropology, Archaeology, Environment, Nature, Geography, Weather, Astronomy, Physics, Chemistry, Biology, Geology, Oceanography, Meteorology, Ecology, Agriculture, Forestry, Conservation, Zoology, Botany, Paleontology, Evolution, Genetics, Medicine, Nursing, Dentistry, Pharmacy, Veterinary, Health Care, Nutrition, Fitness, Wellness, Yoga, Meditation, Self-Help, Self-Improvement, Motivation, Inspiration, Success, Happiness, Mindfulness, Stress, Anxiety, Depression, Addiction, Recovery, Therapy, Counseling, Relationships, Parenting, Family, Marriage, Divorce, Dating, Love',
+                    'Categories : ${book.categories?.join(', ')}',
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                     ),

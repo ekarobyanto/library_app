@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/book_header.dart';
@@ -15,19 +16,20 @@ class ReportDetail extends StatelessWidget {
         title: '17/09/2021 (Book Name)',
         onBackButtonPressed: () => router.pop(),
       ),
-      body: const Scrollbar(
+      body: Scrollbar(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BookHeader(
                 showDetailButton: true,
+                book: Book(id: 'asasd'),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Report',
                 style: TextStyle(
                   fontSize: 16,
@@ -35,7 +37,7 @@ class ReportDetail extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: Scrollbar(
                   child: SingleChildScrollView(
                     child: Text(

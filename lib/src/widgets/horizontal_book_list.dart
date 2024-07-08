@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/presentation/widgets/empty_book.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/book_card.dart';
@@ -55,9 +56,7 @@ class HorizontalBookList extends StatelessWidget {
           LimitedBox(
             maxHeight: 240,
             child: books.isEmpty && !canUploadBook
-                ? const Center(
-                    child: Text('No Books'),
-                  )
+                ? const EmptyBook()
                 : ListView.separated(
                     shrinkWrap: true,
                     clipBehavior: Clip.none,

@@ -7,14 +7,24 @@ import 'package:library_app/src/features/book/dto/create_book.dto.dart';
 class BookRepository extends AppRepository {
   BookRepository({required super.service});
 
+  Future<Book> getBookById(String id) async {
+    try {
+      final response = await service.get('/book/$id');
+      return Book.fromJson(response.data['data']);
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
   Future<List<Book>> getBooksFromUrl({
     required String url,
     Map<String, dynamic>? params,
   }) async {
     try {
-      final response = await service.dio.get(url, queryParameters: params);
-      logger.i(response.data);
-      return (response.data as List)
+      final response = await service.get(url, params: params);
+      if (response.data["data"] == null) return [];
+      return (response.data["data"] as List)
           .map((book) => Book.fromJson(book))
           .toList();
     } catch (e) {
