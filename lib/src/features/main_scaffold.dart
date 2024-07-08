@@ -51,6 +51,18 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget.child,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        onPressed: () => router.go('/upload-book'),
+        backgroundColor: color.primaryColor,
+        child: const Icon(
+          Icons.people,
+          color: Colors.white,
+        ),
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           boxShadow: [

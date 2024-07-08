@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
+import 'package:library_app/src/widgets/book_list_tile.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class LibrarySearchScreen extends StatefulWidget {
@@ -35,6 +36,12 @@ class _LibrarySearchScreenState extends State<LibrarySearchScreen> {
           padding: const EdgeInsets.all(8.0),
           placeholder: "Search books by name...",
         ),
+      ),
+      body: ListView.separated(
+        itemCount: 12,
+        padding: const EdgeInsets.all(8),
+        separatorBuilder: (ctx, index) => const SizedBox(height: 8),
+        itemBuilder: (context, index) => const BookListTile(),
       ),
     );
   }

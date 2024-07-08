@@ -9,6 +9,7 @@ class ApplicationAppbar extends AppBar {
     required VoidCallback onBackButtonPressed,
     PreferredSizeWidget? bottom,
     Function()? filterOnPressed,
+    List<Widget>? actions,
   }) : super(
           toolbarOpacity: 1,
           scrolledUnderElevation: 0,
@@ -48,6 +49,6 @@ class ApplicationAppbar extends AppBar {
                     color: color.primaryColor,
                   ),
                 ]
-              : [],
+              : (actions ?? []),
         );
 }

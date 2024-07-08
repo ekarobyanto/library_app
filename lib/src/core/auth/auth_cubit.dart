@@ -36,6 +36,7 @@ class AuthCubit extends Cubit<AuthState> {
   emailSignIn(AuthParams params) async {
     try {
       emit(const _Loading('Signing in...'));
+      User? currentUser = firebaseAuthService.currentUser;
       UserCredential? userCred =
           await firebaseAuthService.signInWithEmailAndPassword(
         email: params.email,
@@ -45,7 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
         await firebaseAuthService.currentUser?.updateDisplayName(params.name);
       }
       if (userCred.user != null) {
-        emit(_SignedIn(userCred: userCred));
+        emit(_SignedIn(userCred: currentUser));
       } else {
         emit(const _Error(message: defaultAuthError));
       }
@@ -78,7 +79,7 @@ class AuthCubit extends Cubit<AuthState> {
       log(idToken ?? 'No user found');
       log(firebaseAuthService.currentUser?.displayName ?? '--');
       if (idToken != null) {
-        emit(const _SignedIn());
+        emit(_SignedIn(userCred: firebaseAuthService.currentUser));
       }
     } on FirebaseAuthException catch (err) {
       emit(_Error(message: err.message ?? defaultAuthError));

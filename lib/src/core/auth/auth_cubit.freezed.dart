@@ -19,7 +19,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -28,7 +28,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -37,7 +37,7 @@ mixin _$AuthState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,
@@ -156,7 +156,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -168,7 +168,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -180,7 +180,7 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,
@@ -248,7 +248,7 @@ abstract class _$$SignedInImplCopyWith<$Res> {
           _$SignedInImpl value, $Res Function(_$SignedInImpl) then) =
       __$$SignedInImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserCredential? userCred});
+  $Res call({User? userCred});
 }
 
 /// @nodoc
@@ -268,7 +268,7 @@ class __$$SignedInImplCopyWithImpl<$Res>
       userCred: freezed == userCred
           ? _value.userCred
           : userCred // ignore: cast_nullable_to_non_nullable
-              as UserCredential?,
+              as User?,
     ));
   }
 }
@@ -279,7 +279,7 @@ class _$SignedInImpl implements _SignedIn {
   const _$SignedInImpl({this.userCred});
 
   @override
-  final UserCredential? userCred;
+  final User? userCred;
 
   @override
   String toString() {
@@ -308,7 +308,7 @@ class _$SignedInImpl implements _SignedIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -320,7 +320,7 @@ class _$SignedInImpl implements _SignedIn {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -332,7 +332,7 @@ class _$SignedInImpl implements _SignedIn {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,
@@ -386,9 +386,9 @@ class _$SignedInImpl implements _SignedIn {
 }
 
 abstract class _SignedIn implements AuthState {
-  const factory _SignedIn({final UserCredential? userCred}) = _$SignedInImpl;
+  const factory _SignedIn({final User? userCred}) = _$SignedInImpl;
 
-  UserCredential? get userCred;
+  User? get userCred;
   @JsonKey(ignore: true)
   _$$SignedInImplCopyWith<_$SignedInImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -433,7 +433,7 @@ class _$SignedUpImpl implements _SignedUp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -445,7 +445,7 @@ class _$SignedUpImpl implements _SignedUp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -457,7 +457,7 @@ class _$SignedUpImpl implements _SignedUp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,
@@ -553,7 +553,7 @@ class _$SignedOutImpl implements _SignedOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -565,7 +565,7 @@ class _$SignedOutImpl implements _SignedOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -577,7 +577,7 @@ class _$SignedOutImpl implements _SignedOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,
@@ -699,7 +699,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message) loading,
-    required TResult Function(UserCredential? userCred) signedIn,
+    required TResult Function(User? userCred) signedIn,
     required TResult Function() signedUp,
     required TResult Function() signedOut,
     required TResult Function(String message) error,
@@ -711,7 +711,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message)? loading,
-    TResult? Function(UserCredential? userCred)? signedIn,
+    TResult? Function(User? userCred)? signedIn,
     TResult? Function()? signedUp,
     TResult? Function()? signedOut,
     TResult? Function(String message)? error,
@@ -723,7 +723,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message)? loading,
-    TResult Function(UserCredential? userCred)? signedIn,
+    TResult Function(User? userCred)? signedIn,
     TResult Function()? signedUp,
     TResult Function()? signedOut,
     TResult Function(String message)? error,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/user/presentation/widget/user_header.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/horizontal_book_list.dart';
 
 class UserScreen extends StatelessWidget {
@@ -31,8 +32,9 @@ class UserScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const UserHeader(
+                          UserHeader(
                             showLogout: true,
+                            backgroundColor: color.primaryShade,
                           ),
                           const SizedBox(
                             height: 16,

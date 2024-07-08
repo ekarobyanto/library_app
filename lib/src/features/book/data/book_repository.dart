@@ -3,34 +3,20 @@ import 'package:library_app/src/core/config/app_repository.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/features/book/dto/create_book.dto.dart';
+import 'package:library_app/src/model/query_params.dart';
 import 'package:library_app/src/model/response.dart';
-
-class BookParam {
-  final String url;
-  final String? search;
-  final String? filter;
-
-  BookParam({
-    required this.url,
-    this.search,
-    this.filter,
-  });
-}
 
 class BookRepository extends AppRepository {
   BookRepository({required super.service});
 
   Future<List<Book>> getBooksFromUrl({
     required String url,
-    String? search,
+    QueryParams? query,
   }) async {
     try {
-      return await service.dio.get(
-        url,
-        queryParameters: {
-          'search': (search ?? ''),
-        },
-      ).then(
+      return await service.dio.get(url, queryParameters: {
+        ...query!.toJson(),
+      }).then(
         (res) => (res.data as DefaultResponse<List<Map<String, dynamic>>>)
             .data
             .map((res) => Book.fromJson(res))
