@@ -75,6 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
           await firebaseAuthService.currentUser?.getIdToken();
       final User? user = firebaseAuthService.currentUser;
       logger.i(user);
+      logger.i(idToken);
       if (idToken == null) {
         emit(const _SignedOut());
       } else {

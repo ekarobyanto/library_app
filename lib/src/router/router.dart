@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
 import 'package:library_app/src/features/book/presentation/book_category_list/book_category_list.dart';
@@ -7,7 +8,8 @@ import 'package:library_app/src/features/book/presentation/book_screen/book_scre
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
-import 'package:library_app/src/features/library/presentation/library_search.dart';
+import 'package:library_app/src/features/library/presentation/search/cubit/book_search_cubit.dart';
+import 'package:library_app/src/features/library/presentation/search/library_search.dart';
 import 'package:library_app/src/features/main_scaffold.dart';
 import 'package:library_app/src/features/report/presentation/create_report.dart';
 import 'package:library_app/src/features/report/presentation/report_detail.dart';
@@ -49,8 +51,13 @@ final GoRouter router = GoRouter(
               route: 'search-books',
               routeName: 'search-books',
               navigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: LibrarySearchScreen(),
+              pageBuilder: (context, state) => NoTransitionPage(
+                child: BlocProvider(
+                  create: (context) => BookSearchCubit(
+                    bookRepository: context.read(),
+                  )..checkInit(),
+                  child: const LibrarySearchScreen(),
+                ),
               ),
             ),
             createGoRouteInstance(

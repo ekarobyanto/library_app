@@ -10,7 +10,7 @@ class BookCategory with _$BookCategory {
     required String id,
     required String name,
     required String description,
-    // @Default([]) List<Book> books,
+    @Default([]) List<Book> books,
   }) = _BookCategory;
 
   factory BookCategory.fromJson(Map<String, dynamic> json) =>
