@@ -64,7 +64,7 @@ class LibraryScreen extends StatelessWidget {
                       'title': 'Recent Books',
                       'url': '/book',
                     }),
-                    books: const ["", "", "", ""],
+                    books: const [],
                   ),
                   const SizedBox(height: 12),
                   HorizontalBookList(
@@ -74,7 +74,7 @@ class LibraryScreen extends StatelessWidget {
                       'title': 'Recently Read',
                       'url': '/recently-read',
                     }),
-                    books: const ["", "", "", ""],
+                    books: const [],
                   ),
                   const SizedBox(height: 12),
                   HorizontalBookList(
@@ -84,7 +84,7 @@ class LibraryScreen extends StatelessWidget {
                       'title': 'Favorite Books',
                       'url': '/favorite-books',
                     }),
-                    books: const ["", "", "", ""],
+                    books: const [],
                   ),
                 ],
               ),

@@ -93,36 +93,45 @@ class _BookCategoryListState extends State<BookCategoryList> {
                   allowImplicitScrolling: false,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    ListView.separated(
-                      itemCount: categories.length,
-                      padding: const EdgeInsets.all(8),
-                      separatorBuilder: (ctx, index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (context, index) => HorizontalBookList(
-                        showAll: true,
-                        books: const [],
-                        label: categories[index].name,
-                        showAllCallback: () =>
-                            router.push('/book-list', extra: {
-                          'title': categories[index].name,
-                          'url': '/book?category_id=${categories[index].id}',
-                        }),
+                    RefreshIndicator(
+                      onRefresh: () async =>
+                          context.read<CategoryListCubit>().getCategories(),
+                      child: ListView.separated(
+                        itemCount: categories.length,
+                        padding: const EdgeInsets.all(8),
+                        separatorBuilder: (ctx, index) =>
+                            const SizedBox(height: 8),
+                        itemBuilder: (context, index) => HorizontalBookList(
+                          showAll: true,
+                          canUploadBook: false,
+                          books: categories[index].books,
+                          label: categories[index].name,
+                          showAllCallback: () =>
+                              router.push('/book-list', extra: {
+                            'title': categories[index].name,
+                            'url': '/book?category_id=${categories[index].id}',
+                          }),
+                        ),
                       ),
                     ),
-                    ListView.separated(
-                      itemCount: categories.length,
-                      padding: const EdgeInsets.all(8),
-                      separatorBuilder: (ctx, index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (context, index) => ListTile(
-                        title: Text(
-                          "${categories[index].name} (${categories[index].books.length} books)",
+                    RefreshIndicator(
+                      onRefresh: () async =>
+                          context.read<CategoryListCubit>().getCategories(),
+                      child: ListView.separated(
+                        itemCount: categories.length,
+                        padding: const EdgeInsets.all(8),
+                        separatorBuilder: (ctx, index) =>
+                            const SizedBox(height: 8),
+                        itemBuilder: (context, index) => ListTile(
+                          title: Text(
+                            "${categories[index].name} (${categories[index].books.length} books)",
+                          ),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => router.push('/book-list', extra: {
+                            'title': categories[index].name,
+                            'url': '/book?category_id=${categories[index].id}',
+                          }),
                         ),
-                        trailing: const Icon(Icons.chevron_right),
-                        onTap: () => router.push('/book-list', extra: {
-                          'title': categories[index].name,
-                          'url': '/book?category_id=${categories[index].id}',
-                        }),
                       ),
                     )
                   ],

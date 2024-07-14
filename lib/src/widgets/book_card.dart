@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
 
 class BookCard extends StatelessWidget {
   final Widget? extendWidget;
   final Function()? onPress;
-  const BookCard({super.key, this.extendWidget, this.onPress});
+  final Book? book;
+  const BookCard({super.key, this.extendWidget, this.onPress, this.book});
 
   @override
   Widget build(BuildContext context) {
@@ -28,41 +30,40 @@ class BookCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: 'book-image',
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey[200],
+            Container(
+              width: double.maxFinite,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey[200],
+              ),
+              child: CachedNetworkImage(
+                imageUrl:
+                    book?.thumbnailUrl ?? 'https://via.placeholder.com/150',
+                height: 160,
+                fit: BoxFit.fill,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: 'https://via.placeholder.com/150',
-                  height: 160,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             const SizedBox(height: 8),
-            const Text(
-              'Book Title asdasasas',
+            Text(
+              book?.name ?? 'Book Name',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Author Name',
+            Text(
+              book?.author?.name ?? 'Author Name',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.grey,
               ),

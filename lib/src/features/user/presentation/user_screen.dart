@@ -62,7 +62,7 @@ class UserScreen extends StatelessWidget {
                               'title': 'Favorite Books',
                               'url': '/favorite-books',
                             }),
-                            books: const ['', '', '', ''],
+                            books: const [],
                           ),
                           const SizedBox(
                             height: 16,
@@ -75,7 +75,7 @@ class UserScreen extends StatelessWidget {
                               'title': 'Recently Read',
                               'url': '/recently-read',
                             }),
-                            books: const ['', '', '', ''],
+                            books: const [],
                           ),
                         ],
                       ),

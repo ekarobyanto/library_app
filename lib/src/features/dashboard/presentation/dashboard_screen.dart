@@ -49,11 +49,11 @@ class DashboardScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     const HorizontalBookList(
                       label: "Recently Read",
-                      books: ['', '', ''],
+                      books: [],
                     ),
                     const HorizontalBookList(
                       label: "Popular Books",
-                      books: ['', '', ''],
+                      books: [],
                     )
                   ],
                 ),

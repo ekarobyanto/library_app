@@ -40,7 +40,8 @@ class UserHeader extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl: (state.whenOrNull(
-                          signedIn: (userCred) => userCred?.photoURL)) ??
+                        signedIn: (userCred) => userCred?.photoURL,
+                      )) ??
                       'https://via.placeholder.com/150',
                   placeholder: (context, url) =>
                       const CircularProgressIndicator(),

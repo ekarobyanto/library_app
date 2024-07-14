@@ -8,9 +8,11 @@ class CategoryRepository extends AppRepository {
   Future<List<BookCategory>> getCategories({
     Map<String, dynamic>? params,
   }) async {
-    final response = await service.get('/categories', params: params);
+    final response = await service.get('/category-preview', params: params);
     logger.i(response);
-    final categories = response.data['data'] as List;
-    return categories.map((e) => BookCategory.fromJson(e)).toList();
+    final categories = response.data['data'] as Map<String, dynamic>;
+    return (categories["category"] as List)
+        .map((e) => BookCategory.fromJson(e))
+        .toList();
   }
 }

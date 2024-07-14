@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/features/book/presentation/widgets/empty_book.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
@@ -7,7 +8,7 @@ import 'package:library_app/src/widgets/upload_book_card.dart';
 
 class HorizontalBookList extends StatelessWidget {
   final String? label;
-  final List<String> books;
+  final List<Book> books;
   final bool canUploadBook;
   final bool showAll;
   final Function()? showAllCallback;
@@ -73,7 +74,8 @@ class HorizontalBookList extends StatelessWidget {
                         );
                       }
                       return BookCard(
-                        onPress: () => router.push('/book/${1}'),
+                        book: books[index],
+                        onPress: () => router.push('/book/${books[index].id}'),
                       );
                     },
                   ),
