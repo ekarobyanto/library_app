@@ -44,8 +44,9 @@ final class DioService {
       final response = await dio.post(path, data: data);
       logger.i(response.data);
       return response.data;
-    } catch (e) {
-      logger.e(e);
+    } on DioException catch (e) {
+      logger.e(e.error);
+      logger.e(e.message);
       rethrow;
     }
   }

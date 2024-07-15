@@ -20,6 +20,7 @@ Future<String?> pickImage(BuildContext context) async {
     if (pickedFile == null) return null;
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: pickedFile.path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
     );
     return croppedFile?.path;
   }

@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/core/internal/logger.dart';
+import 'package:library_app/src/core/overlay/loading_overlay.dart';
+import 'package:library_app/src/core/service/dio_service.dart';
+import 'package:library_app/src/features/book/data/book_repository.dart';
+import 'package:library_app/src/features/book/data/category_repository.dart';
+import 'package:library_app/src/features/book/domain/category.dart';
+import 'package:library_app/src/features/book/dto/create_book.dto.dart';
+import 'package:library_app/src/features/book/presentation/upload_book/cubit/create_book_cubit.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/doc_field.dart';
@@ -15,15 +25,41 @@ class BookForm extends StatefulWidget {
 }
 
 class _BookFormState extends State<BookForm> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final LoadingOverlay loadingOverlay = LoadingOverlay();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
   String? docPath;
   String? imagePath;
   List<String> selectedCategories = [];
-  TextEditingController titleController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  List<BookCategory> categories = [];
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.microtask(() => fetchAndSetCategories());
+    });
+  }
+
+  Future<void> fetchAndSetCategories() async {
+    List<BookCategory> result = await fetchCategories();
+    setState(() {
+      categories = result;
+    });
+  }
+
+  Future<List<BookCategory>> fetchCategories() async {
+    return await CategoryRepository(service: context.read<DioService>())
+        .getCategories();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
   }
 
   void setDocument(String path) {
@@ -38,79 +74,141 @@ class _BookFormState extends State<BookForm> {
     });
   }
 
-  void updateCategories(List<String> categories) {
+  void updateCategories(List<String> items) {
     setState(() {
-      selectedCategories = categories;
+      selectedCategories = items;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: AppButton(
-          label: "Upload Book",
-          onPressed: () {},
-        ),
-      ),
-      appBar: ApplicationAppbar(
-        title: 'Upload Book',
-        onBackButtonPressed: () => router.pop(),
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  AppTextField(
-                    label: 'Title',
-                    placeholder: 'Enter book title',
-                    controller: titleController,
-                  ),
-                  const SizedBox(height: 12),
-                  AppMultiDropdown(
-                    label: "Categories",
-                    placeholder: "Select categories",
-                    items: const [],
-                    selectedItems: const [],
-                    onChanged: updateCategories,
-                    validator: (_) {
-                      if (selectedCategories.isEmpty) {
-                        return 'Select at least one category';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  AppTextField(
-                    minLines: 4,
-                    maxLines: 4,
-                    label: 'Description',
-                    placeholder: 'Enter book description',
-                    controller: descriptionController,
-                  ),
-                  const SizedBox(height: 12),
-                  ImageField(
-                    label: 'Book Cover',
-                    image: imagePath,
-                    onImageChanged: setImage,
-                  ),
-                  const SizedBox(height: 12),
-                  DocumentField(
-                    docPath: docPath,
-                    onDocumentChanged: setDocument,
-                  )
-                ],
+    return BlocProvider(
+      create: (context) => CreateBookCubit(context.read<BookRepository>()),
+      child: BlocListener<CreateBookCubit, CreateBookState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            created: () {
+              loadingOverlay.hide();
+              router.pop();
+            },
+            loading: () => loadingOverlay.show(context, "Creating book..."),
+            error: (message) {
+              loadingOverlay.hide();
+              showAlert(
+                context: context,
+                message: message ?? 'Something went wrong',
+              );
+            },
+            orElse: () {},
+          );
+        },
+        child: Builder(builder: (context) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton(
+                label: "Upload Book",
+                onPressed: () {
+                  if ((imagePath?.isEmpty ?? true)) {
+                    showAlert(
+                        context: context,
+                        message: 'Please select a book cover');
+                  }
+                  if ((docPath?.isEmpty ?? true)) {
+                    showAlert(
+                        context: context,
+                        message: 'Please select a book document');
+                  }
+
+                  if (formKey.currentState?.validate() ?? false) {
+                    final book = CreateBookDTO(
+                      title: titleController.text,
+                      description: descriptionController.text,
+                      categories: selectedCategories
+                          .map((selectedCategory) => categories
+                              .firstWhere((category) =>
+                                  category.name == selectedCategory)
+                              .id)
+                          .toList(),
+                      docUrl: docPath!,
+                      thumbnailUrl: imagePath!,
+                    );
+                    context.read<CreateBookCubit>().createBook(book: book);
+                  }
+                },
               ),
             ),
-          ),
-        ),
+            appBar: ApplicationAppbar(
+              title: 'Upload Book',
+              onBackButtonPressed: () => router.pop(),
+            ),
+            body: SafeArea(
+              child: GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SingleChildScrollView(
+                  physics: const ClampingScrollPhysics(),
+                  child: Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          AppTextField(
+                            label: 'Title',
+                            placeholder: 'Enter book title',
+                            controller: titleController,
+                            onValidate: (value) => (value?.isEmpty ?? true)
+                                ? 'Enter book title'
+                                : null,
+                          ),
+                          const SizedBox(height: 12),
+                          AppMultiDropdown(
+                            label: "Categories",
+                            placeholder: "Select categories",
+                            items: categories
+                                .map((category) => category.name)
+                                .toList(),
+                            selectedItems: selectedCategories,
+                            onChanged: updateCategories,
+                            validator: (values) {
+                              if ((values?.isEmpty ?? true)) {
+                                return 'Select at least one category';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 12),
+                          AppTextField(
+                            minLines: 4,
+                            maxLines: 4,
+                            label: 'Description',
+                            placeholder: 'Enter book description',
+                            controller: descriptionController,
+                            onValidate: (value) => (value?.isEmpty ?? true)
+                                ? 'Enter book description'
+                                : null,
+                          ),
+                          const SizedBox(height: 12),
+                          ImageField(
+                            label: 'Book Cover',
+                            image: imagePath,
+                            onImageChanged: setImage,
+                          ),
+                          const SizedBox(height: 12),
+                          DocumentField(
+                            docPath: docPath,
+                            onDocumentChanged: setDocument,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

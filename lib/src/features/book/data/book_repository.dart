@@ -34,14 +34,18 @@ class BookRepository extends AppRepository {
   }
 
   Future<void> createBook(CreateBookDTO createBookDTO) async {
+    logger.i(createBookDTO.toJson());
     try {
+      final data = FormData.fromMap({
+        ...createBookDTO.toJson(),
+        "doc_url": MultipartFile.fromString(createBookDTO.docUrl),
+        "thumbnail_url": MultipartFile.fromString(createBookDTO.thumbnailUrl)
+      });
+      logger.d(data.fields);
+      logger.d(data.files);
       await service.dio.post(
         '/book',
-        data: {
-          ...createBookDTO.toJson(),
-          "doc_url": MultipartFile.fromString(createBookDTO.docUrl),
-          "thumbnail_url": MultipartFile.fromString(createBookDTO.thumbnailUrl)
-        },
+        data: data,
         options: Options(contentType: 'multipart/form-data'),
       );
     } catch (e) {
