@@ -65,35 +65,41 @@ class CommunityChatScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        message.senderName,
-                                        style: TextStyle(
-                                          color: message.id == user?.uid
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontWeight: FontWeight.bold,
+                                  if (message.id != user?.uid)
+                                    Column(
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              message.senderName,
+                                              style: TextStyle(
+                                                color: message.id == user?.uid
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              parseDateTime(
+                                                message.timestamp,
+                                                withTime: true,
+                                              ),
+                                              style: TextStyle(
+                                                color: message.id == user?.uid
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        parseDateTime(
-                                          message.timestamp,
-                                          withTime: true,
-                                        ),
-                                        style: TextStyle(
-                                          color: message.id == user?.uid
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 4),
+                                        const SizedBox(height: 4),
+                                      ],
+                                    ),
                                   Text(
                                     message.message,
                                     style: TextStyle(
