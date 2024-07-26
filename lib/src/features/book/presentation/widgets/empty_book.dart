@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 
 class EmptyBook extends StatelessWidget {
-  const EmptyBook({super.key});
+  final String? label;
+  final Function()? onRefresh;
+  const EmptyBook({super.key, this.label, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          const Icon(
             Icons.book,
             size: 100,
             color: Colors.grey,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            'No books found',
-            style: TextStyle(
+            label ?? 'No books found',
+            style: const TextStyle(
               color: Colors.grey,
               fontSize: 18,
             ),
           ),
+          if (onRefresh != null) ...[
+            const SizedBox(height: 8),
+            IconButton(
+              onPressed: onRefresh,
+              icon: Icon(
+                Icons.refresh,
+                size: 30,
+                color: color.primaryColor,
+              ),
+            ),
+          ],
         ],
       ),
     );

@@ -9,6 +9,8 @@ import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
 import 'package:library_app/src/core/service/dio_service.dart';
 import 'package:library_app/src/core/service/remote_config_service.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
+import 'package:library_app/src/features/book/data/category_repository.dart';
+import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
@@ -55,6 +57,13 @@ class App extends StatelessWidget {
               firebaseAuthService: context.read<FirebaseAuthService>(),
             )..checkAuthState(),
           ),
+          BlocProvider(
+            create: (context) => CategoryListCubit(
+              categoryRepository: CategoryRepository(
+                service: context.read<DioService>(),
+              ),
+            )..getCategories(),
+          )
         ],
         child: MaterialApp.router(
           title: 'Library App',

@@ -10,9 +10,8 @@ class CategoryRepository extends AppRepository {
   }) async {
     final response = await service.get('/category-preview', params: params);
     logger.i(response);
-    final categories = response.data['data'] as Map<String, dynamic>;
-    return (categories["category"] as List)
-        .map((e) => BookCategory.fromJson(e))
-        .toList();
+    final data = response.data['data'] as Map<String, dynamic>;
+    final category = data['category'] as List?;
+    return (category ?? []).map((e) => BookCategory.fromJson(e)).toList();
   }
 }

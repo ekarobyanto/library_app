@@ -34,7 +34,6 @@ class BookRepository extends AppRepository {
   }
 
   Future<void> createBook(CreateBookDTO createBookDTO) async {
-    logger.i(createBookDTO.toJson());
     try {
       final data = FormData.fromMap({
         ...createBookDTO.toJson(),

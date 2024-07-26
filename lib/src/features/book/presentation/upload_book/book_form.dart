@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/core/overlay/loading_overlay.dart';
-import 'package:library_app/src/core/service/dio_service.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
-import 'package:library_app/src/features/book/data/category_repository.dart';
-import 'package:library_app/src/features/book/domain/category.dart';
 import 'package:library_app/src/features/book/dto/create_book.dto.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/cubit/create_book_cubit.dart';
+import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
@@ -33,34 +30,6 @@ class _BookFormState extends State<BookForm> {
   String? docPath;
   String? imagePath;
   List<String> selectedCategories = [];
-  List<BookCategory> categories = [];
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.microtask(() => fetchAndSetCategories());
-    });
-  }
-
-  Future<void> fetchAndSetCategories() async {
-    List<BookCategory> result = await fetchCategories();
-    setState(() {
-      categories = result;
-    });
-  }
-
-  Future<List<BookCategory>> fetchCategories() async {
-    return await CategoryRepository(service: context.read<DioService>())
-        .getCategories();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    titleController.dispose();
-    descriptionController.dispose();
-  }
 
   void setDocument(String path) {
     setState(() {
@@ -82,16 +51,20 @@ class _BookFormState extends State<BookForm> {
 
   @override
   Widget build(BuildContext context) {
+    final categories = context.read<CategoryListCubit>().state.whenOrNull(
+              success: (categories) => categories,
+            ) ??
+        [];
     return BlocProvider(
       create: (context) => CreateBookCubit(context.read<BookRepository>()),
       child: BlocListener<CreateBookCubit, CreateBookState>(
         listener: (context, state) {
-          state.maybeWhen(
+          state.whenOrNull(
             created: () {
               loadingOverlay.hide();
               router.pop();
             },
-            loading: () => loadingOverlay.show(context, "Creating book..."),
+            loading: () => loadingOverlay.show(context, "Submitting book..."),
             error: (message) {
               loadingOverlay.hide();
               showAlert(
@@ -99,7 +72,6 @@ class _BookFormState extends State<BookForm> {
                 message: message ?? 'Something went wrong',
               );
             },
-            orElse: () {},
           );
         },
         child: Builder(builder: (context) {
@@ -125,12 +97,15 @@ class _BookFormState extends State<BookForm> {
                     final book = CreateBookDTO(
                       title: titleController.text,
                       description: descriptionController.text,
-                      categories: selectedCategories
-                          .map((selectedCategory) => categories
-                              .firstWhere((category) =>
-                                  category.name == selectedCategory)
-                              .id)
-                          .toList(),
+                      categories:
+                          context.read<CategoryListCubit>().state.whenOrNull(
+                                    success: (categories) => categories
+                                        .where((category) => selectedCategories
+                                            .contains(category.name))
+                                        .map((category) => category.id)
+                                        .toList(),
+                                  ) ??
+                              [],
                       docUrl: docPath!,
                       thumbnailUrl: imagePath!,
                     );
