@@ -56,7 +56,7 @@ class _MainScaffoldState extends State<MainScaffold> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),
-        onPressed: () => router.go('/upload-book'),
+        onPressed: () => router.push('/community-chat'),
         backgroundColor: color.primaryColor,
         child: const Icon(
           Icons.people,

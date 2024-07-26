@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -47,6 +48,9 @@ class App extends StatelessWidget {
           create: (context) => BookRepository(
             service: context.read<DioService>(),
           ),
+        ),
+        RepositoryProvider(
+          create: (context) => FirebaseFirestore.instance,
         ),
       ],
       child: MultiBlocProvider(

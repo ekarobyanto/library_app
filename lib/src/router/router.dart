@@ -6,6 +6,7 @@ import 'package:library_app/src/features/book/presentation/book_category_list/bo
 import 'package:library_app/src/features/book/presentation/book_list/book_list.dart';
 import 'package:library_app/src/features/book/presentation/book_screen/book_screen.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
+import 'package:library_app/src/features/community/com_chat_screen.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/search/cubit/book_search_cubit.dart';
@@ -110,6 +111,10 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/create-report',
       screen: const CreateReport(),
+    ),
+    createGoRouteInstance(
+      route: '/community-chat',
+      screen: CommunityChatScreen(),
     ),
     createGoRouteInstance(
       route: '/book-list',

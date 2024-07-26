@@ -10,11 +10,13 @@ class ApplicationAppbar extends AppBar {
     PreferredSizeWidget? bottom,
     Function()? filterOnPressed,
     List<Widget>? actions,
+    double elevation = 0,
   }) : super(
           toolbarOpacity: 1,
           scrolledUnderElevation: 0,
           forceMaterialTransparency: false,
           backgroundColor: Colors.white,
+
           title: Text(
             title,
             maxLines: 1,
