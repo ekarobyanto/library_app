@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/dto/create_book.dto.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/cubit/create_book_cubit.dart';
+import 'package:library_app/src/features/book/presentation/upload_book/widgets/add_category_dialog.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
@@ -51,7 +53,7 @@ class _BookFormState extends State<BookForm> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = context.read<CategoryListCubit>().state.whenOrNull(
+    final categories = context.watch<CategoryListCubit>().state.whenOrNull(
               success: (categories) => categories,
             ) ??
         [];
@@ -146,6 +148,31 @@ class _BookFormState extends State<BookForm> {
                                 .toList(),
                             selectedItems: selectedCategories,
                             onChanged: updateCategories,
+                            validationWidgetBuilder: (context, items) =>
+                                Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  AppButton(
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          const AddCategoryDialog(),
+                                    ),
+                                    label: 'Add Category',
+                                    mode: ButtonMode.outlined,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  AppButton(
+                                      onPressed: () {
+                                        context.pop();
+                                        updateCategories(items);
+                                      },
+                                      label: 'Ok'),
+                                ],
+                              ),
+                            ),
                             validator: (values) {
                               if ((values?.isEmpty ?? true)) {
                                 return 'Select at least one category';
@@ -160,9 +187,17 @@ class _BookFormState extends State<BookForm> {
                             label: 'Description',
                             placeholder: 'Enter book description',
                             controller: descriptionController,
-                            onValidate: (value) => (value?.isEmpty ?? true)
-                                ? 'Enter book description'
-                                : null,
+                            onValidate: (value) {
+                              if ((value?.isEmpty ?? false)) {
+                                return 'Enter book description';
+                              }
+
+                              if (value!.length < 10) {
+                                return 'Description must be at least 10 characters';
+                              }
+
+                              return null;
+                            },
                           ),
                           const SizedBox(height: 12),
                           ImageField(

@@ -28,7 +28,7 @@ final class DioService {
     }
   }
 
-  Future<Response> get(String path, {Map<String, dynamic>? params}) async {
+  Future get(String path, {Map<String, dynamic>? params}) async {
     try {
       final response = await dio.get(path, queryParameters: params);
       logger.i(response.data);
@@ -39,7 +39,7 @@ final class DioService {
     }
   }
 
-  Future<Response> post(String path, {Map<String, dynamic>? data}) async {
+  Future post(String path, {required Object data, Options? option}) async {
     try {
       final response = await dio.post(path, data: data);
       logger.i(response.data);
@@ -47,11 +47,12 @@ final class DioService {
     } on DioException catch (e) {
       logger.e(e.error);
       logger.e(e.message);
+      logger.e(e.response);
       rethrow;
     }
   }
 
-  Future<Response> put(String path, {Map<String, dynamic>? data}) async {
+  Future put(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.put(path, data: data);
       logger.i(response.data);
@@ -62,7 +63,7 @@ final class DioService {
     }
   }
 
-  Future<Response> delete(String path, {Map<String, dynamic>? data}) async {
+  Future delete(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.delete(path, data: data);
       logger.i(response.data);
@@ -73,7 +74,7 @@ final class DioService {
     }
   }
 
-  Future<Response> patch(String path, {Map<String, dynamic>? data}) async {
+  Future patch(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.patch(path, data: data);
       logger.i(response.data);

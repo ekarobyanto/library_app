@@ -62,6 +62,7 @@ class App extends StatelessWidget {
             )..checkAuthState(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => CategoryListCubit(
               categoryRepository: CategoryRepository(
                 service: context.read<DioService>(),

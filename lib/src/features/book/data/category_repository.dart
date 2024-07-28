@@ -14,4 +14,16 @@ class CategoryRepository extends AppRepository {
     final category = data['category'] as List?;
     return (category ?? []).map((e) => BookCategory.fromJson(e)).toList();
   }
+
+  Future<void> addCategory(String categoryName) async {
+    try {
+      await service.post('/categories', data: {
+        'name': categoryName,
+        'description': 'category for book themed $categoryName'
+      });
+    } catch (err) {
+      logger.e('Failed to add category repo: $err');
+      rethrow;
+    }
+  }
 }

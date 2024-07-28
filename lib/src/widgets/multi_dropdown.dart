@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/src/theme/app_theme.dart';
+import 'package:library_app/src/widgets/button.dart';
 
 class AppMultiDropdown extends StatelessWidget {
   final String label;
@@ -10,6 +11,7 @@ class AppMultiDropdown extends StatelessWidget {
   final List<String> selectedItems;
   final Function(List<String>)? onChanged;
   final String? Function(List<String>?)? validator;
+  final Widget Function(BuildContext, List<String>)? validationWidgetBuilder;
 
   const AppMultiDropdown({
     Key? key,
@@ -20,6 +22,7 @@ class AppMultiDropdown extends StatelessWidget {
     required this.validator,
     this.placeholder,
     this.searchPlaceholder,
+    this.validationWidgetBuilder,
   }) : super(key: key);
 
   @override
@@ -83,6 +86,7 @@ class AppMultiDropdown extends StatelessWidget {
               listViewProps: const ListViewProps(
                 shrinkWrap: true,
               ),
+              validationWidgetBuilder: validationWidgetBuilder,
               searchFieldProps: TextFieldProps(
                 decoration: InputDecoration(
                   filled: true,
