@@ -12,6 +12,7 @@ class HorizontalBookList extends StatelessWidget {
   final bool canUploadBook;
   final bool showAll;
   final Function()? showAllCallback;
+  final String? url;
   const HorizontalBookList({
     super.key,
     this.label,
@@ -19,6 +20,7 @@ class HorizontalBookList extends StatelessWidget {
     this.canUploadBook = false,
     this.showAll = false,
     this.showAllCallback,
+    this.url,
   });
 
   @override

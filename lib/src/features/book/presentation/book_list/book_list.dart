@@ -26,6 +26,21 @@ class _BookListState extends State<BookList> {
   final TextEditingController searchController = TextEditingController();
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((duration) async {
+      await Future.delayed(const Duration(milliseconds: 500));
+      searchController.addListener(() => context.read<BookListCubit>().getBooks(
+            widget.url,
+            searchController.text.isNotEmpty
+                ? {"book_name": searchController.text}
+                : {},
+          ));
+    });
+
+    super.initState();
+  }
+
+  @override
   void dispose() {
     searchController.dispose();
     super.dispose();
@@ -56,6 +71,9 @@ class _BookListState extends State<BookList> {
         },
         child: Builder(builder: (context) {
           return BlocBuilder<BookListCubit, BookListState>(
+            buildWhen: (previous, current) =>
+                previous == const BookListState.loading() ||
+                previous == const BookListState.initial(),
             builder: (context, state) {
               return GestureDetector(
                 onTap: () => FocusScope.of(context).unfocus(),
@@ -96,15 +114,26 @@ class _BookListState extends State<BookList> {
                         ),
                       ),
                     ),
-                    success: (books) => ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: books.length,
-                      padding: const EdgeInsets.all(8),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (context, index) => BookListTile(
-                        book: books[index],
-                        onPress: () => router.push('/book/${books[index].id}'),
+                    success: (books) => RefreshIndicator(
+                      color: color.primaryColor,
+                      onRefresh: () async =>
+                          await context.read<BookListCubit>().getBooks(
+                                widget.url,
+                                searchController.text.isNotEmpty
+                                    ? {"book_name": searchController.text}
+                                    : {},
+                              ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: books.length,
+                        padding: const EdgeInsets.all(8),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                        itemBuilder: (context, index) => BookListTile(
+                          book: books[index],
+                          onPress: () =>
+                              router.push('/book/${books[index].id}'),
+                        ),
                       ),
                     ),
                     orElse: () => const SizedBox.shrink(),

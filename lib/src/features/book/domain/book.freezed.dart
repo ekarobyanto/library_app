@@ -33,6 +33,8 @@ mixin _$Book {
   List<String>? get categories => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_count')
   int? get readCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_favorite')
+  bool? get isFavorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +55,8 @@ abstract class $BookCopyWith<$Res> {
       @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
       String? docUrl,
       List<String>? categories,
-      @JsonKey(name: 'read_count') int? readCount});
+      @JsonKey(name: 'read_count') int? readCount,
+      @JsonKey(name: 'is_favorite') bool? isFavorite});
 
   $AuthorCopyWith<$Res>? get author;
 }
@@ -80,6 +83,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? docUrl = freezed,
     Object? categories = freezed,
     Object? readCount = freezed,
+    Object? isFavorite = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -118,6 +122,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.readCount
           : readCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFavorite: freezed == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -150,7 +158,8 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
       String? docUrl,
       List<String>? categories,
-      @JsonKey(name: 'read_count') int? readCount});
+      @JsonKey(name: 'read_count') int? readCount,
+      @JsonKey(name: 'is_favorite') bool? isFavorite});
 
   @override
   $AuthorCopyWith<$Res>? get author;
@@ -175,6 +184,7 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? docUrl = freezed,
     Object? categories = freezed,
     Object? readCount = freezed,
+    Object? isFavorite = freezed,
   }) {
     return _then(_$BookImpl(
       id: freezed == id
@@ -213,6 +223,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.readCount
           : readCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFavorite: freezed == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -229,7 +243,8 @@ class _$BookImpl implements _Book {
       @JsonKey(name: 'thumbnail_url') this.thumbnailUrl = '',
       this.docUrl = '',
       final List<String>? categories = const [],
-      @JsonKey(name: 'read_count') this.readCount = 0})
+      @JsonKey(name: 'read_count') this.readCount = 0,
+      @JsonKey(name: 'is_favorite') this.isFavorite = false})
       : _categories = categories;
 
   factory _$BookImpl.fromJson(Map<String, dynamic> json) =>
@@ -270,10 +285,13 @@ class _$BookImpl implements _Book {
   @override
   @JsonKey(name: 'read_count')
   final int? readCount;
+  @override
+  @JsonKey(name: 'is_favorite')
+  final bool? isFavorite;
 
   @override
   String toString() {
-    return 'Book(id: $id, name: $name, description: $description, author: $author, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories, readCount: $readCount)';
+    return 'Book(id: $id, name: $name, description: $description, author: $author, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories, readCount: $readCount, isFavorite: $isFavorite)';
   }
 
   @override
@@ -294,7 +312,9 @@ class _$BookImpl implements _Book {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             (identical(other.readCount, readCount) ||
-                other.readCount == readCount));
+                other.readCount == readCount) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite));
   }
 
   @JsonKey(ignore: true)
@@ -309,7 +329,8 @@ class _$BookImpl implements _Book {
       thumbnailUrl,
       docUrl,
       const DeepCollectionEquality().hash(_categories),
-      readCount);
+      readCount,
+      isFavorite);
 
   @JsonKey(ignore: true)
   @override
@@ -335,7 +356,8 @@ abstract class _Book implements Book {
       @JsonKey(name: 'thumbnail_url') final String? thumbnailUrl,
       final String? docUrl,
       final List<String>? categories,
-      @JsonKey(name: 'read_count') final int? readCount}) = _$BookImpl;
+      @JsonKey(name: 'read_count') final int? readCount,
+      @JsonKey(name: 'is_favorite') final bool? isFavorite}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
 
@@ -360,6 +382,9 @@ abstract class _Book implements Book {
   @override
   @JsonKey(name: 'read_count')
   int? get readCount;
+  @override
+  @JsonKey(name: 'is_favorite')
+  bool? get isFavorite;
   @override
   @JsonKey(ignore: true)
   _$$BookImplCopyWith<_$BookImpl> get copyWith =>

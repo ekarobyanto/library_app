@@ -90,4 +90,13 @@ class BookRepository extends AppRepository {
       rethrow;
     }
   }
+
+  Future<void> readBook(String bookId) async {
+    try {
+      await service.get('/read-book/$bookId');
+    } catch (err) {
+      logger.e(err);
+      rethrow;
+    }
+  }
 }

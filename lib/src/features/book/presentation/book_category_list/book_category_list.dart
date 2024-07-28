@@ -75,71 +75,83 @@ class _BookCategoryListState extends State<BookCategoryList> {
           ],
           onBackButtonPressed: router.pop,
         ),
-        body: context.watch<CategoryListCubit>().state.maybeWhen(
-              orElse: () => const SizedBox.shrink(),
-              error: (message) => ErrorFetch(
-                message: message,
-                onRetry: () =>
-                    context.read<CategoryListCubit>().getCategories(),
-              ),
-              loading: () => const Center(child: LoadingWidget()),
-              success: (categories) => categories.isEmpty
-                  ? EmptyBook(
-                      label: 'No Category Available',
-                      onRefresh:
-                          context.read<CategoryListCubit>().getCategories,
-                    )
-                  : PageView(
-                      controller: pageController,
-                      allowImplicitScrolling: false,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        RefreshIndicator(
-                          onRefresh: () async =>
-                              context.read<CategoryListCubit>().getCategories(),
-                          child: ListView.separated(
-                            itemCount: categories.length,
-                            padding: const EdgeInsets.all(8),
-                            separatorBuilder: (ctx, index) =>
-                                const SizedBox(height: 8),
-                            itemBuilder: (context, index) => HorizontalBookList(
-                              showAll: true,
-                              canUploadBook: false,
-                              books: categories[index].books,
-                              label: categories[index].name,
-                              showAllCallback: () =>
-                                  router.push('/book-list', extra: {
-                                'title': categories[index].name,
-                                'url':
-                                    '/book?category_id=${categories[index].id}',
-                              }),
+        body: BlocBuilder<CategoryListCubit, CategoryListState>(
+          buildWhen: (previous, current) =>
+              previous == const CategoryListState.initial() ||
+              previous == const CategoryListState.loading(),
+          builder: (context, state) => state.maybeWhen(
+            orElse: () => const SizedBox.shrink(),
+            error: (message) => ErrorFetch(
+              message: message,
+              onRetry: () => context.read<CategoryListCubit>().getCategories(),
+            ),
+            loading: () => const Center(child: LoadingWidget()),
+            success: (categories) => categories.isEmpty
+                ? EmptyBook(
+                    label: 'No Category Available',
+                    onRefresh: context.read<CategoryListCubit>().getCategories,
+                  )
+                : PageView(
+                    controller: pageController,
+                    allowImplicitScrolling: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      RefreshIndicator(
+                        color: color.primaryColor,
+                        onRefresh: () async =>
+                            context.read<CategoryListCubit>().getCategories(),
+                        child: ListView.separated(
+                          itemCount: categories.length,
+                          padding: const EdgeInsets.all(8),
+                          separatorBuilder: (ctx, index) =>
+                              const SizedBox(height: 8),
+                          itemBuilder: (context, index) =>
+                              categories[index].books.isNotEmpty
+                                  ? HorizontalBookList(
+                                      showAll: true,
+                                      canUploadBook: false,
+                                      books: categories[index].books,
+                                      label: categories[index].name,
+                                      showAllCallback: () =>
+                                          router.push('/book-list', extra: {
+                                        'title': categories[index].name,
+                                        'url':
+                                            '/book?category_id=${categories[index].id}',
+                                      }),
+                                    )
+                                  : const SizedBox.shrink(),
+                        ),
+                      ),
+                      RefreshIndicator(
+                        color: color.primaryColor,
+                        onRefresh: () async =>
+                            context.read<CategoryListCubit>().getCategories(),
+                        child: ListView.separated(
+                          itemCount: categories.length,
+                          padding: const EdgeInsets.all(8),
+                          separatorBuilder: (ctx, index) =>
+                              const SizedBox(height: 8),
+                          itemBuilder: (context, index) => ListTile(
+                            title: Text(
+                              "${categories[index].name} (${categories[index].books.length} books)",
                             ),
+                            trailing: categories[index].books.isNotEmpty
+                                ? const Icon(Icons.chevron_right)
+                                : null,
+                            onTap: () => categories[index].books.isNotEmpty
+                                ? router.push('/book-list', extra: {
+                                    'title': categories[index].name,
+                                    'url':
+                                        '/book?category_id=${categories[index].id}',
+                                  })
+                                : null,
                           ),
                         ),
-                        RefreshIndicator(
-                          onRefresh: () async =>
-                              context.read<CategoryListCubit>().getCategories(),
-                          child: ListView.separated(
-                            itemCount: categories.length,
-                            padding: const EdgeInsets.all(8),
-                            separatorBuilder: (ctx, index) =>
-                                const SizedBox(height: 8),
-                            itemBuilder: (context, index) => ListTile(
-                              title: Text(
-                                "${categories[index].name} (${categories[index].books.length} books)",
-                              ),
-                              trailing: const Icon(Icons.chevron_right),
-                              onTap: () => router.push('/book-list', extra: {
-                                'title': categories[index].name,
-                                'url':
-                                    '/book?category_id=${categories[index].id}',
-                              }),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-            ),
+                      )
+                    ],
+                  ),
+          ),
+        ),
       );
     });
   }

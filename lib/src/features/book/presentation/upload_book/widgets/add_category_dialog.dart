@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/cubit/add_category_cubit.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
+import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
@@ -63,11 +63,11 @@ class AddCategoryDialog extends StatelessWidget {
             ),
             actions: [
               AppButton(
-                onPressed: () {
-                  context.pop();
-                  context
+                onPressed: () async {
+                  await context
                       .read<AddCategoryCubit>()
                       .addCategory(categoryName.text);
+                  router.pop();
                 },
                 label: 'Add',
               )

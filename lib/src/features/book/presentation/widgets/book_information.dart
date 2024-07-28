@@ -26,14 +26,8 @@ class BookInformation extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Expanded(
-          child: Scrollbar(
-            child: SingleChildScrollView(
-              child: Text(
-                book.description ?? 'No description available',
-              ),
-            ),
-          ),
+        Text(
+          book.description ?? 'No description available',
         ),
       ],
     );

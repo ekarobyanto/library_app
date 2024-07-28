@@ -5,6 +5,7 @@ import 'package:library_app/src/features/book/presentation/book_screen/cubit/boo
 import 'package:library_app/src/features/book/presentation/widgets/book_bottom_bar.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_information.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 import 'package:library_app/src/widgets/error.dart';
 import 'package:library_app/src/widgets/loading.dart';
@@ -30,29 +31,34 @@ class BookScreen extends StatelessWidget {
               .watch<BookDetailCubit>()
               .state
               .whenOrNull(success: (book) => BookDetailBottomBar(book: book)),
-          body: context.watch<BookDetailCubit>().state.mapOrNull(
-                loading: (_) => const LoadingWidget(),
-                error: (message) => ErrorFetch(
-                  message: message.message,
-                  onRetry: () =>
-                      context.read<BookDetailCubit>().getBookDetail(bookId),
-                ),
-                success: (value) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RefreshIndicator(
-                    onRefresh: () =>
-                        context.read<BookDetailCubit>().getBookDetail(bookId),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height,
-                        child: BookInformation(
-                          book: value.book,
-                        ),
-                      ),
+          body: BlocBuilder<BookDetailCubit, BookDetailState>(
+            buildWhen: (previous, current) =>
+                previous == const BookDetailState.loading() ||
+                previous == const BookDetailState.initial(),
+            builder: (context, state) => state.maybeWhen(
+              orElse: () => const SizedBox.shrink(),
+              loading: () => const LoadingWidget(),
+              error: (message) => ErrorFetch(
+                message: message ?? 'Something went wrong',
+                onRetry: () =>
+                    context.read<BookDetailCubit>().getBookDetail(bookId),
+              ),
+              success: (value) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RefreshIndicator(
+                  color: color.primaryColor,
+                  onRefresh: () async => await context
+                      .read<BookDetailCubit>()
+                      .getBookDetail(bookId),
+                  child: SingleChildScrollView(
+                    child: BookInformation(
+                      book: value,
                     ),
                   ),
                 ),
               ),
+            ),
+          ),
         );
       }),
     );

@@ -40,4 +40,13 @@ class BookDetailCubit extends Cubit<BookDetailState> {
       rethrow;
     }
   }
+
+  Future<void> readBook(String bookId) async {
+    try {
+      await bookRepository.readBook(bookId);
+    } catch (err) {
+      logger.e(err);
+      rethrow;
+    }
+  }
 }

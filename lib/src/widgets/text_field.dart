@@ -11,6 +11,7 @@ class AppTextField extends StatefulWidget {
   final Icon? leftIcon;
   final int? minLines;
   final int? maxLines;
+  final Function()? onTap;
   final bool? enabled;
 
   const AppTextField({
@@ -24,6 +25,7 @@ class AppTextField extends StatefulWidget {
     this.leftIcon,
     this.minLines,
     this.maxLines,
+    this.onTap,
     this.enabled,
   });
 
@@ -62,6 +64,7 @@ class _AppTextFieldState extends State<AppTextField> {
           minLines: widget.minLines ?? 1,
           maxLines: widget.maxLines ?? 1,
           enabled: (widget.enabled ?? true),
+          onTap: widget.onTap,
           controller: widget.controller,
           validator: widget.onValidate,
           cursorColor: color.primaryColor,

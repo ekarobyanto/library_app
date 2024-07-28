@@ -17,6 +17,7 @@ class Book with _$Book {
     @Default('') String? docUrl,
     @Default([]) List<String>? categories,
     @JsonKey(name: 'read_count') @Default(0) int? readCount,
+    @JsonKey(name: 'is_favorite') @Default(false) bool? isFavorite,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
