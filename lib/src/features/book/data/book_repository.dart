@@ -58,17 +58,35 @@ class BookRepository extends AppRepository {
 
   Future<void> updateBook(CreateBookDTO createBookDTO) async {
     try {
-      await service.dio.post(
+      await service.post(
         '/book',
         data: {
           ...createBookDTO.toJson(),
           "doc_url": MultipartFile.fromString(createBookDTO.docUrl),
           "thumbnail_url": MultipartFile.fromString(createBookDTO.thumbnailUrl)
         },
-        options: Options(contentType: 'multipart/form-data'),
+        option: Options(contentType: 'multipart/form-data'),
       );
     } catch (e) {
       logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> addBookToFavorite(String bookId) async {
+    try {
+      await service.post('/favorite/$bookId');
+    } catch (err) {
+      logger.e(err);
+      rethrow;
+    }
+  }
+
+  Future<void> removeBookFromFavorite(String bookId) async {
+    try {
+      await service.delete('/favorite/$bookId');
+    } catch (err) {
+      logger.e(err);
       rethrow;
     }
   }

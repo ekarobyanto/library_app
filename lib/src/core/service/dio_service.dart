@@ -39,7 +39,7 @@ final class DioService {
     }
   }
 
-  Future post(String path, {required Object data, Options? option}) async {
+  Future post(String path, {Object? data, Options? option}) async {
     try {
       final response = await dio.post(path, data: data);
       logger.i(response.data);

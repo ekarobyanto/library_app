@@ -12,7 +12,7 @@ class BookDetailCubit extends Cubit<BookDetailState> {
   BookDetailCubit({required this.bookRepository})
       : super(const BookDetailState.initial());
 
-  Future<void> getBookDetail(String id) async {
+  getBookDetail(String id) async {
     emit(const BookDetailState.loading());
     try {
       final book = await bookRepository.getBookById(id);
@@ -20,6 +20,24 @@ class BookDetailCubit extends Cubit<BookDetailState> {
       emit(BookDetailState.success(book: book));
     } catch (e) {
       emit(BookDetailState.error(message: e.toString()));
+    }
+  }
+
+  Future<void> addToFavorite(String bookId) async {
+    try {
+      await bookRepository.addBookToFavorite(bookId);
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> deleteFromFavorite(String bookId) async {
+    try {
+      await bookRepository.removeBookFromFavorite(bookId);
+    } catch (e) {
+      logger.e(e);
+      rethrow;
     }
   }
 }

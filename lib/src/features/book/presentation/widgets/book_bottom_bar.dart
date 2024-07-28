@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
+import 'package:library_app/src/features/book/presentation/book_screen/cubit/book_detail_cubit.dart';
 import 'package:library_app/src/widgets/button.dart';
 
 class BookDetailBottomBar extends StatefulWidget {
   final bool isFavorite;
+  final Book book;
 
   const BookDetailBottomBar({
     super.key,
     this.isFavorite = false,
+    required this.book,
   });
 
   @override
@@ -22,10 +27,23 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
     isFavorite = widget.isFavorite;
   }
 
-  onFavoritePressed() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
+  onFavoritePressed() async {
+    try {
+      if (isFavorite) {
+        await context
+            .read<BookDetailCubit>()
+            .deleteFromFavorite(widget.book.id!);
+      } else {
+        await context.read<BookDetailCubit>().addToFavorite(widget.book.id!);
+      }
+      setState(() {
+        isFavorite = !isFavorite;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+      ));
+    }
   }
 
   @override

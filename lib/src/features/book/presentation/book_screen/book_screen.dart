@@ -29,14 +29,27 @@ class BookScreen extends StatelessWidget {
           bottomNavigationBar: context
               .watch<BookDetailCubit>()
               .state
-              .mapOrNull(success: (_) => const BookDetailBottomBar()),
+              .whenOrNull(success: (book) => BookDetailBottomBar(book: book)),
           body: context.watch<BookDetailCubit>().state.mapOrNull(
                 loading: (_) => const LoadingWidget(),
-                error: (message) => ErrorFetch(message: message.message),
+                error: (message) => ErrorFetch(
+                  message: message.message,
+                  onRetry: () =>
+                      context.read<BookDetailCubit>().getBookDetail(bookId),
+                ),
                 success: (value) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: BookInformation(
-                    book: value.book,
+                  child: RefreshIndicator(
+                    onRefresh: () =>
+                        context.read<BookDetailCubit>().getBookDetail(bookId),
+                    child: SingleChildScrollView(
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        child: BookInformation(
+                          book: value.book,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
