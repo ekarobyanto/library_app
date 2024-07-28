@@ -28,6 +28,7 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
   }
 
   onFavoritePressed() async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     try {
       if (isFavorite) {
         await context
@@ -40,7 +41,7 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
         isFavorite = !isFavorite;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      scaffoldMessenger.showSnackBar(SnackBar(
         content: Text(e.toString()),
       ));
     }
