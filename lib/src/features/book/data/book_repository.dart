@@ -56,6 +56,15 @@ class BookRepository extends AppRepository {
     }
   }
 
+  Future<void> deleteBook(String id) async {
+    try {
+      await service.delete('/book/$id');
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
   Future<void> updateBook(CreateBookDTO createBookDTO) async {
     try {
       await service.post(

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
+import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/features/book/presentation/book_screen/cubit/book_detail_cubit.dart';
+import 'package:library_app/src/features/book/presentation/book_screen/cubit/delete_book_cubit.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +27,7 @@ class BookDetailBottomBar extends StatefulWidget {
 
 class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
   late bool isFavorite = widget.book.isFavorite!;
+  LoadingOverlay loadingOverlay = LoadingOverlay();
 
   onFavoritePressed() async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -79,24 +84,69 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final user =
+        context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
+    final isUserBook = user?.uid == widget.book.author?.id;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(8),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: AppButton(
-              onPressed: onFavoritePressed,
-              label: "Add to favorite",
-              icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+          if (isUserBook)
+            SizedBox(
+              width: double.maxFinite,
+              child: AppButton(
+                onPressed: () => showAlert(
+                  context: context,
+                  title: 'Delete Book?',
+                  message: 'This action is irreversible, proceed?',
+                  actionButtons: [
+                    TextButton(
+                      onPressed: router.pop,
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color?>(
+                          Colors.transparent,
+                        ),
+                      ),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context
+                            .read<DeleteBookCubit>()
+                            .deleteBook(widget.book.id!);
+                        context.pop();
+                      },
+                      child: const Text('Ok'),
+                    )
+                  ],
+                ),
+                label: "Delete Book",
+                buttonColor: Colors.red,
+                icon: Icons.delete,
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: AppButton(
-              onPressed: onReadBook,
-              label: "Read Book",
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: AppButton(
+                  onPressed: onFavoritePressed,
+                  label: "Add to favorite",
+                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: AppButton(
+                  onPressed: onReadBook,
+                  label: "Read Book",
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -54,10 +54,12 @@ class UserScreen extends StatelessWidget {
                                   itemBuilder: (context, index) =>
                                       HorizontalBookList(
                                     showAll: true,
+                                    canUploadBook:
+                                        sortedList[index].title == 'My Books',
                                     label: sortedList[index].title,
                                     books: sortedList[index].books,
-                                    showAllCallback: () async {
-                                      await context.push(
+                                    showAllCallback: () {
+                                      context.push(
                                         '/book-list',
                                         extra: {
                                           'title': sortedList[index].title,

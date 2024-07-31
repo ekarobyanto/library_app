@@ -7,6 +7,7 @@ import 'package:library_app/src/features/book/dto/create_book.dto.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/cubit/create_book_cubit.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/widgets/add_category_dialog.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
+import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
@@ -64,6 +65,7 @@ class _BookFormState extends State<BookForm> {
           state.whenOrNull(
             created: () {
               loadingOverlay.hide();
+              context.read<LibraryCubit>().getBooks();
               router.pop();
             },
             loading: () => loadingOverlay.show(context, "Submitting book..."),

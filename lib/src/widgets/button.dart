@@ -19,6 +19,7 @@ class AppButton extends StatelessWidget {
   final TextStyle? textStyle;
   final IconData? icon;
   final IconPosition? iconPosition;
+  final Color? buttonColor;
 
   const AppButton({
     super.key,
@@ -29,6 +30,7 @@ class AppButton extends StatelessWidget {
     this.mode = ButtonMode.contained,
     this.icon,
     this.iconPosition = IconPosition.left,
+    this.buttonColor,
   });
 
   @override
@@ -37,9 +39,10 @@ class AppButton extends StatelessWidget {
       onPressed: onPressed,
       style: buttonStyle ??
           ElevatedButton.styleFrom(
-            backgroundColor: mode == ButtonMode.contained
-                ? color.primaryColor
-                : color.primaryShade,
+            backgroundColor: buttonColor ??
+                (mode == ButtonMode.contained
+                    ? color.primaryColor
+                    : color.primaryShade),
           ),
       child: icon != null
           ? Row(
