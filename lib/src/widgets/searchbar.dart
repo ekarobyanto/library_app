@@ -44,41 +44,38 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'searchbar',
-      child: Container(
-        padding: padding,
-        color: color,
-        decoration: decoration,
-        foregroundDecoration: foregroundDecoration,
-        width: width,
-        height: height,
-        constraints: constraints,
-        margin: margin,
-        transform: transform,
-        transformAlignment: transformAlignment,
-        alignment: alignment,
-        child: GestureDetector(
-          onTap: onPress,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: TextField(
-              controller: controller,
-              enabled: isEnable ?? true,
-              focusNode: focusNode,
-              cursorColor: theme.color.primaryColor,
-              textAlignVertical: TextAlignVertical.center,
-              onSubmitted: (value) => onSearch?.call(value),
-              decoration: InputDecoration(
-                isDense: true,
-                alignLabelWithHint: true,
-                border: InputBorder.none,
-                hintText: placeholder ?? 'Search',
-                prefixIcon: const Icon(Icons.search),
-              ),
+    return Container(
+      padding: padding,
+      color: color,
+      decoration: decoration,
+      foregroundDecoration: foregroundDecoration,
+      width: width,
+      height: height,
+      constraints: constraints,
+      margin: margin,
+      transform: transform,
+      transformAlignment: transformAlignment,
+      alignment: alignment,
+      child: GestureDetector(
+        onTap: onPress,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: TextField(
+            controller: controller,
+            enabled: isEnable ?? true,
+            focusNode: focusNode,
+            cursorColor: theme.color.primaryColor,
+            textAlignVertical: TextAlignVertical.center,
+            onSubmitted: (value) => onSearch?.call(value),
+            decoration: InputDecoration(
+              isDense: true,
+              alignLabelWithHint: true,
+              border: InputBorder.none,
+              hintText: placeholder ?? 'Search',
+              prefixIcon: const Icon(Icons.search),
             ),
           ),
         ),

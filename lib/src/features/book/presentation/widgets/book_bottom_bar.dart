@@ -9,9 +9,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class BookDetailBottomBar extends StatefulWidget {
   final Book book;
+  final Function()? refreshBookList;
 
   const BookDetailBottomBar({
     super.key,
+    this.refreshBookList,
     required this.book,
   });
 
@@ -33,6 +35,9 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
         await context.read<BookDetailCubit>().addToFavorite(widget.book.id!);
       }
       setState(() => isFavorite = !isFavorite);
+      if (widget.refreshBookList != null) {
+        widget.refreshBookList!();
+      }
     } catch (e) {
       scaffoldMessenger.showSnackBar(SnackBar(
         content: Text(e.toString()),

@@ -9,6 +9,7 @@ import 'package:library_app/src/features/book/presentation/upload_book/book_form
 import 'package:library_app/src/features/common/presentation/pdf_screen.dart';
 import 'package:library_app/src/features/community/com_chat_screen.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
+import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/search/cubit/book_search_cubit.dart';
 import 'package:library_app/src/features/library/presentation/search/library_search.dart';
@@ -100,9 +101,7 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/book/:id',
       pageBuilder: (context, state) => MaterialPage(
-        child: BookScreen(
-          bookId: state.pathParameters['id']!,
-        ),
+        child: BookScreen(bookId: state.pathParameters['id']!),
       ),
     ),
     createGoRouteInstance(

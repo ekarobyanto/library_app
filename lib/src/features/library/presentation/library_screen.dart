@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/src/features/book/presentation/book_list/book_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:library_app/src/features/book/data/book_repository.dart';
+import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/horizontal_book_list.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
-class LibraryScreen extends StatelessWidget {
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
+  @override
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,60 +41,58 @@ class LibraryScreen extends StatelessWidget {
           onPress: () => router.pushNamed('search-books'),
         ),
       ),
-      body: Container(
-        color: Colors.white,
-        child: RefreshIndicator(
-          onRefresh: () async {},
-          color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppButton(
-                  label: "Find books by category",
-                  icon: Icons.chevron_right,
-                  iconPosition: IconPosition.right,
-                  mode: ButtonMode.contained,
-                  onPressed: () => router.push('/library/book-category'),
-                ),
-                const SizedBox(height: 12),
-                // const HorizontalBookList(
-                //   canUploadBook: true,
-                //   label: "Uploaded Books",
-                //   books: [],
-                // ),
-                // const SizedBox(height: 12),
-                // HorizontalBookList(
-                //   label: "New Books",
-                //   showAll: true,
-                //   showAllCallback: () => router.push('/book-list', extra: {
-                //     'title': 'Recent Books',
-                //     'url': '/book',
-                //   }),
-                //   books: const [],
-                // ),
-                // const SizedBox(height: 12),
-                // HorizontalBookList(
-                //   label: "Recently Read",
-                //   showAll: true,
-                //   showAllCallback: () => router.push('/book-list', extra: {
-                //     'title': 'Recently Read',
-                //     'url': '/recently-read',
-                //   }),
-                //   books: const [],
-                // ),
-                // const SizedBox(height: 12),
-                // HorizontalBookList(
-                //   label: "Favorite Books",
-                //   showAll: true,
-                //   showAllCallback: () => router.push('/book-list', extra: {
-                //     'title': 'Favorite Books',
-                //     'url': '/favorite-books',
-                //   }),
-                //   books: const [],
-                // ),
-              ],
+      body: Builder(
+        builder: (context) => Container(
+          color: Colors.white,
+          child: RefreshIndicator(
+            onRefresh: () async =>
+                await context.read<LibraryCubit>().getBooks(),
+            color: Theme.of(context).primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppButton(
+                    label: "Find books by category",
+                    icon: Icons.chevron_right,
+                    iconPosition: IconPosition.right,
+                    mode: ButtonMode.contained,
+                    onPressed: () => router.push('/library/book-category'),
+                  ),
+                  const SizedBox(height: 12),
+                  BlocBuilder<LibraryCubit, LibraryState>(
+                    builder: (context, state) => state.maybeWhen(
+                        orElse: () => const SizedBox.shrink(),
+                        success: (results) {
+                          final sortedList = List.from(results)
+                            ..sort((a, b) => a.title.compareTo(b.title));
+                          return Expanded(
+                            child: ListView.separated(
+                              itemCount: sortedList.length,
+                              itemBuilder: (context, index) =>
+                                  HorizontalBookList(
+                                showAll: true,
+                                label: sortedList[index].title,
+                                books: sortedList[index].books,
+                                showAllCallback: () async {
+                                  await context.push(
+                                    '/book-list',
+                                    extra: {
+                                      'title': sortedList[index].title,
+                                      'url': sortedList[index].url,
+                                    },
+                                  );
+                                },
+                              ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 12),
+                            ),
+                          );
+                        }),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

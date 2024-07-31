@@ -12,6 +12,7 @@ import 'package:library_app/src/core/service/remote_config_service.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/data/category_repository.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
+import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
@@ -68,7 +69,12 @@ class App extends StatelessWidget {
                 service: context.read<DioService>(),
               ),
             )..getCategories(),
-          )
+          ),
+          BlocProvider(
+            create: (context) =>
+                LibraryCubit(bookRepository: context.read<BookRepository>())
+                  ..getBooks(),
+          ),
         ],
         child: MaterialApp.router(
           title: 'Library App',

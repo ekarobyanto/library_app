@@ -29,18 +29,21 @@ class CommunityChatScreen extends StatelessWidget {
       )..connectToChat(),
       child: BlocListener<ChatCubit, ChatState>(
         listener: (context, state) => state.whenOrNull(
-          failed: (message) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(message ?? "An Error Occured"),
-              backgroundColor: color.primaryColor,
-            ),
-          ),
-          connected: (_) => scrollController.animateTo(
-            scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          ),
-        ),
+            failed: (message) => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message ?? "An Error Occured"),
+                    backgroundColor: color.primaryColor,
+                  ),
+                ),
+            connected: (_) {
+              return WidgetsBinding.instance.addPostFrameCallback((_) {
+                scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOut,
+                );
+              });
+            }),
         child: Builder(builder: (context) {
           return GestureDetector(
             onTap: FocusScope.of(context).unfocus,
