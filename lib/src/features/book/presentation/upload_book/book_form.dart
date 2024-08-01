@@ -66,6 +66,7 @@ class _BookFormState extends State<BookForm> {
             created: () {
               loadingOverlay.hide();
               context.read<LibraryCubit>().getBooks();
+              context.read<CategoryListCubit>().getCategories();
               router.pop();
             },
             loading: () => loadingOverlay.show(context, "Submitting book..."),

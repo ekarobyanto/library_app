@@ -6,6 +6,7 @@ import 'package:library_app/src/features/book/presentation/book_screen/cubit/boo
 import 'package:library_app/src/features/book/presentation/book_screen/cubit/delete_book_cubit.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_bottom_bar.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_information.dart';
+import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
@@ -44,6 +45,7 @@ class BookScreen extends StatelessWidget {
           success: () {
             loadingOverlay.hide();
             context.read<LibraryCubit>().getBooks();
+            context.read<CategoryListCubit>().getCategories();
             router.pop();
             return null;
           },

@@ -39,9 +39,16 @@ class BookRepository extends AppRepository {
         "description": createBookDTO.description,
         "name": createBookDTO.title,
         "categories": createBookDTO.categories.join(','),
-        "doc_url": await MultipartFile.fromFile(createBookDTO.docUrl),
-        "thumbnail_url":
-            await MultipartFile.fromFile(createBookDTO.thumbnailUrl)
+        "doc_url": await MultipartFile.fromFile(
+          createBookDTO.docUrl,
+          filename:
+              '${createBookDTO.title.replaceAll(' ', '_')}-doc-${DateTime.now().toIso8601String()}',
+        ),
+        "thumbnail_url": await MultipartFile.fromFile(
+          createBookDTO.thumbnailUrl,
+          filename:
+              '${createBookDTO.title.replaceAll(' ', '_')}-img-${DateTime.now().toIso8601String()}',
+        )
       });
       logger.d(data.fields);
       logger.d(data.files);

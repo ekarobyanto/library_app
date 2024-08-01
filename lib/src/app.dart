@@ -13,6 +13,7 @@ import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/data/category_repository.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
+import 'package:library_app/src/features/user/data/user_repository.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
@@ -52,6 +53,11 @@ class App extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (context) => FirebaseFirestore.instance,
+        ),
+        RepositoryProvider(
+          create: (context) => UserRepository(
+            service: context.read<DioService>(),
+          ),
         ),
       ],
       child: MultiBlocProvider(

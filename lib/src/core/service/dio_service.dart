@@ -28,7 +28,8 @@ final class DioService {
     }
   }
 
-  Future get(String path, {Map<String, dynamic>? params}) async {
+  Future<Response<dynamic>> get(String path,
+      {Map<String, dynamic>? params}) async {
     try {
       final response = await dio.get(path, queryParameters: params);
       logger.i(response.data);
@@ -39,7 +40,7 @@ final class DioService {
     }
   }
 
-  Future post(String path, {Object? data, Options? option}) async {
+  post(String path, {Object? data, Options? option}) async {
     try {
       final response = await dio.post(path, data: data);
       logger.i(response.data);
@@ -52,7 +53,7 @@ final class DioService {
     }
   }
 
-  Future put(String path, {Map<String, dynamic>? data}) async {
+  put(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.put(path, data: data);
       logger.i(response.data);
@@ -63,7 +64,7 @@ final class DioService {
     }
   }
 
-  Future delete(String path, {Map<String, dynamic>? data}) async {
+  delete(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.delete(path, data: data);
       logger.i(response.data);
@@ -74,7 +75,7 @@ final class DioService {
     }
   }
 
-  Future patch(String path, {Map<String, dynamic>? data}) async {
+  patch(String path, {Map<String, dynamic>? data}) async {
     try {
       final response = await dio.patch(path, data: data);
       logger.i(response.data);
