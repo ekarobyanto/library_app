@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/src/features/report/domain/report.dart';
 import 'package:library_app/src/theme/app_theme.dart';
+import 'package:library_app/src/utils/datetime_parser.dart';
 
 class ReportCard extends StatelessWidget {
   final Report report;
@@ -25,44 +26,24 @@ class ReportCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Expanded(
-          //   flex: 1,
-          //   child: Container(
-          //     clipBehavior: Clip.antiAlias,
-          //     decoration: BoxDecoration(
-          //       color: Colors.grey[200],
-          //       borderRadius: BorderRadius.circular(12),
-          //     ),
-          //     child: CachedNetworkImage(
-          //       height: 80,
-          //       fit: BoxFit.cover,
-          //       imageUrl: report.book.thumbnailUrl,
-          //       placeholder: (context, url) => const Center(
-          //         child: CircularProgressIndicator(),
-          //       ),
-          //       errorWidget: (context, url, error) => const Icon(Icons.error),
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(width: 8),
           Expanded(
             flex: 4,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "God Damn Long Book Title",
+                Text(
+                  report.book.bookName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "23/02/2002",
+                  parseDateTime(report.reportedAt, withTime: true),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -71,7 +52,7 @@ class ReportCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec odio vitae nunc.",
+                  report.description,
                   maxLines: 2,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
