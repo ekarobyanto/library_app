@@ -1,12 +1,15 @@
 import 'package:intl/intl.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 
-String parseDateTime(String dateTime, {bool? withTime}) {
+String parseDateTime(String dateTime, {bool? withTime, bool? isUtc}) {
   try {
     DateTime date;
-
-    // Convert Unix timestamp to DateTime
-    date = DateTime.fromMillisecondsSinceEpoch(int.parse(dateTime) * 1000);
+    if (!(isUtc ?? false)) {
+      // Convert Unix timestamp to DateTime
+      date = DateTime.fromMillisecondsSinceEpoch(int.parse(dateTime) * 1000);
+    } else {
+      date = DateTime.parse(dateTime);
+    }
 
     if ((withTime ?? false)) {
       return DateFormat.yMMMd().add_jm().format(date);

@@ -117,7 +117,11 @@ class CommunityChatScreen extends StatelessWidget {
                                                       parseDateTime(
                                                         message.timestamp,
                                                         withTime: true,
+                                                        isUtc: true,
                                                       ),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         color: message.id ==
                                                                 user?.uid
