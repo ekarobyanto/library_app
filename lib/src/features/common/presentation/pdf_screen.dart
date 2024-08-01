@@ -3,7 +3,8 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfScreen extends StatelessWidget {
   final String url;
-  const PdfScreen({super.key, required this.url});
+  final String title;
+  const PdfScreen({super.key, required this.url, required this.title});
 
   @override
   Widget build(BuildContext context) {

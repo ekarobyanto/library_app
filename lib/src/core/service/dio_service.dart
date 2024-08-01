@@ -49,6 +49,7 @@ final class DioService {
       logger.e(e.error);
       logger.e(e.message);
       logger.e(e.response);
+      logger.e(e.response?.data);
       rethrow;
     }
   }

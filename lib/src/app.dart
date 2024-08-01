@@ -13,6 +13,8 @@ import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/data/category_repository.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
+import 'package:library_app/src/features/report/cubit/report_cubit.dart';
+import 'package:library_app/src/features/report/data/report_repository.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
@@ -59,6 +61,11 @@ class App extends StatelessWidget {
             service: context.read<DioService>(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => ReportRepository(
+            service: context.read<DioService>(),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -81,6 +88,10 @@ class App extends StatelessWidget {
                 LibraryCubit(bookRepository: context.read<BookRepository>())
                   ..getBooks(),
           ),
+          BlocProvider(
+            create: (context) =>
+                ReportCubit(context.read<ReportRepository>())..getReport(false),
+          )
         ],
         child: MaterialApp.router(
           title: 'Library App',

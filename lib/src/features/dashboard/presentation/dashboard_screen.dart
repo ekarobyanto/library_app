@@ -8,7 +8,6 @@ import 'package:library_app/src/features/dashboard/presentation/widget/content_r
 import 'package:library_app/src/features/dashboard/presentation/widget/dashboard_stats.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/features/user/cubit/user_stat_cubit.dart';
-import 'package:library_app/src/features/user/data/domain/user_stat.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 import 'package:library_app/src/features/user/presentation/widget/user_header.dart';
 import 'package:library_app/src/theme/app_theme.dart';

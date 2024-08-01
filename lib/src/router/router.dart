@@ -128,10 +128,11 @@ final GoRouter router = GoRouter(
       },
     ),
     createGoRouteInstance(
-      route: '/pdf',
+      route: '/pdf/:title',
       pageBuilder: (context, state) => MaterialPage(
         child: PdfScreen(
           url: state.extra as String,
+          title: state.pathParameters['title']!,
         ),
       ),
     ),

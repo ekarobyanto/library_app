@@ -29,6 +29,7 @@ mixin _$Book {
   String? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'thumbnail_url')
   String? get thumbnailUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'doc_url')
   String? get docUrl => throw _privateConstructorUsedError;
   List<String>? get categories => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_count')
@@ -53,7 +54,7 @@ abstract class $BookCopyWith<$Res> {
       Author? author,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
-      String? docUrl,
+      @JsonKey(name: 'doc_url') String? docUrl,
       List<String>? categories,
       @JsonKey(name: 'read_count') int? readCount,
       @JsonKey(name: 'is_favorite') bool? isFavorite});
@@ -156,7 +157,7 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       Author? author,
       @JsonKey(name: 'created_at') String? createdAt,
       @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
-      String? docUrl,
+      @JsonKey(name: 'doc_url') String? docUrl,
       List<String>? categories,
       @JsonKey(name: 'read_count') int? readCount,
       @JsonKey(name: 'is_favorite') bool? isFavorite});
@@ -241,7 +242,7 @@ class _$BookImpl implements _Book {
       this.author = null,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'thumbnail_url') this.thumbnailUrl = '',
-      this.docUrl = '',
+      @JsonKey(name: 'doc_url') this.docUrl = '',
       final List<String>? categories = const [],
       @JsonKey(name: 'read_count') this.readCount = 0,
       @JsonKey(name: 'is_favorite') this.isFavorite = false})
@@ -269,7 +270,7 @@ class _$BookImpl implements _Book {
   @JsonKey(name: 'thumbnail_url')
   final String? thumbnailUrl;
   @override
-  @JsonKey()
+  @JsonKey(name: 'doc_url')
   final String? docUrl;
   final List<String>? _categories;
   @override
@@ -354,7 +355,7 @@ abstract class _Book implements Book {
       final Author? author,
       @JsonKey(name: 'created_at') final String? createdAt,
       @JsonKey(name: 'thumbnail_url') final String? thumbnailUrl,
-      final String? docUrl,
+      @JsonKey(name: 'doc_url') final String? docUrl,
       final List<String>? categories,
       @JsonKey(name: 'read_count') final int? readCount,
       @JsonKey(name: 'is_favorite') final bool? isFavorite}) = _$BookImpl;
@@ -376,6 +377,7 @@ abstract class _Book implements Book {
   @JsonKey(name: 'thumbnail_url')
   String? get thumbnailUrl;
   @override
+  @JsonKey(name: 'doc_url')
   String? get docUrl;
   @override
   List<String>? get categories;

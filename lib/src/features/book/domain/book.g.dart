@@ -15,7 +15,7 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
           : Author.fromJson(json['author'] as Map<String, dynamic>),
       createdAt: json['created_at'] as String?,
       thumbnailUrl: json['thumbnail_url'] as String? ?? '',
-      docUrl: json['docUrl'] as String? ?? '',
+      docUrl: json['doc_url'] as String? ?? '',
       categories: (json['categories'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -32,7 +32,7 @@ Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
       'author': instance.author,
       'created_at': instance.createdAt,
       'thumbnail_url': instance.thumbnailUrl,
-      'docUrl': instance.docUrl,
+      'doc_url': instance.docUrl,
       'categories': instance.categories,
       'read_count': instance.readCount,
       'is_favorite': instance.isFavorite,

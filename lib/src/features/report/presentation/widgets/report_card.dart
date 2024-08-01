@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/src/features/report/domain/report.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
 class ReportCard extends StatelessWidget {
-  const ReportCard({super.key});
+  final Report report;
+  const ReportCard({super.key, required this.report});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class ReportCard extends StatelessWidget {
               child: CachedNetworkImage(
                 height: 80,
                 fit: BoxFit.cover,
-                imageUrl: 'https://via.placeholder.com/150',
+                imageUrl: report.book.thumbnailUrl,
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),

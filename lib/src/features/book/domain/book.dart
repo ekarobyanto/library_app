@@ -14,7 +14,7 @@ class Book with _$Book {
     // ignore: invalid_annotation_target
     @JsonKey(name: 'created_at') String? createdAt,
     @JsonKey(name: 'thumbnail_url') @Default('') String? thumbnailUrl,
-    @Default('') String? docUrl,
+    @JsonKey(name: 'doc_url') @Default('') String? docUrl,
     @Default([]) List<String>? categories,
     @JsonKey(name: 'read_count') @Default(0) int? readCount,
     @JsonKey(name: 'is_favorite') @Default(false) bool? isFavorite,

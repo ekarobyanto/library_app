@@ -79,7 +79,7 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
             ),
       ]);
     }
-    router.push('/pdf', extra: widget.book.docUrl);
+    router.push('/pdf/${widget.book.name}', extra: widget.book.docUrl);
   }
 
   @override
