@@ -18,11 +18,11 @@ class UserRepository extends AppRepository {
     }
   }
 
-  Future<Book> getUserLastRead() async {
+  Future<BookLastRead> getUserLastRead() async {
     try {
       return await service.get('/book-last-reads').then((res) {
         logger.i('UserRepository.getUserLastRead: ${res.data}');
-        return Book.fromJson(res.data['data']);
+        return BookLastRead.fromJson(res.data['data']);
       });
     } catch (err) {
       logger.e('UserRepository.getUserLastRead: $err');

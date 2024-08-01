@@ -9,6 +9,7 @@ import 'package:library_app/src/core/auth/repository/auth_repository.dart';
 import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
 import 'package:library_app/src/core/service/dio_service.dart';
 import 'package:library_app/src/core/service/remote_config_service.dart';
+import 'package:library_app/src/features/book/cubit/all_book_cubit.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/data/category_repository.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
@@ -91,6 +92,10 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 ReportCubit(context.read<ReportRepository>())..getReport(false),
+          ),
+          BlocProvider(
+            create: (context) =>
+                AllBookCubit(context.read<BookRepository>())..getAllBook(),
           )
         ],
         child: MaterialApp.router(

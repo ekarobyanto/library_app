@@ -21,10 +21,18 @@ class ReportRepository extends AppRepository {
     try {
       await service.post(
         '/report',
-        data: report.toJson(),
+        data: {
+          "book_id": report.bookId,
+          "description": report.description,
+        },
       );
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<ReportDetail> getReportDetail(String id) async {
+    final res = await service.get('/reports/$id');
+    return ReportDetail.fromJson(res.data["data"]);
   }
 }

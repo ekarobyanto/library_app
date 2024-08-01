@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/features/book/domain/author.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
 import 'package:library_app/src/features/user/cubit/user_last_read_cubit.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
@@ -70,9 +71,18 @@ class StatsCard extends StatelessWidget {
               BlocBuilder<UserLastReadCubit, UserLastReadState>(
                 builder: (context, state) {
                   return state.whenOrNull(
-                          success: (v) => SizedBox(
-                              width: double.maxFinite,
-                              child: BookListTile(book: v))) ??
+                        success: (v) => SizedBox(
+                          width: double.maxFinite,
+                          child: BookListTile(
+                            book: Book(
+                                id: v.id,
+                                name: v.name,
+                                thumbnailUrl: v.thumbnailUrl,
+                                categories: v.categories,
+                                author: Author(id: '-', name: v.author)),
+                          ),
+                        ),
+                      ) ??
                       const SizedBox(height: 70);
                 },
               )

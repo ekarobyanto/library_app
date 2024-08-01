@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_last_read_cubit.dart';
+part of 'report_detail_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,31 +15,35 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UserLastReadState {
+mixin _$ReportDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() failed,
-    required TResult Function(BookLastRead userStat) success,
+    required TResult Function(String message) failed,
+    required TResult Function(ReportDetail report) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? failed,
-    TResult? Function(BookLastRead userStat)? success,
+    TResult? Function(String message)? failed,
+    TResult? Function(ReportDetail report)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? failed,
-    TResult Function(BookLastRead userStat)? success,
+    TResult Function(String message)? failed,
+    TResult Function(ReportDetail report)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Success value) success,
@@ -47,6 +51,7 @@ mixin _$UserLastReadState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Success value)? success,
@@ -54,6 +59,7 @@ mixin _$UserLastReadState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failed value)? failed,
     TResult Function(_Success value)? success,
@@ -63,21 +69,135 @@ mixin _$UserLastReadState {
 }
 
 /// @nodoc
-abstract class $UserLastReadStateCopyWith<$Res> {
-  factory $UserLastReadStateCopyWith(
-          UserLastReadState value, $Res Function(UserLastReadState) then) =
-      _$UserLastReadStateCopyWithImpl<$Res, UserLastReadState>;
+abstract class $ReportDetailStateCopyWith<$Res> {
+  factory $ReportDetailStateCopyWith(
+          ReportDetailState value, $Res Function(ReportDetailState) then) =
+      _$ReportDetailStateCopyWithImpl<$Res, ReportDetailState>;
 }
 
 /// @nodoc
-class _$UserLastReadStateCopyWithImpl<$Res, $Val extends UserLastReadState>
-    implements $UserLastReadStateCopyWith<$Res> {
-  _$UserLastReadStateCopyWithImpl(this._value, this._then);
+class _$ReportDetailStateCopyWithImpl<$Res, $Val extends ReportDetailState>
+    implements $ReportDetailStateCopyWith<$Res> {
+  _$ReportDetailStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$InitialImplCopyWith<$Res> {
+  factory _$$InitialImplCopyWith(
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$ReportDetailStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
+  __$$InitialImplCopyWithImpl(
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InitialImpl implements _Initial {
+  const _$InitialImpl();
+
+  @override
+  String toString() {
+    return 'ReportDetailState.initial()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InitialImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(String message) failed,
+    required TResult Function(ReportDetail report) success,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? failed,
+    TResult? Function(ReportDetail report)? success,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(String message)? failed,
+    TResult Function(ReportDetail report)? success,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Failed value) failed,
+    required TResult Function(_Success value) success,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Failed value)? failed,
+    TResult? Function(_Success value)? success,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Failed value)? failed,
+    TResult Function(_Success value)? success,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initial implements ReportDetailState {
+  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
@@ -89,7 +209,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UserLastReadStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$ReportDetailStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -103,7 +223,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'UserLastReadState.loading()';
+    return 'ReportDetailState.loading()';
   }
 
   @override
@@ -118,9 +238,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() failed,
-    required TResult Function(BookLastRead userStat) success,
+    required TResult Function(String message) failed,
+    required TResult Function(ReportDetail report) success,
   }) {
     return loading();
   }
@@ -128,9 +249,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? failed,
-    TResult? Function(BookLastRead userStat)? success,
+    TResult? Function(String message)? failed,
+    TResult? Function(ReportDetail report)? success,
   }) {
     return loading?.call();
   }
@@ -138,9 +260,10 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? failed,
-    TResult Function(BookLastRead userStat)? success,
+    TResult Function(String message)? failed,
+    TResult Function(ReportDetail report)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -152,6 +275,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Success value) success,
@@ -162,6 +286,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Success value)? success,
@@ -172,6 +297,7 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failed value)? failed,
     TResult Function(_Success value)? success,
@@ -184,7 +310,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements UserLastReadState {
+abstract class _Loading implements ReportDetailState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -193,66 +319,95 @@ abstract class _$$FailedImplCopyWith<$Res> {
   factory _$$FailedImplCopyWith(
           _$FailedImpl value, $Res Function(_$FailedImpl) then) =
       __$$FailedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
 }
 
 /// @nodoc
 class __$$FailedImplCopyWithImpl<$Res>
-    extends _$UserLastReadStateCopyWithImpl<$Res, _$FailedImpl>
+    extends _$ReportDetailStateCopyWithImpl<$Res, _$FailedImpl>
     implements _$$FailedImplCopyWith<$Res> {
   __$$FailedImplCopyWithImpl(
       _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$FailedImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$FailedImpl implements _Failed {
-  const _$FailedImpl();
+  const _$FailedImpl(this.message);
+
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'UserLastReadState.failed()';
+    return 'ReportDetailState.failed(message: $message)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$FailedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$FailedImpl &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      __$$FailedImplCopyWithImpl<_$FailedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() failed,
-    required TResult Function(BookLastRead userStat) success,
+    required TResult Function(String message) failed,
+    required TResult Function(ReportDetail report) success,
   }) {
-    return failed();
+    return failed(message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? failed,
-    TResult? Function(BookLastRead userStat)? success,
+    TResult? Function(String message)? failed,
+    TResult? Function(ReportDetail report)? success,
   }) {
-    return failed?.call();
+    return failed?.call(message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? failed,
-    TResult Function(BookLastRead userStat)? success,
+    TResult Function(String message)? failed,
+    TResult Function(ReportDetail report)? success,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed();
+      return failed(message);
     }
     return orElse();
   }
@@ -260,6 +415,7 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Success value) success,
@@ -270,6 +426,7 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Success value)? success,
@@ -280,6 +437,7 @@ class _$FailedImpl implements _Failed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failed value)? failed,
     TResult Function(_Success value)? success,
@@ -292,8 +450,13 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements UserLastReadState {
-  const factory _Failed() = _$FailedImpl;
+abstract class _Failed implements ReportDetailState {
+  const factory _Failed(final String message) = _$FailedImpl;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$FailedImplCopyWith<_$FailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -302,14 +465,14 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({BookLastRead userStat});
+  $Res call({ReportDetail report});
 
-  $BookLastReadCopyWith<$Res> get userStat;
+  $ReportDetailCopyWith<$Res> get report;
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$UserLastReadStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$ReportDetailStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -318,21 +481,21 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userStat = null,
+    Object? report = null,
   }) {
     return _then(_$SuccessImpl(
-      null == userStat
-          ? _value.userStat
-          : userStat // ignore: cast_nullable_to_non_nullable
-              as BookLastRead,
+      null == report
+          ? _value.report
+          : report // ignore: cast_nullable_to_non_nullable
+              as ReportDetail,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $BookLastReadCopyWith<$Res> get userStat {
-    return $BookLastReadCopyWith<$Res>(_value.userStat, (value) {
-      return _then(_value.copyWith(userStat: value));
+  $ReportDetailCopyWith<$Res> get report {
+    return $ReportDetailCopyWith<$Res>(_value.report, (value) {
+      return _then(_value.copyWith(report: value));
     });
   }
 }
@@ -340,14 +503,14 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(this.userStat);
+  const _$SuccessImpl(this.report);
 
   @override
-  final BookLastRead userStat;
+  final ReportDetail report;
 
   @override
   String toString() {
-    return 'UserLastReadState.success(userStat: $userStat)';
+    return 'ReportDetailState.success(report: $report)';
   }
 
   @override
@@ -355,12 +518,11 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            (identical(other.userStat, userStat) ||
-                other.userStat == userStat));
+            (identical(other.report, report) || other.report == report));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userStat);
+  int get hashCode => Object.hash(runtimeType, report);
 
   @JsonKey(ignore: true)
   @override
@@ -371,33 +533,36 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() failed,
-    required TResult Function(BookLastRead userStat) success,
+    required TResult Function(String message) failed,
+    required TResult Function(ReportDetail report) success,
   }) {
-    return success(userStat);
+    return success(report);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? failed,
-    TResult? Function(BookLastRead userStat)? success,
+    TResult? Function(String message)? failed,
+    TResult? Function(ReportDetail report)? success,
   }) {
-    return success?.call(userStat);
+    return success?.call(report);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? failed,
-    TResult Function(BookLastRead userStat)? success,
+    TResult Function(String message)? failed,
+    TResult Function(ReportDetail report)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(userStat);
+      return success(report);
     }
     return orElse();
   }
@@ -405,6 +570,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failed value) failed,
     required TResult Function(_Success value) success,
@@ -415,6 +581,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failed value)? failed,
     TResult? Function(_Success value)? success,
@@ -425,6 +592,7 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failed value)? failed,
     TResult Function(_Success value)? success,
@@ -437,10 +605,10 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements UserLastReadState {
-  const factory _Success(final BookLastRead userStat) = _$SuccessImpl;
+abstract class _Success implements ReportDetailState {
+  const factory _Success(final ReportDetail report) = _$SuccessImpl;
 
-  BookLastRead get userStat;
+  ReportDetail get report;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;

@@ -7,8 +7,8 @@ class AppDropdown extends StatelessWidget {
   final String? searchPlaceholder;
   final List<String> items;
   final String? selectedItems;
-  final Function(List<String>)? onChanged;
-  final String? Function(List<String>?)? validator;
+  final Function(String?)? onChanged;
+  final String? Function(String?)? validator;
 
   const AppDropdown({
     Key? key,
@@ -36,6 +36,7 @@ class AppDropdown extends StatelessWidget {
         const SizedBox(height: 8),
         DropdownSearch<String>(
           items: items,
+          onChanged: onChanged,
           dropdownBuilder: (context, selectedItems) => selectedItems != null
               ? Text(
                   selectedItems,
@@ -53,8 +54,13 @@ class AppDropdown extends StatelessWidget {
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(8),
               ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
+          validator: validator,
           popupProps: PopupPropsMultiSelection.menu(
             showSearchBox: true,
             showSelectedItems: true,

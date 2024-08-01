@@ -42,6 +42,7 @@ final class DioService {
 
   post(String path, {Object? data, Options? option}) async {
     try {
+      logger.i(data);
       final response = await dio.post(path, data: data);
       logger.i(response.data);
       return response.data;

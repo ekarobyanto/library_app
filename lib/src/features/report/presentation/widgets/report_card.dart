@@ -25,26 +25,26 @@ class ReportCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: CachedNetworkImage(
-                height: 80,
-                fit: BoxFit.cover,
-                imageUrl: report.book.thumbnailUrl,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     clipBehavior: Clip.antiAlias,
+          //     decoration: BoxDecoration(
+          //       color: Colors.grey[200],
+          //       borderRadius: BorderRadius.circular(12),
+          //     ),
+          //     child: CachedNetworkImage(
+          //       height: 80,
+          //       fit: BoxFit.cover,
+          //       imageUrl: report.book.thumbnailUrl,
+          //       placeholder: (context, url) => const Center(
+          //         child: CircularProgressIndicator(),
+          //       ),
+          //       errorWidget: (context, url, error) => const Icon(Icons.error),
+          //     ),
+          //   ),
+          // ),
+          // const SizedBox(width: 8),
           Expanded(
             flex: 4,
             child: Column(
