@@ -17,10 +17,14 @@ class ReportRepository extends AppRepository {
     return (res.data["data"] as List).map((e) => Report.fromJson(e)).toList();
   }
 
-  createReport(CreateReportDto report) async => await service
-      .post(
+  Future<void> createReport(CreateReportDto report) async {
+    try {
+      await service.post(
         '/report',
         data: report.toJson(),
-      )
-      .catchError((err) => throw err);
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
