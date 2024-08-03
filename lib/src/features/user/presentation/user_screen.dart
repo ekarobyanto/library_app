@@ -51,23 +51,30 @@ class UserScreen extends StatelessWidget {
                                 child: ListView.separated(
                                   itemCount: sortedList.length,
                                   shrinkWrap: true,
-                                  itemBuilder: (context, index) =>
-                                      HorizontalBookList(
-                                    showAll: true,
-                                    canUploadBook:
-                                        sortedList[index].title == 'My Books',
-                                    label: sortedList[index].title,
-                                    books: sortedList[index].books,
-                                    showAllCallback: () {
-                                      context.push(
-                                        '/book-list',
-                                        extra: {
-                                          'title': sortedList[index].title,
-                                          'url': sortedList[index].url,
+                                  itemBuilder: (context, index) {
+                                    if (sortedList[index].title ==
+                                        'Available Books') {
+                                      return const SizedBox.shrink();
+                                    } else {
+                                      return HorizontalBookList(
+                                        showAll: true,
+                                        canUploadBook:
+                                            sortedList[index].title ==
+                                                'My Books',
+                                        label: sortedList[index].title,
+                                        books: sortedList[index].books,
+                                        showAllCallback: () {
+                                          context.push(
+                                            '/book-list',
+                                            extra: {
+                                              'title': sortedList[index].title,
+                                              'url': sortedList[index].url,
+                                            },
+                                          );
                                         },
                                       );
-                                    },
-                                  ),
+                                    }
+                                  },
                                   separatorBuilder: (context, index) =>
                                       const SizedBox(height: 12),
                                 ),

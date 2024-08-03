@@ -21,6 +21,16 @@ class LibraryCubit extends Cubit<LibraryState> {
 
   getBooks() async => await Future.wait([
         bookRepository
+            .getBooksFromUrl(url: '/book', params: {"limit": "5"}).then(
+          (value) => emit(LibraryState.success([
+            ...(state as _Success)
+                .results
+                .where((e) => e.title != 'Available Books')
+                .toList(),
+            LibraryBook(title: 'Available Books', books: value, url: '/book')
+          ])),
+        ),
+        bookRepository
             .getBooksFromUrl(url: '/mybook', params: {"limit": "5"}).then(
           (value) => emit(LibraryState.success([
             ...(state as _Success)
