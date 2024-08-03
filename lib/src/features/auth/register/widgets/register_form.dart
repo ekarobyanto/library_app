@@ -110,8 +110,8 @@ class _RegisterFormState extends State<RegisterForm> {
                         color: Colors.grey,
                       ),
                       onValidate: (value) {
-                        if ((value?.length ?? 0) < 6) {
-                          return 'Password must be at least 6 characters long.';
+                        if ((value?.length ?? 0) < 8) {
+                          return 'Password must be at least 8 characters long.';
                         }
                         return null;
                       },

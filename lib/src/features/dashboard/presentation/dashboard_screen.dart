@@ -30,20 +30,23 @@ class DashboardScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Stack(
+            child: Column(
               children: [
-                const AuthBackgroundDecoration(),
-                SafeArea(
+                AuthBackgroundDecoration(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        const UserHeader(),
-                        const SizedBox(height: 12),
-                        BlocBuilder<UserStatCubit, UserStatState>(
-                          builder: (context, state) {
-                            logger.i('DashboardScreen: $state');
-                            return StatsCard(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: 8,
+                    ),
+                    child: SafeArea(
+                      child: Column(
+                        children: [
+                          const UserHeader(),
+                          const SizedBox(height: 12),
+                          BlocBuilder<UserStatCubit, UserStatState>(
+                            builder: (context, state) {
+                              logger.i('DashboardScreen: $state');
+                              return StatsCard(
                                 icon: Icon(
                                   Icons.book,
                                   color: color.primaryColor,
@@ -60,42 +63,50 @@ class DashboardScreen extends StatelessWidget {
                                       message: values.bookReaded.toString(),
                                     ),
                                   ],
-                                ));
-                          },
-                        ),
-                        const SizedBox(height: 12),
-                        BlocBuilder<LibraryCubit, LibraryState>(
-                          builder: (context, state) => state.maybeWhen(
-                              orElse: () => const SizedBox.shrink(),
-                              success: (results) {
-                                final sortedList = List.from(results)
-                                  ..sort((a, b) => a.title.compareTo(b.title));
-                                return ListView.separated(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: sortedList.length,
-                                  itemBuilder: (context, index) =>
-                                      HorizontalBookList(
-                                    showAll: true,
-                                    label: sortedList[index].title,
-                                    books: sortedList[index].books,
-                                    showAllCallback: () async {
-                                      await context.push(
-                                        '/book-list',
-                                        extra: {
-                                          'title': sortedList[index].title,
-                                          'url': sortedList[index].url,
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  separatorBuilder: (context, index) =>
-                                      const SizedBox(height: 12),
-                                );
-                              }),
-                        ),
-                      ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    children: [
+                      BlocBuilder<LibraryCubit, LibraryState>(
+                        builder: (context, state) => state.maybeWhen(
+                            orElse: () => const SizedBox.shrink(),
+                            success: (results) {
+                              final sortedList = List.from(results)
+                                ..sort((a, b) => a.title.compareTo(b.title));
+                              return ListView.separated(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: sortedList.length,
+                                itemBuilder: (context, index) =>
+                                    HorizontalBookList(
+                                  showAll: true,
+                                  label: sortedList[index].title,
+                                  books: sortedList[index].books,
+                                  showAllCallback: () async {
+                                    await context.push(
+                                      '/book-list',
+                                      extra: {
+                                        'title': sortedList[index].title,
+                                        'url': sortedList[index].url,
+                                      },
+                                    );
+                                  },
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(height: 12),
+                              );
+                            }),
+                      ),
+                    ],
                   ),
                 ),
               ],

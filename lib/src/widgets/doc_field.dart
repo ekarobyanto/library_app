@@ -27,6 +27,14 @@ class DocumentField extends StatelessWidget {
     return doc?.paths.first;
   }
 
+  String getDocumentSize(String docPath) {
+    try {
+      return 'Size : ${(File(docPath).lengthSync() / 1024).toStringAsFixed(2)} KB';
+    } catch (_) {
+      return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -54,7 +62,7 @@ class DocumentField extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           (docPath != null && !isStringAUrl(docPath!))
-              ? 'Size : ${(File(docPath!).lengthSync() / 1024).toStringAsFixed(2)} KB'
+              ? getDocumentSize(docPath!)
               : '',
           style: TextStyle(
             fontSize: 12,

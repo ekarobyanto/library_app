@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:library_app/src/core/config/app_repository.dart';
 import 'package:library_app/src/core/internal/logger.dart';
@@ -41,13 +43,11 @@ class BookRepository extends AppRepository {
         "categories": createBookDTO.categories.join(','),
         "doc_url": await MultipartFile.fromFile(
           createBookDTO.docUrl,
-          filename:
-              '${createBookDTO.title.replaceAll(' ', '_')}-doc-${DateTime.now().toIso8601String()}',
+          filename: createBookDTO.docUrl.split(('/')).last,
         ),
         "thumbnail_url": await MultipartFile.fromFile(
           createBookDTO.thumbnailUrl,
-          filename:
-              '${createBookDTO.title.replaceAll(' ', '_')}-img-${DateTime.now().toIso8601String()}',
+          filename: createBookDTO.thumbnailUrl.split(('/')).last,
         )
       });
       logger.d(data.fields);
@@ -63,26 +63,78 @@ class BookRepository extends AppRepository {
     }
   }
 
-  Future<void> deleteBook(String id) async {
+  Future<void> updateBook(
+      String bookId, String name, String description) async {
     try {
-      await service.delete('/book/$id');
+      await service.put(
+        '/book/$bookId',
+        data: {
+          "description": description,
+          "name": name,
+        },
+      );
     } catch (e) {
       logger.e(e);
       rethrow;
     }
   }
 
-  Future<void> updateBook(CreateBookDTO createBookDTO) async {
+  Future<void> updateBookCategories(
+      String bookId, List<String> categories) async {
     try {
-      await service.post(
-        '/book',
+      await service.put(
+        '/book/$bookId/category-edit',
         data: {
-          ...createBookDTO.toJson(),
-          "doc_url": MultipartFile.fromString(createBookDTO.docUrl),
-          "thumbnail_url": MultipartFile.fromString(createBookDTO.thumbnailUrl)
+          "categories": categories.join(','),
         },
-        option: Options(contentType: 'multipart/form-data'),
       );
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> updateBookDoc(String docPath, String bookId) async {
+    try {
+      final data = FormData.fromMap(
+        {
+          "doc_url": await MultipartFile.fromFile(
+            docPath,
+            filename: docPath.split('/').last,
+          ),
+        },
+      );
+      await service.put(
+        '/book/$bookId/doc-edit',
+        data: data,
+      );
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> updateBookThumbnail(String imagePath, String bookId) async {
+    try {
+      final data = FormData.fromMap({
+        "thumbnail_url": await MultipartFile.fromFile(
+          imagePath,
+          filename: imagePath.split('/').last,
+        )
+      });
+      await service.put(
+        '/book/$bookId/thumbnail-edit',
+        data: data,
+      );
+    } catch (e) {
+      logger.e(e);
+      rethrow;
+    }
+  }
+
+  Future<void> deleteBook(String id) async {
+    try {
+      await service.delete('/book/$id');
     } catch (e) {
       logger.e(e);
       rethrow;

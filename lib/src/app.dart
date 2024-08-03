@@ -20,6 +20,8 @@ import 'package:library_app/src/features/user/data/user_repository.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 
+import 'features/book/presentation/book_screen/cubit/book_detail_cubit.dart';
+
 class App extends StatelessWidget {
   App({super.key});
 
@@ -96,7 +98,12 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 AllBookCubit(context.read<BookRepository>())..getAllBook(),
-          )
+          ),
+          BlocProvider(
+            create: (context) => BookDetailCubit(
+              bookRepository: context.read<BookRepository>(),
+            ),
+          ),
         ],
         child: MaterialApp.router(
           title: 'Library App',

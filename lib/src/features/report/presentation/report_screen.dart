@@ -46,7 +46,6 @@ class ReportScreen extends StatelessWidget {
                   child: ListView.separated(
                     itemCount: reports.length,
                     clipBehavior: Clip.none,
-                    physics: const ClampingScrollPhysics(),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 8),
                     itemBuilder: (context, index) => InkWell(

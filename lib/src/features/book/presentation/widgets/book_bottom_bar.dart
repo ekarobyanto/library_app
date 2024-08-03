@@ -9,7 +9,6 @@ import 'package:library_app/src/features/book/presentation/book_screen/cubit/del
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/utils/show_alert.dart';
 import 'package:library_app/src/widgets/button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BookDetailBottomBar extends StatefulWidget {
   final Book book;
@@ -51,34 +50,16 @@ class _BookDetailBottomBarState extends State<BookDetailBottomBar> {
   }
 
   onReadBook() async {
-    final userId = context
-        .read<AuthCubit>()
-        .state
-        .whenOrNull(signedIn: (user) => user!.uid);
-
-    final localStorage = await SharedPreferences.getInstance();
-    final readBooks = localStorage.getStringList('readBooks') ?? [];
-    if (!readBooks.contains('${widget.book.id}-$userId')) {
-      await Future.wait([
-        localStorage.setStringList(
-          'readBooks',
-          [
-            ...readBooks,
-            '${widget.book.id}-$userId',
-          ],
-        ),
-        // ignore: use_build_context_synchronously
-        context.read<BookDetailCubit>().readBook(widget.book.id!).catchError(
-              (e) => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    e.toString(),
-                  ),
-                ),
+    context.read<BookDetailCubit>().readBook(widget.book.id!).catchError(
+          (e) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                e.toString(),
               ),
             ),
-      ]);
-    }
+          ),
+        );
+
     router.push('/pdf/${widget.book.name}', extra: widget.book.docUrl);
   }
 

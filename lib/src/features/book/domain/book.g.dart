@@ -21,6 +21,7 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
               .toList() ??
           const [],
       readCount: (json['read_count'] as num?)?.toInt() ?? 0,
+      favoriteCount: (json['favorite_count'] as num?)?.toInt() ?? 0,
       isFavorite: json['is_favorite'] as bool? ?? false,
     );
 
@@ -35,6 +36,7 @@ Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
       'doc_url': instance.docUrl,
       'categories': instance.categories,
       'read_count': instance.readCount,
+      'favorite_count': instance.favoriteCount,
       'is_favorite': instance.isFavorite,
     };
 

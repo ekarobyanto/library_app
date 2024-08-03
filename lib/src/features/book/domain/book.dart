@@ -17,6 +17,7 @@ class Book with _$Book {
     @JsonKey(name: 'doc_url') @Default('') String? docUrl,
     @Default([]) List<String>? categories,
     @JsonKey(name: 'read_count') @Default(0) int? readCount,
+    @JsonKey(name: 'favorite_count') @Default(0) int? favoriteCount,
     @JsonKey(name: 'is_favorite') @Default(false) bool? isFavorite,
   }) = _Book;
 

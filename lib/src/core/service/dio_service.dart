@@ -28,15 +28,22 @@ final class DioService {
     }
   }
 
+  logErrors(DioException e) {
+    logger.e(e.error);
+    logger.e(e.message);
+    logger.e(e.response);
+    logger.e(e.response?.data);
+  }
+
   Future<Response<dynamic>> get(String path,
       {Map<String, dynamic>? params}) async {
     try {
       final response = await dio.get(path, queryParameters: params);
       logger.i(response.data);
       return response;
-    } catch (e) {
-      logger.e(e);
-      rethrow;
+    } on DioException catch (e) {
+      logErrors(e);
+      throw e.response?.data;
     }
   }
 
@@ -47,44 +54,44 @@ final class DioService {
       logger.i(response.data);
       return response.data;
     } on DioException catch (e) {
-      logger.e(e.error);
-      logger.e(e.message);
-      logger.e(e.response);
-      logger.e(e.response?.data);
-      rethrow;
+      logErrors(e);
+      throw e.response?.data;
     }
   }
 
-  put(String path, {Map<String, dynamic>? data}) async {
+  put(String path, {Object? data}) async {
     try {
+      logger.i(data);
       final response = await dio.put(path, data: data);
       logger.i(response.data);
       return response.data;
-    } catch (e) {
-      logger.e(e);
-      rethrow;
+    } on DioException catch (e) {
+      logErrors(e);
+      throw e.response?.data;
     }
   }
 
-  delete(String path, {Map<String, dynamic>? data}) async {
+  delete(String path, {Object? data}) async {
     try {
+      logger.i(data);
       final response = await dio.delete(path, data: data);
       logger.i(response.data);
       return response.data;
-    } catch (e) {
-      logger.e(e);
-      rethrow;
+    } on DioException catch (e) {
+      logErrors(e);
+      throw e.response?.data;
     }
   }
 
-  patch(String path, {Map<String, dynamic>? data}) async {
+  patch(String path, {Object? data}) async {
     try {
+      logger.i(data);
       final response = await dio.patch(path, data: data);
       logger.i(response.data);
       return response.data;
-    } catch (e) {
-      logger.e(e);
-      rethrow;
+    } on DioException catch (e) {
+      logErrors(e);
+      throw e.response?.data;
     }
   }
 }

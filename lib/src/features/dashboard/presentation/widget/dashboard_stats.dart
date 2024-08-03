@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/book/domain/author.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
 import 'package:library_app/src/features/user/cubit/user_last_read_cubit.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
+import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
 
 import '../../../book/domain/book.dart';
@@ -31,14 +33,6 @@ class StatsCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,30 +54,39 @@ class StatsCard extends StatelessWidget {
               ContentRow(
                 contents: contents,
               ),
-              const Text(
-                "Last Read",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 4),
               BlocBuilder<UserLastReadCubit, UserLastReadState>(
                 builder: (context, state) {
                   return state.whenOrNull(
-                        success: (v) => SizedBox(
-                          width: double.maxFinite,
-                          child: BookListTile(
-                            book: Book(
-                                id: v.id,
-                                name: v.name,
-                                thumbnailUrl: v.thumbnailUrl,
-                                categories: v.categories,
-                                author: Author(id: '-', name: v.author)),
-                          ),
+                        success: (v) => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Last Read",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              width: double.maxFinite,
+                              child: BookListTile(
+                                onPress: () => context.push('/book/${v.id}'),
+                                book: Book(
+                                  id: v.id,
+                                  name: v.name,
+                                  thumbnailUrl: v.thumbnailUrl,
+                                  categories: v.categories,
+                                  author: Author(
+                                    id: '-',
+                                    name: v.author,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ) ??
-                      const SizedBox(height: 70);
+                      const SizedBox(height: 0);
                 },
               )
             ],

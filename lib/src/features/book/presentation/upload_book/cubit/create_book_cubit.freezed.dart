@@ -19,7 +19,7 @@ mixin _$CreateBookState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? label) loading,
     required TResult Function() created,
     required TResult Function(String? message) error,
   }) =>
@@ -27,7 +27,7 @@ mixin _$CreateBookState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? label)? loading,
     TResult? Function()? created,
     TResult? Function(String? message)? error,
   }) =>
@@ -35,7 +35,7 @@ mixin _$CreateBookState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? label)? loading,
     TResult Function()? created,
     TResult Function(String? message)? error,
     required TResult orElse(),
@@ -125,7 +125,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? label) loading,
     required TResult Function() created,
     required TResult Function(String? message) error,
   }) {
@@ -136,7 +136,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? label)? loading,
     TResult? Function()? created,
     TResult? Function(String? message)? error,
   }) {
@@ -147,7 +147,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? label)? loading,
     TResult Function()? created,
     TResult Function(String? message)? error,
     required TResult orElse(),
@@ -205,6 +205,8 @@ abstract class _$$LoadingImplCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
           _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
       __$$LoadingImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? label});
 }
 
 /// @nodoc
@@ -214,60 +216,84 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? label = freezed,
+  }) {
+    return _then(_$LoadingImpl(
+      freezed == label
+          ? _value.label
+          : label // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+  const _$LoadingImpl([this.label]);
+
+  @override
+  final String? label;
 
   @override
   String toString() {
-    return 'CreateBookState.loading()';
+    return 'CreateBookState.loading(label: $label)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingImpl &&
+            (identical(other.label, label) || other.label == label));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, label);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      __$$LoadingImplCopyWithImpl<_$LoadingImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? label) loading,
     required TResult Function() created,
     required TResult Function(String? message) error,
   }) {
-    return loading();
+    return loading(label);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? label)? loading,
     TResult? Function()? created,
     TResult? Function(String? message)? error,
   }) {
-    return loading?.call();
+    return loading?.call(label);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? label)? loading,
     TResult Function()? created,
     TResult Function(String? message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading();
+      return loading(label);
     }
     return orElse();
   }
@@ -311,7 +337,12 @@ class _$LoadingImpl implements _Loading {
 }
 
 abstract class _Loading implements CreateBookState {
-  const factory _Loading() = _$LoadingImpl;
+  const factory _Loading([final String? label]) = _$LoadingImpl;
+
+  String? get label;
+  @JsonKey(ignore: true)
+  _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -353,7 +384,7 @@ class _$CreatedImpl implements _Created {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? label) loading,
     required TResult Function() created,
     required TResult Function(String? message) error,
   }) {
@@ -364,7 +395,7 @@ class _$CreatedImpl implements _Created {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? label)? loading,
     TResult? Function()? created,
     TResult? Function(String? message)? error,
   }) {
@@ -375,7 +406,7 @@ class _$CreatedImpl implements _Created {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? label)? loading,
     TResult Function()? created,
     TResult Function(String? message)? error,
     required TResult orElse(),
@@ -493,7 +524,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? label) loading,
     required TResult Function() created,
     required TResult Function(String? message) error,
   }) {
@@ -504,7 +535,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? label)? loading,
     TResult? Function()? created,
     TResult? Function(String? message)? error,
   }) {
@@ -515,7 +546,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? label)? loading,
     TResult Function()? created,
     TResult Function(String? message)? error,
     required TResult orElse(),

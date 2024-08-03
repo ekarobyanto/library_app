@@ -23,10 +23,6 @@ class ReportDetail extends StatelessWidget {
               ReportDetailCubit(context.read<ReportRepository>())
                 ..getReportDetail(reportId),
         ),
-        BlocProvider(
-          create: (context) =>
-              BookDetailCubit(bookRepository: context.read<BookRepository>()),
-        ),
       ],
       child: BlocListener<ReportDetailCubit, ReportDetailState>(
         listener: (context, state) {

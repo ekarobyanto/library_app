@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/auth/auth_screen.dart';
+import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/features/book/presentation/book_category_list/book_category_list.dart';
 import 'package:library_app/src/features/book/presentation/book_list/book_list.dart';
 import 'package:library_app/src/features/book/presentation/book_screen/book_screen.dart';
@@ -105,7 +106,11 @@ final GoRouter router = GoRouter(
     ),
     createGoRouteInstance(
       route: '/create-book',
-      screen: const BookForm(),
+      pageBuilder: (context, state) => MaterialPage(
+        child: BookForm(
+          book: state.extra as Book?,
+        ),
+      ),
     ),
     createGoRouteInstance(
       route: '/create-report',

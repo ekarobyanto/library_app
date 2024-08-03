@@ -1,4 +1,8 @@
 bool isStringAUrl(String inputString) {
-  final uri = Uri.tryParse(inputString);
-  return uri != null && uri.hasScheme;
+  try {
+    final uri = Uri.tryParse(inputString);
+    return uri != null && uri.hasScheme;
+  } catch (_) {
+    return false;
+  }
 }

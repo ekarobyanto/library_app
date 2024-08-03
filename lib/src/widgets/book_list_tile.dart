@@ -76,7 +76,9 @@ class BookListTile extends StatelessWidget {
                   ),
                   Text(
                     maxLines: 2,
-                    'Categories : ${book.categories?.join(', ')}',
+                    (book.categories ?? []).isEmpty
+                        ? ''
+                        : 'Categories : ${book.categories?.join(', ')}',
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 14,

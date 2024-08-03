@@ -34,6 +34,8 @@ mixin _$Book {
   List<String>? get categories => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_count')
   int? get readCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'favorite_count')
+  int? get favoriteCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_favorite')
   bool? get isFavorite => throw _privateConstructorUsedError;
 
@@ -57,6 +59,7 @@ abstract class $BookCopyWith<$Res> {
       @JsonKey(name: 'doc_url') String? docUrl,
       List<String>? categories,
       @JsonKey(name: 'read_count') int? readCount,
+      @JsonKey(name: 'favorite_count') int? favoriteCount,
       @JsonKey(name: 'is_favorite') bool? isFavorite});
 
   $AuthorCopyWith<$Res>? get author;
@@ -84,6 +87,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? docUrl = freezed,
     Object? categories = freezed,
     Object? readCount = freezed,
+    Object? favoriteCount = freezed,
     Object? isFavorite = freezed,
   }) {
     return _then(_value.copyWith(
@@ -123,6 +127,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.readCount
           : readCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      favoriteCount: freezed == favoriteCount
+          ? _value.favoriteCount
+          : favoriteCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       isFavorite: freezed == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -160,6 +168,7 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       @JsonKey(name: 'doc_url') String? docUrl,
       List<String>? categories,
       @JsonKey(name: 'read_count') int? readCount,
+      @JsonKey(name: 'favorite_count') int? favoriteCount,
       @JsonKey(name: 'is_favorite') bool? isFavorite});
 
   @override
@@ -185,6 +194,7 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? docUrl = freezed,
     Object? categories = freezed,
     Object? readCount = freezed,
+    Object? favoriteCount = freezed,
     Object? isFavorite = freezed,
   }) {
     return _then(_$BookImpl(
@@ -224,6 +234,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.readCount
           : readCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      favoriteCount: freezed == favoriteCount
+          ? _value.favoriteCount
+          : favoriteCount // ignore: cast_nullable_to_non_nullable
+              as int?,
       isFavorite: freezed == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -245,6 +259,7 @@ class _$BookImpl implements _Book {
       @JsonKey(name: 'doc_url') this.docUrl = '',
       final List<String>? categories = const [],
       @JsonKey(name: 'read_count') this.readCount = 0,
+      @JsonKey(name: 'favorite_count') this.favoriteCount = 0,
       @JsonKey(name: 'is_favorite') this.isFavorite = false})
       : _categories = categories;
 
@@ -287,12 +302,15 @@ class _$BookImpl implements _Book {
   @JsonKey(name: 'read_count')
   final int? readCount;
   @override
+  @JsonKey(name: 'favorite_count')
+  final int? favoriteCount;
+  @override
   @JsonKey(name: 'is_favorite')
   final bool? isFavorite;
 
   @override
   String toString() {
-    return 'Book(id: $id, name: $name, description: $description, author: $author, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories, readCount: $readCount, isFavorite: $isFavorite)';
+    return 'Book(id: $id, name: $name, description: $description, author: $author, createdAt: $createdAt, thumbnailUrl: $thumbnailUrl, docUrl: $docUrl, categories: $categories, readCount: $readCount, favoriteCount: $favoriteCount, isFavorite: $isFavorite)';
   }
 
   @override
@@ -314,6 +332,8 @@ class _$BookImpl implements _Book {
                 .equals(other._categories, _categories) &&
             (identical(other.readCount, readCount) ||
                 other.readCount == readCount) &&
+            (identical(other.favoriteCount, favoriteCount) ||
+                other.favoriteCount == favoriteCount) &&
             (identical(other.isFavorite, isFavorite) ||
                 other.isFavorite == isFavorite));
   }
@@ -331,6 +351,7 @@ class _$BookImpl implements _Book {
       docUrl,
       const DeepCollectionEquality().hash(_categories),
       readCount,
+      favoriteCount,
       isFavorite);
 
   @JsonKey(ignore: true)
@@ -358,6 +379,7 @@ abstract class _Book implements Book {
       @JsonKey(name: 'doc_url') final String? docUrl,
       final List<String>? categories,
       @JsonKey(name: 'read_count') final int? readCount,
+      @JsonKey(name: 'favorite_count') final int? favoriteCount,
       @JsonKey(name: 'is_favorite') final bool? isFavorite}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
@@ -384,6 +406,9 @@ abstract class _Book implements Book {
   @override
   @JsonKey(name: 'read_count')
   int? get readCount;
+  @override
+  @JsonKey(name: 'favorite_count')
+  int? get favoriteCount;
   @override
   @JsonKey(name: 'is_favorite')
   bool? get isFavorite;

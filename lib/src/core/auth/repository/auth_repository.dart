@@ -10,7 +10,7 @@ class AuthRepository extends AppRepository {
 
   Future<void> createUserWithEmailAndPassword(AuthParams params) async {
     try {
-      await service.dio.post('/register', data: {
+      await service.post('/register', data: {
         "name": params.name,
         "email": params.email,
         "password": params.password,

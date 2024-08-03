@@ -28,7 +28,9 @@ class AuthScreen extends StatelessWidget {
             body: SafeArea(
               child: Stack(
                 children: [
-                  const AuthBackgroundDecoration(),
+                  AuthBackgroundDecoration(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                  ),
                   PageView(
                     controller: pageController,
                     allowImplicitScrolling: false,
