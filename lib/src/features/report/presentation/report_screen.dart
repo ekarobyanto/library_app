@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/features/book/presentation/widgets/empty_book.dart';
 import 'package:library_app/src/features/report/cubit/report_cubit.dart';
 import 'package:library_app/src/features/report/presentation/widgets/report_card.dart';
 import 'package:library_app/src/router/router.dart';
@@ -32,9 +33,9 @@ class ReportScreen extends StatelessWidget {
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () => const Center(child: CircularProgressIndicator()),
-            failed: (message) => ErrorFetch(
-              message: message,
-              onRetry: () => context.read<ReportCubit>().getReport(false),
+            failed: (message) => EmptyBook(
+              label: message,
+              onRefresh: () => context.read<ReportCubit>().getReport(false),
             ),
             success: (reports) => RefreshIndicator(
               onRefresh: () async =>
