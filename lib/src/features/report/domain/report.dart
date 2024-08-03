@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:library_app/src/features/book/domain/author.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
 
 part 'report.freezed.dart';

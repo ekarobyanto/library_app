@@ -7,7 +7,6 @@ import 'package:library_app/src/features/book/cubit/all_book_cubit.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
 import 'package:library_app/src/features/book/dto/create_book.dto.dart';
-import 'package:library_app/src/features/book/presentation/book_screen/cubit/book_detail_cubit.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/cubit/create_book_cubit.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/widgets/add_category_dialog.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
