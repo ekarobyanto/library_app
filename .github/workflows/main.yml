@@ -6,6 +6,19 @@ on:
       - master
 
 jobs:
+  create-env-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create .env file
+      run: |
+        cat > .env <<EOF
+        FIREBASE_API_KEY=${{ secrets.BACKEND_URL }}
+        FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}
+        FIREBASE_MESSAGING_SENDER_ID=${{secrets.FIREBASE_MESSAGING_SENDER_ID}}
+        FIREBASE_PROJECT_ID=${{secrets.FIREBASE_PROJECT_ID}}
+        FIREBASE_STORAGE_BUCKET=${{secrets.FIREBASE_STORAGE_BUCKET}}
+        EOF
+      
   build:
     runs-on: ubuntu-latest
     steps:
