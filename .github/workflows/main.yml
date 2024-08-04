@@ -22,6 +22,10 @@ jobs:
       run: cat .env
     - name: Display Root directory
       run: ls -la
+    - name: List all directories
+      run: find . -type d
+    - name: List all directories and files
+      run: find . -print
     - uses: actions/checkout@v4.1.2
     - uses: actions/setup-java@v4.2.1
       with:
