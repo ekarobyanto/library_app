@@ -19,4 +19,4 @@ you can check the api on https://github.com/ghulammuzz/flexmaster-app
 
 the project already have CI/CD with github action + Firebase App Distribution
 
-to execute the CICD you need to provide some repository credentials, you can check the .mainflow.yaml to check what credentials is needed 
+to execute the CICD you need to provide some repository credentials, you can check the .mainflow.yaml to check what credentials is needed
