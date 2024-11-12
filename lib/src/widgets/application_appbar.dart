@@ -6,7 +6,7 @@ class ApplicationAppbar extends AppBar {
   ApplicationAppbar({
     super.key,
     required String title,
-    required VoidCallback onBackButtonPressed,
+    VoidCallback? onBackButtonPressed,
     PreferredSizeWidget? bottom,
     Function()? filterOnPressed,
     List<Widget>? actions,
@@ -16,7 +16,7 @@ class ApplicationAppbar extends AppBar {
           scrolledUnderElevation: 0,
           forceMaterialTransparency: false,
           backgroundColor: Colors.white,
-
+          leadingWidth: onBackButtonPressed != null ? 40 : 0,
           title: Text(
             title,
             maxLines: 1,
@@ -25,22 +25,24 @@ class ApplicationAppbar extends AppBar {
           //clarification::
           //AppBackButton and this IconButton are the same widget with different behavior, maybe i can just remove the padding but the
           //the behavior is suprisingly different :\
-          leading: bottom == null
-              ? Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: AppBackButton(
-                    onPressed: onBackButtonPressed,
-                  ),
-                )
-              : IconButton(
-                  onPressed: onBackButtonPressed,
-                  icon: const Icon(Icons.chevron_left),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStateProperty.all(color.primaryShade),
-                  ),
-                  color: color.primaryColor,
-                ),
+          leading: onBackButtonPressed != null
+              ? bottom == null
+                  ? Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: AppBackButton(
+                        onPressed: onBackButtonPressed,
+                      ),
+                    )
+                  : IconButton(
+                      onPressed: onBackButtonPressed,
+                      icon: const Icon(Icons.chevron_left),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all(color.primaryShade),
+                      ),
+                      color: color.primaryColor,
+                    )
+              : const SizedBox(),
           automaticallyImplyLeading: false,
           bottom: bottom,
           actions: filterOnPressed != null

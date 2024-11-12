@@ -23,7 +23,7 @@ class _MainScaffoldState extends State<MainScaffold> {
     {
       "icon": Icons.people,
       "title": "Social",
-      "route": '/community-chat',
+      "route": '/social',
     },
     {
       "icon": Icons.edit_document,
