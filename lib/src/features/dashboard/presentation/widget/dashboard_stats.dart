@@ -5,7 +5,6 @@ import 'package:library_app/src/features/book/domain/author.dart';
 import 'package:library_app/src/features/dashboard/presentation/widget/content_row.dart';
 import 'package:library_app/src/features/user/cubit/user_last_read_cubit.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
-import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/book_list_tile.dart';
 
 import '../../../book/domain/book.dart';

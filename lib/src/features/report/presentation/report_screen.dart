@@ -5,7 +5,6 @@ import 'package:library_app/src/features/report/cubit/report_cubit.dart';
 import 'package:library_app/src/features/report/presentation/widgets/report_card.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/button.dart';
-import 'package:library_app/src/widgets/error.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});

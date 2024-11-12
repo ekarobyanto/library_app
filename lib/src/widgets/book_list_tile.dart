@@ -29,25 +29,22 @@ class BookListTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: book.id!,
-              child: Container(
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey[200],
+            Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey[200],
+              ),
+              child: CachedNetworkImage(
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                imageUrl:
+                    book.thumbnailUrl ?? 'https://via.placeholder.com/150',
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
                 ),
-                child: CachedNetworkImage(
-                  width: 80,
-                  height: 80,
-                  fit: BoxFit.cover,
-                  imageUrl:
-                      book.thumbnailUrl ?? 'https://via.placeholder.com/150',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
             ),
             const SizedBox(width: 8),
