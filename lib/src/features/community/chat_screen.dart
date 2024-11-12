@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/cubit/chat_list_cubit.dart';
-import 'package:library_app/src/features/community/cubit/search_user_cubit.dart';
 import 'package:library_app/src/features/community/data/community_repository.dart';
 import 'package:library_app/src/features/community/widgets/chat_item_tile.dart';
 import 'package:library_app/src/features/community/widgets/community_chat_tile.dart';
 import 'package:library_app/src/features/community/widgets/search_users_chat.dart';
-import 'package:library_app/src/features/user/data/user_repository.dart';
 import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/widgets/application_appbar.dart';
 

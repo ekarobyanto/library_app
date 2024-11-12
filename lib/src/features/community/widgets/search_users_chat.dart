@@ -75,7 +75,7 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                               child: ListView.separated(
                                 itemCount: users.length,
                                 itemBuilder: (context, index) => Text(
-                                  users[index].name,
+                                  users[index].name.trim(),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                                 separatorBuilder: (ctx, index) =>
