@@ -1,6 +1,7 @@
 import 'package:library_app/src/core/config/app_repository.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/book/domain/book.dart';
+import 'package:library_app/src/features/user/data/domain/user_search.dart';
 import 'package:library_app/src/features/user/data/domain/user_stat.dart';
 
 class UserRepository extends AppRepository {
@@ -26,6 +27,20 @@ class UserRepository extends AppRepository {
       });
     } catch (err) {
       logger.e('UserRepository.getUserLastRead: $err');
+      rethrow;
+    }
+  }
+
+  Future<List<UserSearch>> searchUsers([String? query]) async {
+    try {
+      return await service.get('/user-search', params: {
+        "name": query,
+      }).then((res) {
+        final data = res.data['data'] as List;
+        return data.map((user) => UserSearch.fromJson(user)).toList();
+      });
+    } catch (err) {
+      logger.e('UserRepository.searchUsers: $err');
       rethrow;
     }
   }

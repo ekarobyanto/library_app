@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/community/data/community_repository.dart';
@@ -25,7 +25,13 @@ class ChatCubit extends Cubit<ChatState> {
         );
   }
 
-  sendToChat(Message message) => communityRepository.sendMessage(message);
+  sendToChat(Message message, [String? recipientId]) {
+    if (recipientId != null) {
+      communityRepository.sendMessage(message, '${message.id}-$recipientId');
+    } else {
+      communityRepository.sendMessage(message);
+    }
+  }
 
   @override
   Future<void> close() async {

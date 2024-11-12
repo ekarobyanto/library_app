@@ -10,6 +10,7 @@ import 'package:library_app/src/features/book/presentation/upload_book/book_form
 import 'package:library_app/src/features/common/presentation/pdf_screen.dart';
 import 'package:library_app/src/features/community/chat_screen.dart';
 import 'package:library_app/src/features/community/com_chat_screen.dart';
+import 'package:library_app/src/features/community/user_chat_screen.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/search/cubit/book_search_cubit.dart';
@@ -49,6 +50,14 @@ final GoRouter router = GoRouter(
           route: '/social',
           pageBuilder: (_, __) => const NoTransitionPage(
             child: ChatScreen(),
+          ),
+        ),
+        createGoRouteInstance(
+          route: '/chat-room/:id',
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: UserChatScreen(
+              chatRoomId: state.pathParameters['id']!,
+            ),
           ),
         ),
         createGoRouteInstance(
