@@ -45,33 +45,8 @@ final GoRouter router = GoRouter(
           ),
         ),
         createGoRouteInstance(
-          route: '/library',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: LibraryScreen(),
-          ),
-          routes: [
-            createGoRouteInstance(
-              route: 'search-books',
-              routeName: 'search-books',
-              navigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) => NoTransitionPage(
-                child: BlocProvider(
-                  create: (context) => BookSearchCubit(
-                    bookRepository: context.read(),
-                  )..checkInit(),
-                  child: const LibrarySearchScreen(),
-                ),
-              ),
-            ),
-            createGoRouteInstance(
-              route: 'book-category',
-              routeName: 'book-category',
-              navigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: BookCategoryList(),
-              ),
-            ),
-          ],
+          route: '/community-chat',
+          screen: CommunityChatScreen(),
         ),
         createGoRouteInstance(
           route: '/report',
@@ -99,6 +74,33 @@ final GoRouter router = GoRouter(
       ],
     ),
     createGoRouteInstance(
+      route: '/library',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: LibraryScreen(),
+      ),
+      routes: [
+        createGoRouteInstance(
+          route: 'search-books',
+          routeName: 'search-books',
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: BlocProvider(
+              create: (context) => BookSearchCubit(
+                bookRepository: context.read(),
+              ),
+              child: const LibrarySearchScreen(),
+            ),
+          ),
+        ),
+        createGoRouteInstance(
+          route: 'book-category',
+          routeName: 'book-category',
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: BookCategoryList(),
+          ),
+        ),
+      ],
+    ),
+    createGoRouteInstance(
       route: '/book/:id',
       pageBuilder: (context, state) => MaterialPage(
         child: BookScreen(bookId: state.pathParameters['id']!),
@@ -115,10 +117,6 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/create-report',
       screen: const CreateReport(),
-    ),
-    createGoRouteInstance(
-      route: '/community-chat',
-      screen: CommunityChatScreen(),
     ),
     createGoRouteInstance(
       route: '/book-list',
