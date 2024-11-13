@@ -12,22 +12,20 @@ class UserChatScreen extends StatelessWidget {
   const UserChatScreen({
     super.key,
     required this.chatRoomId,
-    required this.recipientName,
   });
 
   final String chatRoomId;
-  final String recipientName;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserChatCubit(context.read<CommunityRepository>())
-        ..retrieveChats(chatRoomId),
+        ..getChats(chatRoomId),
       child: Builder(builder: (context) {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: ApplicationAppbar(
-            title: recipientName,
+            title: "Chat",
             onBackButtonPressed: () => router.pop(),
           ),
           body: BlocBuilder<UserChatCubit, UserChatState>(
@@ -38,14 +36,9 @@ class UserChatScreen extends StatelessWidget {
                         signedIn: (user) => user,
                       ),
                   messages: messages,
-                  onSendMessage: (message) {
-                    context.read<UserChatCubit>().sendChat(
-                          message.copyWith(
-                            recipientName: recipientName,
-                            recipientId: chatRoomId.split('-').last,
-                          ),
-                        );
-                  },
+                  onSendMessage: (message) => context
+                      .read<UserChatCubit>()
+                      .sendChat(chatRoomId, message),
                 ),
                 loading: () => const Center(
                   child: CircularProgressIndicator(),

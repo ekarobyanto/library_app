@@ -16,19 +16,16 @@ class UserChatCubit extends Cubit<UserChatState> {
 
   late StreamSubscription<List<Message>> _streamSubscription;
 
-  retrieveChats(String chatRoomId) {
+  getChats(String chatRoomId) {
     emit(const _Loading());
-    final userId = chatRoomId.split('-').first;
-    final recipientId = chatRoomId.split('-').last;
     _streamSubscription =
-        _communityRepository.openChatConnection(userId, recipientId).listen(
-              cancelOnError: true,
+        _communityRepository.connectToChatRoom(chatRoomId).listen(
               (event) => emit(_Connected(event)),
-              onError: (error) => emit(_Failed(error.toString())),
             );
   }
 
-  sendChat(Message message) => _communityRepository.sendMessage(message);
+  sendChat(String chatRoomId, Message message) =>
+      _communityRepository.sendMessageToChatRoom(message, chatRoomId);
 
   @override
   Future<void> close() {

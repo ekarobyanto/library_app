@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/domain/message.dart';
 import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/utils/datetime_parser.dart';
@@ -49,10 +51,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             separatorBuilder: (context, index) => const SizedBox(height: 8),
             itemBuilder: (context, index) {
               final message = widget.messages[index];
+              final isSender = message.senderId == widget.user?.uid;
+
               return Align(
-                alignment: message.id == widget.user?.uid
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
+                alignment:
+                    isSender ? Alignment.centerRight : Alignment.centerLeft,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7,
@@ -60,9 +63,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: message.id == widget.user?.uid
-                          ? color.primaryColor
-                          : Colors.white,
+                      color: isSender ? color.primaryColor : Colors.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -79,7 +80,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                                   Text(
                                     message.senderName,
                                     style: TextStyle(
-                                      color: message.id == widget.user?.uid
+                                      color: isSender
                                           ? Colors.white
                                           : Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      color: message.id == widget.user?.uid
+                                      color: isSender
                                           ? Colors.white
                                           : Colors.black,
                                       fontSize: 12,
@@ -109,9 +110,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                         Text(
                           message.message,
                           style: TextStyle(
-                            color: message.id == widget.user?.uid
-                                ? Colors.white
-                                : Colors.black,
+                            color: isSender ? Colors.white : Colors.black,
                           ),
                         ),
                       ],
@@ -147,11 +146,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               ),
               IconButton(
                 onPressed: () async {
+                  final user = context
+                      .read<AuthCubit>()
+                      .state
+                      .whenOrNull(signedIn: (user) => user);
                   widget.onSendMessage(
                     Message(
-                      id: widget.user?.uid ?? '',
+                      senderId: user!.uid,
+                      senderName: user.displayName ?? 'Anonim',
                       message: messageController.text,
-                      senderName: widget.user?.displayName ?? 'Anonymous',
                       timestamp: DateTime.now().toIso8601String(),
                     ),
                   );

@@ -6,11 +6,10 @@ part 'message.g.dart';
 @freezed
 class Message with _$Message {
   factory Message({
-    required String id,
-    String? recipientId,
+    String? id,
     required String message,
+    required String senderId,
     required String senderName,
-    String? recipientName,
     required String timestamp,
   }) = _Message;
 

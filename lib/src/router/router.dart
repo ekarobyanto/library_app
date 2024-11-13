@@ -83,7 +83,6 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => NoTransitionPage(
         child: UserChatScreen(
           chatRoomId: state.pathParameters['id']!,
-          recipientName: state.extra as String,
         ),
       ),
     ),

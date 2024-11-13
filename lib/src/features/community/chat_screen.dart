@@ -19,10 +19,11 @@ class ChatScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ChatListCubit(
         communityRepository: context.read<CommunityRepository>(),
-      )..retrieveChats(
-          context.read<AuthCubit>().state.whenOrNull(
-                signedIn: (user) => user!.uid,
-              )!,
+      )..getChatRooms(
+          context
+              .read<AuthCubit>()
+              .state
+              .whenOrNull(signedIn: (user) => user!.uid)!,
         ),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -80,8 +81,7 @@ class ChatScreen extends StatelessWidget {
                           itemBuilder: (context, index) => ChatItemTile(
                             chatList: chats[index],
                             onTap: () => router.push(
-                              '/chat-room/${chats[index].id}-${chats[index].recipientId}',
-                              extra: chats[index].recipientName,
+                              '/chat-room/${chats[index].id}',
                             ),
                           ),
                         ),
