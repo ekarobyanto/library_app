@@ -16,13 +16,16 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user =
+        context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
     return BlocProvider(
       create: (context) => ChatListCubit(
         communityRepository: context.read<CommunityRepository>(),
-      )..retrieveChats(
-          context.read<AuthCubit>().state.whenOrNull(
-                signedIn: (user) => user!.uid,
-              )!,
+      )..getChatRooms(
+          context
+              .read<AuthCubit>()
+              .state
+              .whenOrNull(signedIn: (user) => user!.uid)!,
         ),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -39,7 +42,15 @@ class ChatScreen extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
             ),
-            builder: (context) => const SearchUsersChat(),
+            builder: (context) => SearchUsersChat(onSelect: (selectedUser) {
+              final userIds = ([user!.uid, selectedUser.id]);
+              userIds.sort((a, b) => a.compareTo(b));
+              final chatRoomId = userIds.join('-');
+              router.push(
+                '/chat-room/$chatRoomId',
+                extra: selectedUser.name,
+              );
+            }),
           ),
           backgroundColor: color.primaryColor,
           child: const Icon(Icons.add_comment, color: Colors.white),
@@ -80,8 +91,11 @@ class ChatScreen extends StatelessWidget {
                           itemBuilder: (context, index) => ChatItemTile(
                             chatList: chats[index],
                             onTap: () => router.push(
-                              '/chat-room/${chats[index].id}-${chats[index].recipientId}',
-                              extra: chats[index].recipientName,
+                              '/chat-room/${chats[index].id}',
+                              extra: chats[index].recipientName ==
+                                      user?.displayName
+                                  ? chats[index].senderName
+                                  : chats[index].recipientName,
                             ),
                           ),
                         ),

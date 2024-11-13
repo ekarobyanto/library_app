@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/cubit/search_user_cubit.dart';
+import 'package:library_app/src/features/user/data/domain/user_search.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 
 import 'package:library_app/src/router/router.dart';
@@ -9,9 +9,11 @@ import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class SearchUsersChat extends StatefulWidget {
-  const SearchUsersChat({
-    super.key,
-  });
+  const SearchUsersChat({super.key, required this.onSelect, this.label});
+
+  final Function(UserSearch user) onSelect;
+
+  final String? label;
 
   @override
   State<SearchUsersChat> createState() => _SearchUsersChatState();
@@ -23,8 +25,7 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          SearchUserCubit(context.read<UserRepository>())..searchUser(),
+      create: (context) => SearchUserCubit(context.read<UserRepository>()),
       child: Builder(builder: (context) {
         return GestureDetector(
           onTap: FocusScope.of(context).unfocus,
@@ -36,9 +37,9 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Search Users to Chat",
-                      style: TextStyle(
+                    Text(
+                      widget.label ?? "Search Users to Chat",
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -51,8 +52,9 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                 ),
                 AppSearchbar(
                   controller: searchController,
-                  onSearch: (v) =>
-                      context.read<SearchUserCubit>().searchUser(v),
+                  onSearch: (v) => v.isNotEmpty
+                      ? context.read<SearchUserCubit>().searchUser(v)
+                      : null,
                 ),
                 const SizedBox(height: 10),
                 BlocBuilder<SearchUserCubit, SearchUserState>(
@@ -79,10 +81,7 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                                 itemBuilder: (context, index) => InkWell(
                                   onTap: () {
                                     router.pop();
-                                    router.push(
-                                      '/chat-room/${context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user?.uid)}-${users[index].id}',
-                                      extra: users[index].name,
-                                    );
+                                    widget.onSelect(users[index]);
                                   },
                                   child: Row(
                                     children: [

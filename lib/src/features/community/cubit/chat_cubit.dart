@@ -17,7 +17,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   connectToChat() {
     emit(const _Loading());
-    chatConnection = communityRepository.openChatConnection().listen(
+    chatConnection = communityRepository.connectToCommunityChat().listen(
           cancelOnError: true,
           onDone: () => logger.t('Connection Closed'),
           (event) => emit(ChatState.connected(event)),
@@ -25,7 +25,8 @@ class ChatCubit extends Cubit<ChatState> {
         );
   }
 
-  sendToChat(Message message) => communityRepository.sendMessage(message);
+  sendToChat(Message message) =>
+      communityRepository.sendMessageToCommunityChat(message);
 
   @override
   Future<void> close() async {

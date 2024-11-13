@@ -6,9 +6,12 @@ import 'package:library_app/src/core/overlay/loading_overlay.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/presentation/book_screen/cubit/book_detail_cubit.dart';
 import 'package:library_app/src/features/book/presentation/book_screen/cubit/delete_book_cubit.dart';
+import 'package:library_app/src/features/book/presentation/book_screen/cubit/share_book_cubit.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_bottom_bar.dart';
 import 'package:library_app/src/features/book/presentation/widgets/book_information.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
+import 'package:library_app/src/features/community/data/community_repository.dart';
+import 'package:library_app/src/features/community/widgets/search_users_chat.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/features/report/cubit/report_cubit.dart';
 import 'package:library_app/src/features/user/cubit/user_last_read_cubit.dart';
@@ -50,28 +53,64 @@ class _BookScreenState extends State<BookScreen> {
             bookRepository: context.read<BookRepository>(),
           ),
         ),
+        BlocProvider(
+          create: (context) => ShareBookCubit(
+            context.read<CommunityRepository>(),
+          ),
+        )
       ],
-      child: BlocListener<DeleteBookCubit, DeleteBookState>(
-        listener: (context, state) => state.whenOrNull(
-          loading: () {
-            loadingOverlay.show(context, 'Deleting book...');
-            return null;
-          },
-          success: () {
-            loadingOverlay.hide();
-            refreshCubits(context);
-            context.pop();
-            return null;
-          },
-          fail: (message) {
-            loadingOverlay.hide();
-            showAlert(
-              context: context,
-              message: message ?? 'Something went wrong',
-            );
-            return null;
-          },
-        ),
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<BookDetailCubit, BookDetailState>(
+            listener: (context, state) => state.whenOrNull(
+              error: (_) {
+                // router.pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(
+                      "There's problem while fetching your book :(",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+                return;
+              },
+            ),
+          ),
+          BlocListener<DeleteBookCubit, DeleteBookState>(
+            listener: (context, state) => state.whenOrNull(
+              loading: () {
+                loadingOverlay.show(context, 'Deleting book...');
+                return null;
+              },
+              success: () {
+                loadingOverlay.hide();
+                refreshCubits(context);
+                router.pop();
+                return null;
+              },
+              fail: (message) {
+                loadingOverlay.hide();
+                showAlert(
+                  context: context,
+                  message: message ?? 'Something went wrong',
+                );
+                return null;
+              },
+            ),
+          ),
+          BlocListener<ShareBookCubit, ShareBookState>(
+            listener: (context, state) => state.whenOrNull(
+              success: () => ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Book Shared!"),
+                  backgroundColor: Colors.green,
+                ),
+              ),
+            ),
+          ),
+        ],
         child: Builder(builder: (context) {
           final user = context
               .read<AuthCubit>()
@@ -83,29 +122,58 @@ class _BookScreenState extends State<BookScreen> {
               .whenOrNull(success: (book) => book);
           final isUserBook = user?.uid == book?.author?.id;
 
+          List<Widget> actions = [
+            IconButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                useSafeArea: true,
+                useRootNavigator: true,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                builder: (_) => SearchUsersChat(
+                  onSelect: (selectedUser) {
+                    context.read<ShareBookCubit>().shareBook(
+                          bookId: book?.id ?? '',
+                          sender: user!,
+                          receiver: selectedUser,
+                        );
+                  },
+                  label: "Share Book to...",
+                ),
+              ),
+              icon: Icon(
+                Icons.share,
+                color: color.primaryColor,
+              ),
+            )
+          ];
+
+          if (isUserBook) {
+            actions.add(IconButton(
+              icon: Icon(Icons.edit, color: color.primaryColor),
+              onPressed: () async {
+                final reload = await context.push(
+                  '/create-book',
+                  extra: book,
+                );
+                if (reload == true) {
+                  context.read<BookDetailCubit>().getBookDetail(widget.bookId);
+                }
+              },
+            ));
+          }
+
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: ApplicationAppbar(
               title: 'Book',
               onBackButtonPressed: () => router.pop(),
-              actions: isUserBook
-                  ? [
-                      IconButton(
-                        icon: Icon(Icons.edit, color: color.primaryColor),
-                        onPressed: () async {
-                          final reload = await context.push(
-                            '/create-book',
-                            extra: book,
-                          );
-                          if (reload == true) {
-                            context
-                                .read<BookDetailCubit>()
-                                .getBookDetail(widget.bookId);
-                          }
-                        },
-                      ),
-                    ]
-                  : null,
+              actions: actions,
             ),
             bottomNavigationBar: context
                 .watch<BookDetailCubit>()
@@ -124,7 +192,7 @@ class _BookScreenState extends State<BookScreen> {
                 orElse: () => const SizedBox.shrink(),
                 loading: () => const LoadingWidget(),
                 error: (message) => ErrorFetch(
-                  message: message ?? 'Something went wrong',
+                  message: 'Something went wrong',
                   onRetry: () => context
                       .read<BookDetailCubit>()
                       .getBookDetail(widget.bookId),

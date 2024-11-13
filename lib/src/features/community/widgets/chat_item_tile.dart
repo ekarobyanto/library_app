@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
-import 'package:library_app/src/features/community/chat_screen.dart';
 import 'package:library_app/src/features/community/domain/chat_list.dart';
+import 'package:library_app/src/utils/check_is_share_book_text.dart';
 
 class ChatItemTile extends StatelessWidget {
   const ChatItemTile({
@@ -18,7 +18,14 @@ class ChatItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final user =
         context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
-    final isCurrentUser = user?.uid == chatList.recipientId;
+    final displayName = [chatList.recipientName, chatList.senderName]
+        .where((name) => name != user?.displayName)
+        .first;
+    final bookSharerName =
+        chatList.senderName == user?.displayName ? "You" : chatList.senderName;
+
+    final isSharedBook = checkIsShareBookText(chatList.lastMessage);
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -27,16 +34,16 @@ class ChatItemTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              isCurrentUser
-                  ? chatList.senderName ?? ''
-                  : chatList.recipientName ?? '',
+              displayName.trim(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 5),
             Text(
-              chatList.lastMessage,
+              isSharedBook
+                  ? "$bookSharerName just shared a book!"
+                  : chatList.lastMessage,
               maxLines: 1,
               style: const TextStyle(
                 fontSize: 14,
