@@ -53,14 +53,6 @@ final GoRouter router = GoRouter(
           ),
         ),
         createGoRouteInstance(
-          route: '/chat-room/:id',
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: UserChatScreen(
-              chatRoomId: state.pathParameters['id']!,
-            ),
-          ),
-        ),
-        createGoRouteInstance(
           route: '/report',
           pageBuilder: (context, state) => const NoTransitionPage(
             child: ReportScreen(),
@@ -84,6 +76,16 @@ final GoRouter router = GoRouter(
           ),
         ),
       ],
+    ),
+    createGoRouteInstance(
+      route: '/chat-room/:id',
+      navigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: UserChatScreen(
+          chatRoomId: state.pathParameters['id']!,
+          recipientName: state.extra as String,
+        ),
+      ),
     ),
     createGoRouteInstance(
       route: '/library',

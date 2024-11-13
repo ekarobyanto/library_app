@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/cubit/search_user_cubit.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class SearchUsersChat extends StatefulWidget {
@@ -74,9 +76,28 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                           : Expanded(
                               child: ListView.separated(
                                 itemCount: users.length,
-                                itemBuilder: (context, index) => Text(
-                                  users[index].name.trim(),
-                                  style: const TextStyle(fontSize: 20),
+                                itemBuilder: (context, index) => InkWell(
+                                  onTap: () {
+                                    router.pop();
+                                    router.push(
+                                      '/chat-room/${context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user?.uid)}-${users[index].id}',
+                                      extra: users[index].name,
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          users[index].name.trim(),
+                                          style: const TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.chat,
+                                        color: color.primaryColor,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 separatorBuilder: (ctx, index) =>
                                     const Divider(),

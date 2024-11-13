@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
@@ -19,14 +18,11 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChatListCubit(
-        communityRepository: CommunityRepository(
-          context.read<FirebaseFirestore>(),
-        ),
+        communityRepository: context.read<CommunityRepository>(),
       )..retrieveChats(
-          context
-              .read<AuthCubit>()
-              .state
-              .whenOrNull(signedIn: (user) => user!.uid)!,
+          context.read<AuthCubit>().state.whenOrNull(
+                signedIn: (user) => user!.uid,
+              )!,
         ),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -83,8 +79,10 @@ class ChatScreen extends StatelessWidget {
                               const SizedBox(height: 10),
                           itemBuilder: (context, index) => ChatItemTile(
                             chatList: chats[index],
-                            onTap: () =>
-                                router.push('/chat-room/${chats[index].id}'),
+                            onTap: () => router.push(
+                              '/chat-room/${chats[index].id}-${chats[index].recipientId}',
+                              extra: chats[index].recipientName,
+                            ),
                           ),
                         ),
                 ),

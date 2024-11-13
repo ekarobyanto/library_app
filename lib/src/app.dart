@@ -13,6 +13,7 @@ import 'package:library_app/src/features/book/cubit/all_book_cubit.dart';
 import 'package:library_app/src/features/book/data/book_repository.dart';
 import 'package:library_app/src/features/book/data/category_repository.dart';
 import 'package:library_app/src/features/common/cubit/category_list_cubit.dart';
+import 'package:library_app/src/features/community/data/community_repository.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/features/report/cubit/report_cubit.dart';
 import 'package:library_app/src/features/report/data/report_repository.dart';
@@ -67,6 +68,11 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => ReportRepository(
             service: context.read<DioService>(),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => CommunityRepository(
+            context.read<FirebaseFirestore>(),
           ),
         ),
       ],

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,9 +17,7 @@ class CommunityChatScreen extends StatelessWidget {
         context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
     return BlocProvider(
       create: (context) => ChatCubit(
-        CommunityRepository(
-          context.read<FirebaseFirestore>(),
-        ),
+        context.read<CommunityRepository>(),
       )..connectToChat(),
       child: Builder(builder: (context) {
         return GestureDetector(

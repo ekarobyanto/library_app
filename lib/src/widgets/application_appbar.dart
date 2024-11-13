@@ -16,7 +16,7 @@ class ApplicationAppbar extends AppBar {
           scrolledUnderElevation: 0,
           forceMaterialTransparency: false,
           backgroundColor: Colors.white,
-          leadingWidth: onBackButtonPressed != null ? 40 : 0,
+          leadingWidth: onBackButtonPressed != null ? 60 : 0,
           title: Text(
             title,
             maxLines: 1,
