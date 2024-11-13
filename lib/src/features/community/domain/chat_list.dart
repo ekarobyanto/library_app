@@ -9,7 +9,9 @@ class ChatList with _$ChatList {
     required String id,
     required String userId,
     required String recipientId,
+    String? senderName,
     String? recipientName,
+    List<String>? participants,
     required String lastMessage,
     required String timestamp,
   }) = _ChatList;

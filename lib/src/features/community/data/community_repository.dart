@@ -8,11 +8,11 @@ class CommunityRepository {
   const CommunityRepository(this._firestoreInstance);
 
   Stream<List<ChatList>> getChatList(String userId) => _firestoreInstance
-          .collection('chat-list')
-          .where('id', isEqualTo: userId)
-          .orderBy('timestamp')
-          .snapshots()
-          .map(
+      .collection('chat-list')
+      .where('participants', arrayContainsAny: [userId])
+      .orderBy('timestamp')
+      .snapshots()
+      .map(
         (docs) {
           if (docs.docs.isNotEmpty) {
             final chats =
@@ -80,6 +80,8 @@ class CommunityRepository {
                 lastMessage: message.message,
                 timestamp: message.timestamp,
                 recipientName: message.recipientName,
+                senderName: message.senderName,
+                participants: [message.id, message.recipientId!],
               ).toJson(),
             );
       } else {
@@ -88,6 +90,7 @@ class CommunityRepository {
             .doc(_chatList.docs.first.id)
             .update(
           {
+            'senderName': message.senderName,
             'recipientName': message.recipientName,
             'lastMessage': message.message,
             'timestamp': message.timestamp,
