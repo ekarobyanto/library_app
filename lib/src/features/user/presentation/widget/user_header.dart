@@ -27,28 +27,28 @@ class UserHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 40,
-            height: 40,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(120)),
-              border: Border.all(
-                width: 1.5,
-                style: BorderStyle.solid,
-                color: color.primaryColor,
-                strokeAlign: BorderSide.strokeAlignOutside,
-              ),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: user?.photoURL ?? 'https://via.placeholder.com/150',
-              placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
+          // Container(
+          //   width: 40,
+          //   height: 40,
+          //   clipBehavior: Clip.hardEdge,
+          //   decoration: BoxDecoration(
+          //     borderRadius: const BorderRadius.all(Radius.circular(120)),
+          //     border: Border.all(
+          //       width: 1.5,
+          //       style: BorderStyle.solid,
+          //       color: color.primaryColor,
+          //       strokeAlign: BorderSide.strokeAlignOutside,
+          //     ),
+          //   ),
+          //   child: CachedNetworkImage(
+          //     imageUrl: user?.photoURL ?? 'https://via.placeholder.com/150',
+          //     placeholder: (context, url) => const CircularProgressIndicator(),
+          //     errorWidget: (context, url, error) => const Icon(Icons.error),
+          //   ),
+          // ),
+          // const SizedBox(
+          //   width: 16,
+          // ),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

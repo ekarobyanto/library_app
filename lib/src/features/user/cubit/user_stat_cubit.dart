@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/user/data/domain/user_stat.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 
@@ -13,10 +12,8 @@ class UserStatCubit extends Cubit<UserStatState> {
 
   getUserStat() async {
     await userRepository.getUserStat().then((value) {
-      logger.i('UserStatCubit.getUserStat: $value');
       emit(UserStatState.success(value));
     }).catchError((err) {
-      logger.e('UserStatCubit.getUserStat: $err');
       emit(const UserStatState.failed());
     });
   }
