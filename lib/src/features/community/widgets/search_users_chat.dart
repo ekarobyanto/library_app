@@ -9,9 +9,11 @@ import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class SearchUsersChat extends StatefulWidget {
-  const SearchUsersChat({super.key, required this.onSelect});
+  const SearchUsersChat({super.key, required this.onSelect, this.label});
 
   final Function(UserSearch user) onSelect;
+
+  final String? label;
 
   @override
   State<SearchUsersChat> createState() => _SearchUsersChatState();
@@ -36,9 +38,9 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Search Users to Chat",
-                      style: TextStyle(
+                    Text(
+                      widget.label ?? "Search Users to Chat",
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
