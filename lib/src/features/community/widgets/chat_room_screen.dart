@@ -150,20 +150,22 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       .read<AuthCubit>()
                       .state
                       .whenOrNull(signedIn: (user) => user);
-                  widget.onSendMessage(
-                    Message(
-                      senderId: user!.uid,
-                      senderName: user.displayName ?? 'Anonim',
-                      message: messageController.text,
-                      timestamp: DateTime.now().toIso8601String(),
-                    ),
-                  );
-                  await Future.delayed(const Duration(milliseconds: 500));
-                  scrollController.animateTo(
-                      scrollController.position.maxScrollExtent + 200,
-                      duration: const Duration(microseconds: 200),
-                      curve: Curves.bounceInOut);
-                  messageController.clear();
+                  if (messageController.text.isNotEmpty) {
+                    widget.onSendMessage(
+                      Message(
+                        senderId: user!.uid,
+                        senderName: user.displayName ?? 'Anonim',
+                        message: messageController.text,
+                        timestamp: DateTime.now().toIso8601String(),
+                      ),
+                    );
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    scrollController.animateTo(
+                        scrollController.position.maxScrollExtent + 200,
+                        duration: const Duration(microseconds: 200),
+                        curve: Curves.bounceInOut);
+                    messageController.clear();
+                  }
                 },
                 icon: const Icon(Icons.send),
                 color: color.primaryColor,
