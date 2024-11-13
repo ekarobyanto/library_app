@@ -8,7 +8,9 @@ import 'package:library_app/src/features/book/presentation/book_list/book_list.d
 import 'package:library_app/src/features/book/presentation/book_screen/book_screen.dart';
 import 'package:library_app/src/features/book/presentation/upload_book/book_form.dart';
 import 'package:library_app/src/features/common/presentation/pdf_screen.dart';
+import 'package:library_app/src/features/community/chat_screen.dart';
 import 'package:library_app/src/features/community/com_chat_screen.dart';
+import 'package:library_app/src/features/community/user_chat_screen.dart';
 import 'package:library_app/src/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:library_app/src/features/library/presentation/library_screen.dart';
 import 'package:library_app/src/features/library/presentation/search/cubit/book_search_cubit.dart';
@@ -45,33 +47,10 @@ final GoRouter router = GoRouter(
           ),
         ),
         createGoRouteInstance(
-          route: '/library',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: LibraryScreen(),
+          route: '/social',
+          pageBuilder: (_, __) => const NoTransitionPage(
+            child: ChatScreen(),
           ),
-          routes: [
-            createGoRouteInstance(
-              route: 'search-books',
-              routeName: 'search-books',
-              navigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) => NoTransitionPage(
-                child: BlocProvider(
-                  create: (context) => BookSearchCubit(
-                    bookRepository: context.read(),
-                  )..checkInit(),
-                  child: const LibrarySearchScreen(),
-                ),
-              ),
-            ),
-            createGoRouteInstance(
-              route: 'book-category',
-              routeName: 'book-category',
-              navigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: BookCategoryList(),
-              ),
-            ),
-          ],
         ),
         createGoRouteInstance(
           route: '/report',
@@ -99,6 +78,43 @@ final GoRouter router = GoRouter(
       ],
     ),
     createGoRouteInstance(
+      route: '/chat-room/:id',
+      navigatorKey: _rootNavigatorKey,
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: UserChatScreen(
+          chatRoomId: state.pathParameters['id']!,
+          recipientName: state.extra as String,
+        ),
+      ),
+    ),
+    createGoRouteInstance(
+      route: '/library',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: LibraryScreen(),
+      ),
+      routes: [
+        createGoRouteInstance(
+          route: 'search-books',
+          routeName: 'search-books',
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: BlocProvider(
+              create: (context) => BookSearchCubit(
+                bookRepository: context.read(),
+              ),
+              child: const LibrarySearchScreen(),
+            ),
+          ),
+        ),
+        createGoRouteInstance(
+          route: 'book-category',
+          routeName: 'book-category',
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: BookCategoryList(),
+          ),
+        ),
+      ],
+    ),
+    createGoRouteInstance(
       route: '/book/:id',
       pageBuilder: (context, state) => MaterialPage(
         child: BookScreen(bookId: state.pathParameters['id']!),
@@ -115,10 +131,6 @@ final GoRouter router = GoRouter(
     createGoRouteInstance(
       route: '/create-report',
       screen: const CreateReport(),
-    ),
-    createGoRouteInstance(
-      route: '/community-chat',
-      screen: CommunityChatScreen(),
     ),
     createGoRouteInstance(
       route: '/book-list',
@@ -140,6 +152,10 @@ final GoRouter router = GoRouter(
           title: state.pathParameters['title']!,
         ),
       ),
+    ),
+    createGoRouteInstance(
+      route: '/community-chat',
+      screen: const CommunityChatScreen(),
     ),
   ],
 );

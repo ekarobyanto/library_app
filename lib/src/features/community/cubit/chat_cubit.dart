@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/community/data/community_repository.dart';
@@ -18,10 +18,10 @@ class ChatCubit extends Cubit<ChatState> {
   connectToChat() {
     emit(const _Loading());
     chatConnection = communityRepository.openChatConnection().listen(
-          (event) => emit(ChatState.connected(event)),
           cancelOnError: true,
-          onError: (e) => emit(ChatState.failed(e.toString())),
           onDone: () => logger.t('Connection Closed'),
+          (event) => emit(ChatState.connected(event)),
+          onError: (e) => emit(ChatState.failed(e.toString())),
         );
   }
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:library_app/src/theme/app_theme.dart' as theme;
 
@@ -44,6 +45,16 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    const debounceDuration = Duration(milliseconds: 300);
+    Timer? _debounceTimer;
+
+    void _onChanged(String value) {
+      if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+      _debounceTimer = Timer(debounceDuration, () {
+        onSearch?.call(value);
+      });
+    }
+
     return Container(
       padding: padding,
       color: color,
@@ -69,7 +80,7 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
             focusNode: focusNode,
             cursorColor: theme.color.primaryColor,
             textAlignVertical: TextAlignVertical.center,
-            onSubmitted: (value) => onSearch?.call(value),
+            onChanged: _onChanged,
             decoration: InputDecoration(
               isDense: true,
               alignLabelWithHint: true,

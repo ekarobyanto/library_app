@@ -12,10 +12,6 @@ class BookSearchCubit extends Cubit<BookSearchState> {
   BookSearchCubit({required this.bookRepository})
       : super(const BookSearchState.initial());
 
-  checkInit() {
-    logger.i("BookSearchCubit initialized");
-  }
-
   findBooks(String query) async {
     try {
       emit(const BookSearchState.loading());

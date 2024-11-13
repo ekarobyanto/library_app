@@ -21,9 +21,9 @@ class _MainScaffoldState extends State<MainScaffold> {
       "route": '/dashboard',
     },
     {
-      "icon": Icons.book,
-      "title": "Library",
-      "route": '/library',
+      "icon": Icons.people,
+      "title": "Social",
+      "route": '/social',
     },
     {
       "icon": Icons.edit_document,
@@ -56,10 +56,10 @@ class _MainScaffoldState extends State<MainScaffold> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),
-        onPressed: () => router.push('/community-chat'),
+        onPressed: () => router.push('/library'),
         backgroundColor: color.primaryColor,
         child: const Icon(
-          Icons.people,
+          Icons.book,
           color: Colors.white,
         ),
       ),

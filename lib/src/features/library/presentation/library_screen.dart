@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:library_app/src/features/library/presentation/cubit/library_cubit.dart';
 import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/widgets/back_button.dart';
 import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/horizontal_book_list.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
+
+import '../../../theme/app_theme.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -24,6 +27,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         shadowColor: Colors.black12,
         title: const Text('Library'),
         backgroundColor: Colors.white,
+        leading: const AppBackButton(),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/src/core/auth/auth_cubit.dart';
+import 'package:library_app/src/features/book/presentation/widgets/empty_book.dart';
+import 'package:library_app/src/features/community/cubit/user_chat_cubit.dart';
+import 'package:library_app/src/features/community/data/community_repository.dart';
+import 'package:library_app/src/features/community/widgets/chat_room_screen.dart';
+import 'package:library_app/src/router/router.dart';
+import 'package:library_app/src/widgets/application_appbar.dart';
+
+class UserChatScreen extends StatelessWidget {
+  const UserChatScreen({
+    super.key,
+    required this.chatRoomId,
+    required this.recipientName,
+  });
+
+  final String chatRoomId;
+  final String recipientName;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => UserChatCubit(context.read<CommunityRepository>())
+        ..retrieveChats(chatRoomId),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: ApplicationAppbar(
+            title: recipientName,
+            onBackButtonPressed: () => router.pop(),
+          ),
+          body: BlocBuilder<UserChatCubit, UserChatState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                connected: (messages) => ChatRoomScreen(
+                  user: context.read<AuthCubit>().state.whenOrNull(
+                        signedIn: (user) => user,
+                      ),
+                  messages: messages,
+                  onSendMessage: (message) {
+                    context.read<UserChatCubit>().sendChat(
+                          message.copyWith(
+                            recipientName: recipientName,
+                            recipientId: chatRoomId.split('-').last,
+                          ),
+                        );
+                  },
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                failed: (message) => const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: EmptyBook(label: "Failed to connect to chat"),
+                ),
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
+          ),
+        );
+      }),
+    );
+  }
+}

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_app/src/core/auth/repository/auth_repository.dart';
 import 'package:library_app/src/core/auth/service/firebase_auth_service.dart';
+import 'package:library_app/src/core/auth/utils/firebase_auth.exception.dart';
 import 'package:library_app/src/core/internal/logger.dart';
 import 'package:library_app/src/features/auth/models/auth_params.dart';
 
@@ -26,7 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
           .createUserWithEmailAndPassword(params)
           .then((_) => emailSignIn(params));
     } on FirebaseAuthException catch (err) {
-      emit(_Error(message: err.message ?? defaultAuthError));
+      emit(_Error(message: parseFirebaseAuthError(err.code)));
     } catch (err) {
       emit(_Error(message: err.toString()));
     }
@@ -43,13 +44,8 @@ class AuthCubit extends Cubit<AuthState> {
         await firebaseAuthService.currentUser?.updateDisplayName(params.name);
       }
       checkAuthState();
-      // if (userCred.user != null) {
-      //   emit(_SignedIn(userCred: userCred.user));
-      // } else {
-      //   emit(const _Error(message: defaultAuthError));
-      // }
     } on FirebaseAuthException catch (err) {
-      emit(_Error(message: err.message ?? defaultAuthError));
+      emit(_Error(message: parseFirebaseAuthError(err.code)));
     } catch (err) {
       emit(_Error(message: err.toString()));
     }

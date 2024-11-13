@@ -7,8 +7,10 @@ part 'message.g.dart';
 class Message with _$Message {
   factory Message({
     required String id,
+    String? recipientId,
     required String message,
     required String senderName,
+    String? recipientName,
     required String timestamp,
   }) = _Message;
 
