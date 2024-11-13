@@ -25,7 +25,7 @@ class UserChatScreen extends StatelessWidget {
         ..getChats(chatRoomId),
       child: Builder(builder: (context) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 232, 223, 252),
           appBar: ApplicationAppbar(
             title: "Chat",
             onBackButtonPressed: () => router.pop(),

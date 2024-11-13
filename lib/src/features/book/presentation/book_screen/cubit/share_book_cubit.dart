@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:library_app/src/features/community/data/community_repository.dart';
 import 'package:library_app/src/features/community/domain/message.dart';
 import 'package:library_app/src/features/user/data/domain/user_search.dart';
+import 'package:library_app/src/utils/generate_share_book_text.dart';
 
 part 'share_book_state.dart';
 part 'share_book_cubit.freezed.dart';
@@ -24,7 +25,7 @@ class ShareBookCubit extends Cubit<ShareBookState> {
       final chatRoomId = userIds.join('-');
       await communityRepository.sendMessageToChatRoom(
         Message(
-          message: "{{SHARE_BOOK_ID:$bookId}}",
+          message: generateShareBookText(bookId),
           senderId: sender.uid,
           senderName: sender.displayName ?? '',
           receiverId: receiver.id,

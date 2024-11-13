@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/domain/message.dart';
+import 'package:library_app/src/router/router.dart';
 import 'package:library_app/src/theme/app_theme.dart';
+import 'package:library_app/src/utils/check_is_share_book_text.dart';
 import 'package:library_app/src/utils/datetime_parser.dart';
+import 'package:library_app/src/utils/parse_share_book_text.dart';
 import 'package:library_app/src/widgets/text_field.dart';
 
 class ChatRoomScreen extends StatefulWidget {
@@ -52,71 +55,98 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             itemBuilder: (context, index) {
               final message = widget.messages[index];
               final isSender = message.senderId == widget.user?.uid;
+              final isSharedBook = checkIsShareBookText(message.message);
 
               return Align(
                 alignment:
                     isSender ? Alignment.centerRight : Alignment.centerLeft,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: isSender ? color.primaryColor : Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: message.id != widget.user?.uid
-                          ? CrossAxisAlignment.start
-                          : CrossAxisAlignment.end,
-                      children: [
-                        if (message.id != widget.user?.uid)
-                          Column(
+                child: isSharedBook
+                    ? InkWell(
+                        onTap: () => router.push(
+                          '/book/${parseShareBookText(message.message)}',
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: isSender
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    message.senderName,
-                                    style: TextStyle(
-                                      color: isSender
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    parseDateTime(
-                                      message.timestamp,
-                                      withTime: true,
-                                      isUtc: true,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: isSender
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                "${isSender ? "You" : message.senderName} shared a book!",
                               ),
-                              const SizedBox(height: 4),
+                              const Text(
+                                "Tap to Open",
+                              ),
                             ],
                           ),
-                        Text(
-                          message.message,
-                          style: TextStyle(
-                            color: isSender ? Colors.white : Colors.black,
+                        ),
+                      )
+                    : ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.7,
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: isSender ? color.primaryColor : Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: message.id != widget.user?.uid
+                                ? CrossAxisAlignment.start
+                                : CrossAxisAlignment.end,
+                            children: [
+                              if (message.id != widget.user?.uid)
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          message.senderName,
+                                          style: TextStyle(
+                                            color: isSender
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          parseDateTime(
+                                            message.timestamp,
+                                            withTime: true,
+                                            isUtc: true,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            color: isSender
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                  ],
+                                ),
+                              Text(
+                                message.message,
+                                style: TextStyle(
+                                  color: isSender ? Colors.white : Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
               );
             },
           ),
