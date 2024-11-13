@@ -25,8 +25,7 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          SearchUserCubit(context.read<UserRepository>())..searchUser(),
+      create: (context) => SearchUserCubit(context.read<UserRepository>()),
       child: Builder(builder: (context) {
         return GestureDetector(
           onTap: FocusScope.of(context).unfocus,
@@ -53,8 +52,9 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                 ),
                 AppSearchbar(
                   controller: searchController,
-                  onSearch: (v) =>
-                      context.read<SearchUserCubit>().searchUser(v),
+                  onSearch: (v) => v.isNotEmpty
+                      ? context.read<SearchUserCubit>().searchUser(v)
+                      : null,
                 ),
                 const SizedBox(height: 10),
                 BlocBuilder<SearchUserCubit, SearchUserState>(
