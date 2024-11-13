@@ -10,7 +10,7 @@ class CommunityRepository {
     return _firestoreInstance
         .collection('chat-rooms')
         .where('participants', arrayContains: userId)
-        .orderBy('timestamp')
+        .orderBy('timestamp', descending: true)
         .snapshots()
         .map((docs) {
       if (docs.docs.isNotEmpty) {
