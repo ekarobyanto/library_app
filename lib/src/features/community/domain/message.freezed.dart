@@ -20,11 +20,12 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Message {
-  String get id => throw _privateConstructorUsedError;
-  String? get recipientId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  String get senderId => throw _privateConstructorUsedError;
   String get senderName => throw _privateConstructorUsedError;
-  String? get recipientName => throw _privateConstructorUsedError;
+  String? get receiverId => throw _privateConstructorUsedError;
+  String? get receiverName => throw _privateConstructorUsedError;
   String get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -38,11 +39,12 @@ abstract class $MessageCopyWith<$Res> {
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
   $Res call(
-      {String id,
-      String? recipientId,
+      {String? id,
       String message,
+      String senderId,
       String senderName,
-      String? recipientName,
+      String? receiverId,
+      String? receiverName,
       String timestamp});
 }
 
@@ -59,33 +61,38 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? recipientId = freezed,
+    Object? id = freezed,
     Object? message = null,
+    Object? senderId = null,
     Object? senderName = null,
-    Object? recipientName = freezed,
+    Object? receiverId = freezed,
+    Object? receiverName = freezed,
     Object? timestamp = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipientId: freezed == recipientId
-          ? _value.recipientId
-          : recipientId // ignore: cast_nullable_to_non_nullable
               as String?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      senderId: null == senderId
+          ? _value.senderId
+          : senderId // ignore: cast_nullable_to_non_nullable
+              as String,
       senderName: null == senderName
           ? _value.senderName
           : senderName // ignore: cast_nullable_to_non_nullable
               as String,
-      recipientName: freezed == recipientName
-          ? _value.recipientName
-          : recipientName // ignore: cast_nullable_to_non_nullable
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverName: freezed == receiverName
+          ? _value.receiverName
+          : receiverName // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: null == timestamp
           ? _value.timestamp
@@ -103,11 +110,12 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String? recipientId,
+      {String? id,
       String message,
+      String senderId,
       String senderName,
-      String? recipientName,
+      String? receiverId,
+      String? receiverName,
       String timestamp});
 }
 
@@ -122,33 +130,38 @@ class __$$MessageImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? recipientId = freezed,
+    Object? id = freezed,
     Object? message = null,
+    Object? senderId = null,
     Object? senderName = null,
-    Object? recipientName = freezed,
+    Object? receiverId = freezed,
+    Object? receiverName = freezed,
     Object? timestamp = null,
   }) {
     return _then(_$MessageImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipientId: freezed == recipientId
-          ? _value.recipientId
-          : recipientId // ignore: cast_nullable_to_non_nullable
               as String?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      senderId: null == senderId
+          ? _value.senderId
+          : senderId // ignore: cast_nullable_to_non_nullable
+              as String,
       senderName: null == senderName
           ? _value.senderName
           : senderName // ignore: cast_nullable_to_non_nullable
               as String,
-      recipientName: freezed == recipientName
-          ? _value.recipientName
-          : recipientName // ignore: cast_nullable_to_non_nullable
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverName: freezed == receiverName
+          ? _value.receiverName
+          : receiverName // ignore: cast_nullable_to_non_nullable
               as String?,
       timestamp: null == timestamp
           ? _value.timestamp
@@ -162,32 +175,35 @@ class __$$MessageImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MessageImpl implements _Message {
   _$MessageImpl(
-      {required this.id,
-      this.recipientId,
+      {this.id,
       required this.message,
+      required this.senderId,
       required this.senderName,
-      this.recipientName,
+      this.receiverId,
+      this.receiverName,
       required this.timestamp});
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageImplFromJson(json);
 
   @override
-  final String id;
-  @override
-  final String? recipientId;
+  final String? id;
   @override
   final String message;
   @override
+  final String senderId;
+  @override
   final String senderName;
   @override
-  final String? recipientName;
+  final String? receiverId;
+  @override
+  final String? receiverName;
   @override
   final String timestamp;
 
   @override
   String toString() {
-    return 'Message(id: $id, recipientId: $recipientId, message: $message, senderName: $senderName, recipientName: $recipientName, timestamp: $timestamp)';
+    return 'Message(id: $id, message: $message, senderId: $senderId, senderName: $senderName, receiverId: $receiverId, receiverName: $receiverName, timestamp: $timestamp)';
   }
 
   @override
@@ -196,21 +212,23 @@ class _$MessageImpl implements _Message {
         (other.runtimeType == runtimeType &&
             other is _$MessageImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.recipientId, recipientId) ||
-                other.recipientId == recipientId) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.senderId, senderId) ||
+                other.senderId == senderId) &&
             (identical(other.senderName, senderName) ||
                 other.senderName == senderName) &&
-            (identical(other.recipientName, recipientName) ||
-                other.recipientName == recipientName) &&
+            (identical(other.receiverId, receiverId) ||
+                other.receiverId == receiverId) &&
+            (identical(other.receiverName, receiverName) ||
+                other.receiverName == receiverName) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, recipientId, message,
-      senderName, recipientName, timestamp);
+  int get hashCode => Object.hash(runtimeType, id, message, senderId,
+      senderName, receiverId, receiverName, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -228,25 +246,28 @@ class _$MessageImpl implements _Message {
 
 abstract class _Message implements Message {
   factory _Message(
-      {required final String id,
-      final String? recipientId,
+      {final String? id,
       required final String message,
+      required final String senderId,
       required final String senderName,
-      final String? recipientName,
+      final String? receiverId,
+      final String? receiverName,
       required final String timestamp}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
 
   @override
-  String get id;
-  @override
-  String? get recipientId;
+  String? get id;
   @override
   String get message;
   @override
+  String get senderId;
+  @override
   String get senderName;
   @override
-  String? get recipientName;
+  String? get receiverId;
+  @override
+  String? get receiverName;
   @override
   String get timestamp;
   @override

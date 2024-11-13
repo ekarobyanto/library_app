@@ -16,9 +16,9 @@ class ChatListCubit extends Cubit<ChatListState> {
     required this.communityRepository,
   }) : super(const ChatListState.initial());
 
-  retrieveChats(String userId) {
+  getChatRooms(String userId) {
     emit(const ChatListState.loading());
-    chatsStreamSubscription = communityRepository.getChatList(userId).listen(
+    chatsStreamSubscription = communityRepository.getChatRooms(userId).listen(
       cancelOnError: true,
       (event) => emit(ChatListState.connected(event)),
       onError: (e) {

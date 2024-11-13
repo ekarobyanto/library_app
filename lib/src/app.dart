@@ -58,7 +58,13 @@ class App extends StatelessWidget {
           ),
         ),
         RepositoryProvider(
-          create: (context) => FirebaseFirestore.instance,
+          create: (context) {
+            final firestoreInstance = FirebaseFirestore.instance;
+            firestoreInstance.settings = const Settings(
+              persistenceEnabled: false,
+            );
+            return firestoreInstance;
+          },
         ),
         RepositoryProvider(
           create: (context) => UserRepository(

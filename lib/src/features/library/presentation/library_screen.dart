@@ -8,8 +8,6 @@ import 'package:library_app/src/widgets/button.dart';
 import 'package:library_app/src/widgets/horizontal_book_list.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
-import '../../../theme/app_theme.dart';
-
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
