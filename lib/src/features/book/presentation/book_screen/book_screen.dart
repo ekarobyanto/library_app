@@ -61,6 +61,23 @@ class _BookScreenState extends State<BookScreen> {
       ],
       child: MultiBlocListener(
         listeners: [
+          BlocListener<BookDetailCubit, BookDetailState>(
+            listener: (context, state) => state.whenOrNull(
+              error: (_) {
+                // router.pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(
+                      "There's problem while fetching your book :(",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+                return;
+              },
+            ),
+          ),
           BlocListener<DeleteBookCubit, DeleteBookState>(
             listener: (context, state) => state.whenOrNull(
               loading: () {
@@ -70,7 +87,7 @@ class _BookScreenState extends State<BookScreen> {
               success: () {
                 loadingOverlay.hide();
                 refreshCubits(context);
-                context.pop();
+                router.pop();
                 return null;
               },
               fail: (message) {
@@ -175,7 +192,7 @@ class _BookScreenState extends State<BookScreen> {
                 orElse: () => const SizedBox.shrink(),
                 loading: () => const LoadingWidget(),
                 error: (message) => ErrorFetch(
-                  message: message ?? 'Something went wrong',
+                  message: 'Something went wrong',
                   onRetry: () => context
                       .read<BookDetailCubit>()
                       .getBookDetail(widget.bookId),
