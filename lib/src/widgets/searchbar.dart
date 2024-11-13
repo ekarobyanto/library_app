@@ -46,11 +46,11 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     const debounceDuration = Duration(milliseconds: 300);
-    Timer? _debounceTimer;
+    Timer? debounceTimer;
 
-    void _onChanged(String value) {
-      if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
-      _debounceTimer = Timer(debounceDuration, () {
+    void onChanged(String value) {
+      if (debounceTimer?.isActive ?? false) debounceTimer!.cancel();
+      debounceTimer = Timer(debounceDuration, () {
         onSearch?.call(value);
       });
     }
@@ -80,7 +80,7 @@ class AppSearchbar extends StatelessWidget implements PreferredSizeWidget {
             focusNode: focusNode,
             cursorColor: theme.color.primaryColor,
             textAlignVertical: TextAlignVertical.center,
-            onChanged: _onChanged,
+            onChanged: onChanged,
             decoration: InputDecoration(
               isDense: true,
               alignLabelWithHint: true,
