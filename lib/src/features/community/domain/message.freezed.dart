@@ -24,6 +24,8 @@ mixin _$Message {
   String get message => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
   String get senderName => throw _privateConstructorUsedError;
+  String? get receiverId => throw _privateConstructorUsedError;
+  String? get receiverName => throw _privateConstructorUsedError;
   String get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,6 +43,8 @@ abstract class $MessageCopyWith<$Res> {
       String message,
       String senderId,
       String senderName,
+      String? receiverId,
+      String? receiverName,
       String timestamp});
 }
 
@@ -61,6 +65,8 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
     Object? message = null,
     Object? senderId = null,
     Object? senderName = null,
+    Object? receiverId = freezed,
+    Object? receiverName = freezed,
     Object? timestamp = null,
   }) {
     return _then(_value.copyWith(
@@ -80,6 +86,14 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
           ? _value.senderName
           : senderName // ignore: cast_nullable_to_non_nullable
               as String,
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverName: freezed == receiverName
+          ? _value.receiverName
+          : receiverName // ignore: cast_nullable_to_non_nullable
+              as String?,
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -100,6 +114,8 @@ abstract class _$$MessageImplCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String message,
       String senderId,
       String senderName,
+      String? receiverId,
+      String? receiverName,
       String timestamp});
 }
 
@@ -118,6 +134,8 @@ class __$$MessageImplCopyWithImpl<$Res>
     Object? message = null,
     Object? senderId = null,
     Object? senderName = null,
+    Object? receiverId = freezed,
+    Object? receiverName = freezed,
     Object? timestamp = null,
   }) {
     return _then(_$MessageImpl(
@@ -137,6 +155,14 @@ class __$$MessageImplCopyWithImpl<$Res>
           ? _value.senderName
           : senderName // ignore: cast_nullable_to_non_nullable
               as String,
+      receiverId: freezed == receiverId
+          ? _value.receiverId
+          : receiverId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      receiverName: freezed == receiverName
+          ? _value.receiverName
+          : receiverName // ignore: cast_nullable_to_non_nullable
+              as String?,
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -153,6 +179,8 @@ class _$MessageImpl implements _Message {
       required this.message,
       required this.senderId,
       required this.senderName,
+      this.receiverId,
+      this.receiverName,
       required this.timestamp});
 
   factory _$MessageImpl.fromJson(Map<String, dynamic> json) =>
@@ -167,11 +195,15 @@ class _$MessageImpl implements _Message {
   @override
   final String senderName;
   @override
+  final String? receiverId;
+  @override
+  final String? receiverName;
+  @override
   final String timestamp;
 
   @override
   String toString() {
-    return 'Message(id: $id, message: $message, senderId: $senderId, senderName: $senderName, timestamp: $timestamp)';
+    return 'Message(id: $id, message: $message, senderId: $senderId, senderName: $senderName, receiverId: $receiverId, receiverName: $receiverName, timestamp: $timestamp)';
   }
 
   @override
@@ -185,14 +217,18 @@ class _$MessageImpl implements _Message {
                 other.senderId == senderId) &&
             (identical(other.senderName, senderName) ||
                 other.senderName == senderName) &&
+            (identical(other.receiverId, receiverId) ||
+                other.receiverId == receiverId) &&
+            (identical(other.receiverName, receiverName) ||
+                other.receiverName == receiverName) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, message, senderId, senderName, timestamp);
+  int get hashCode => Object.hash(runtimeType, id, message, senderId,
+      senderName, receiverId, receiverName, timestamp);
 
   @JsonKey(ignore: true)
   @override
@@ -214,6 +250,8 @@ abstract class _Message implements Message {
       required final String message,
       required final String senderId,
       required final String senderName,
+      final String? receiverId,
+      final String? receiverName,
       required final String timestamp}) = _$MessageImpl;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$MessageImpl.fromJson;
@@ -226,6 +264,10 @@ abstract class _Message implements Message {
   String get senderId;
   @override
   String get senderName;
+  @override
+  String? get receiverId;
+  @override
+  String? get receiverName;
   @override
   String get timestamp;
   @override

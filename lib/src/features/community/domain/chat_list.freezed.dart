@@ -22,7 +22,7 @@ ChatList _$ChatListFromJson(Map<String, dynamic> json) {
 mixin _$ChatList {
   String get id => throw _privateConstructorUsedError;
   List<String>? get participants => throw _privateConstructorUsedError;
-  List<String> get usernames => throw _privateConstructorUsedError;
+  String get senderUsername => throw _privateConstructorUsedError;
   String get lastMessage => throw _privateConstructorUsedError;
   String get timestamp => throw _privateConstructorUsedError;
 
@@ -40,7 +40,7 @@ abstract class $ChatListCopyWith<$Res> {
   $Res call(
       {String id,
       List<String>? participants,
-      List<String> usernames,
+      String senderUsername,
       String lastMessage,
       String timestamp});
 }
@@ -60,7 +60,7 @@ class _$ChatListCopyWithImpl<$Res, $Val extends ChatList>
   $Res call({
     Object? id = null,
     Object? participants = freezed,
-    Object? usernames = null,
+    Object? senderUsername = null,
     Object? lastMessage = null,
     Object? timestamp = null,
   }) {
@@ -73,10 +73,10 @@ class _$ChatListCopyWithImpl<$Res, $Val extends ChatList>
           ? _value.participants
           : participants // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      usernames: null == usernames
-          ? _value.usernames
-          : usernames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      senderUsername: null == senderUsername
+          ? _value.senderUsername
+          : senderUsername // ignore: cast_nullable_to_non_nullable
+              as String,
       lastMessage: null == lastMessage
           ? _value.lastMessage
           : lastMessage // ignore: cast_nullable_to_non_nullable
@@ -100,7 +100,7 @@ abstract class _$$ChatListImplCopyWith<$Res>
   $Res call(
       {String id,
       List<String>? participants,
-      List<String> usernames,
+      String senderUsername,
       String lastMessage,
       String timestamp});
 }
@@ -118,7 +118,7 @@ class __$$ChatListImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? participants = freezed,
-    Object? usernames = null,
+    Object? senderUsername = null,
     Object? lastMessage = null,
     Object? timestamp = null,
   }) {
@@ -131,10 +131,10 @@ class __$$ChatListImplCopyWithImpl<$Res>
           ? _value._participants
           : participants // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      usernames: null == usernames
-          ? _value._usernames
-          : usernames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      senderUsername: null == senderUsername
+          ? _value.senderUsername
+          : senderUsername // ignore: cast_nullable_to_non_nullable
+              as String,
       lastMessage: null == lastMessage
           ? _value.lastMessage
           : lastMessage // ignore: cast_nullable_to_non_nullable
@@ -153,11 +153,10 @@ class _$ChatListImpl implements _ChatList {
   _$ChatListImpl(
       {required this.id,
       final List<String>? participants,
-      required final List<String> usernames,
+      required this.senderUsername,
       required this.lastMessage,
       required this.timestamp})
-      : _participants = participants,
-        _usernames = usernames;
+      : _participants = participants;
 
   factory _$ChatListImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatListImplFromJson(json);
@@ -174,14 +173,8 @@ class _$ChatListImpl implements _ChatList {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String> _usernames;
   @override
-  List<String> get usernames {
-    if (_usernames is EqualUnmodifiableListView) return _usernames;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_usernames);
-  }
-
+  final String senderUsername;
   @override
   final String lastMessage;
   @override
@@ -189,7 +182,7 @@ class _$ChatListImpl implements _ChatList {
 
   @override
   String toString() {
-    return 'ChatList(id: $id, participants: $participants, usernames: $usernames, lastMessage: $lastMessage, timestamp: $timestamp)';
+    return 'ChatList(id: $id, participants: $participants, senderUsername: $senderUsername, lastMessage: $lastMessage, timestamp: $timestamp)';
   }
 
   @override
@@ -200,8 +193,8 @@ class _$ChatListImpl implements _ChatList {
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality()
                 .equals(other._participants, _participants) &&
-            const DeepCollectionEquality()
-                .equals(other._usernames, _usernames) &&
+            (identical(other.senderUsername, senderUsername) ||
+                other.senderUsername == senderUsername) &&
             (identical(other.lastMessage, lastMessage) ||
                 other.lastMessage == lastMessage) &&
             (identical(other.timestamp, timestamp) ||
@@ -214,7 +207,7 @@ class _$ChatListImpl implements _ChatList {
       runtimeType,
       id,
       const DeepCollectionEquality().hash(_participants),
-      const DeepCollectionEquality().hash(_usernames),
+      senderUsername,
       lastMessage,
       timestamp);
 
@@ -236,7 +229,7 @@ abstract class _ChatList implements ChatList {
   factory _ChatList(
       {required final String id,
       final List<String>? participants,
-      required final List<String> usernames,
+      required final String senderUsername,
       required final String lastMessage,
       required final String timestamp}) = _$ChatListImpl;
 
@@ -248,7 +241,7 @@ abstract class _ChatList implements ChatList {
   @override
   List<String>? get participants;
   @override
-  List<String> get usernames;
+  String get senderUsername;
   @override
   String get lastMessage;
   @override

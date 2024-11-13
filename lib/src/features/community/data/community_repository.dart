@@ -24,6 +24,7 @@ class CommunityRepository {
         .collection('chat-rooms')
         .doc(chatRoomId)
         .collection('messages')
+        .orderBy('timestamp')
         .snapshots()
         .map(
       (docs) {
@@ -39,7 +40,37 @@ class CommunityRepository {
     Message message,
     String chatRoomId,
   ) async {
-    _firestoreInstance
+    final chatRoom = await _firestoreInstance
+        .collection('chat-rooms')
+        .where('id', isEqualTo: chatRoomId)
+        .limit(1)
+        .get()
+        .then(
+          (docs) => docs.docs.isEmpty
+              ? null
+              : ChatList.fromJson(docs.docs.first.data()),
+        );
+
+    final updatedChatRoom = chatRoom != null
+        ? chatRoom.copyWith(
+            senderUsername: message.senderName,
+            lastMessage: message.message,
+            timestamp: DateTime.now().toIso8601String(),
+          )
+        : ChatList(
+            id: chatRoomId,
+            senderUsername: message.senderName,
+            participants: chatRoomId.split('-'),
+            lastMessage: message.message,
+            timestamp: DateTime.now().toIso8601String(),
+          );
+
+    await _firestoreInstance
+        .collection('chat-rooms')
+        .doc(chatRoomId)
+        .set(updatedChatRoom.toJson());
+
+    await _firestoreInstance
         .collection('chat-rooms')
         .doc(chatRoomId)
         .collection('messages')

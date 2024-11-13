@@ -10,6 +10,8 @@ class Message with _$Message {
     required String message,
     required String senderId,
     required String senderName,
+    String? receiverId,
+    String? receiverName,
     required String timestamp,
   }) = _Message;
 
