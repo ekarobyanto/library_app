@@ -42,12 +42,15 @@ class ChatScreen extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
             ),
-            builder: (context) => SearchUsersChat(
-              onSelect: (user) => router.push(
-                '/chat-room/${context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user?.uid)}-${user.id}',
-                extra: user.name,
-              ),
-            ),
+            builder: (context) => SearchUsersChat(onSelect: (selectedUser) {
+              final userIds = ([user!.uid, selectedUser.id]);
+              userIds.sort((a, b) => a.compareTo(b));
+              final chatRoomId = userIds.join('-');
+              router.push(
+                '/chat-room/$chatRoomId',
+                extra: selectedUser.name,
+              );
+            }),
           ),
           backgroundColor: color.primaryColor,
           child: const Icon(Icons.add_comment, color: Colors.white),
