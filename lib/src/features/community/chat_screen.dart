@@ -16,6 +16,8 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user =
+        context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
     return BlocProvider(
       create: (context) => ChatListCubit(
         communityRepository: context.read<CommunityRepository>(),
@@ -40,7 +42,12 @@ class ChatScreen extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
             ),
-            builder: (context) => const SearchUsersChat(),
+            builder: (context) => SearchUsersChat(
+              onSelect: (user) => router.push(
+                '/chat-room/${context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user?.uid)}-${user.id}',
+                extra: user.name,
+              ),
+            ),
           ),
           backgroundColor: color.primaryColor,
           child: const Icon(Icons.add_comment, color: Colors.white),
@@ -82,6 +89,10 @@ class ChatScreen extends StatelessWidget {
                             chatList: chats[index],
                             onTap: () => router.push(
                               '/chat-room/${chats[index].id}',
+                              extra: chats[index].recipientName ==
+                                      user?.displayName
+                                  ? chats[index].senderName
+                                  : chats[index].recipientName,
                             ),
                           ),
                         ),

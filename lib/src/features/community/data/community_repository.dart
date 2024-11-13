@@ -10,6 +10,7 @@ class CommunityRepository {
     return _firestoreInstance
         .collection('chat-rooms')
         .where('participants', arrayContains: userId)
+        .orderBy('timestamp')
         .snapshots()
         .map((docs) {
       if (docs.docs.isNotEmpty) {
@@ -53,13 +54,15 @@ class CommunityRepository {
 
     final updatedChatRoom = chatRoom != null
         ? chatRoom.copyWith(
-            senderUsername: message.senderName,
+            senderName: message.senderName,
+            recipientName: message.receiverName ?? '',
             lastMessage: message.message,
             timestamp: DateTime.now().toIso8601String(),
           )
         : ChatList(
             id: chatRoomId,
-            senderUsername: message.senderName,
+            senderName: message.senderName,
+            recipientName: message.receiverName ?? '',
             participants: chatRoomId.split('-'),
             lastMessage: message.message,
             timestamp: DateTime.now().toIso8601String(),

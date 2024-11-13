@@ -12,7 +12,8 @@ _$ChatListImpl _$$ChatListImplFromJson(Map<String, dynamic> json) =>
       participants: (json['participants'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      senderUsername: json['senderUsername'] as String,
+      recipientName: json['recipientName'] as String,
+      senderName: json['senderName'] as String,
       lastMessage: json['lastMessage'] as String,
       timestamp: json['timestamp'] as String,
     );
@@ -21,7 +22,8 @@ Map<String, dynamic> _$$ChatListImplToJson(_$ChatListImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'participants': instance.participants,
-      'senderUsername': instance.senderUsername,
+      'recipientName': instance.recipientName,
+      'senderName': instance.senderName,
       'lastMessage': instance.lastMessage,
       'timestamp': instance.timestamp,
     };

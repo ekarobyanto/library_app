@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:library_app/src/core/auth/auth_cubit.dart';
 import 'package:library_app/src/features/community/cubit/search_user_cubit.dart';
+import 'package:library_app/src/features/user/data/domain/user_search.dart';
 import 'package:library_app/src/features/user/data/user_repository.dart';
 
 import 'package:library_app/src/router/router.dart';
@@ -9,9 +9,9 @@ import 'package:library_app/src/theme/app_theme.dart';
 import 'package:library_app/src/widgets/searchbar.dart';
 
 class SearchUsersChat extends StatefulWidget {
-  const SearchUsersChat({
-    super.key,
-  });
+  const SearchUsersChat({super.key, required this.onSelect});
+
+  final Function(UserSearch user) onSelect;
 
   @override
   State<SearchUsersChat> createState() => _SearchUsersChatState();
@@ -79,10 +79,7 @@ class _SearchUsersChatState extends State<SearchUsersChat> {
                                 itemBuilder: (context, index) => InkWell(
                                   onTap: () {
                                     router.pop();
-                                    router.push(
-                                      '/chat-room/${context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user?.uid)}-${users[index].id}',
-                                      extra: users[index].name,
-                                    );
+                                    widget.onSelect(users[index]);
                                   },
                                   child: Row(
                                     children: [

@@ -12,9 +12,11 @@ class UserChatScreen extends StatelessWidget {
   const UserChatScreen({
     super.key,
     required this.chatRoomId,
+    required this.receiverName,
   });
 
   final String chatRoomId;
+  final String receiverName;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +38,11 @@ class UserChatScreen extends StatelessWidget {
                         signedIn: (user) => user,
                       ),
                   messages: messages,
-                  onSendMessage: (message) => context
-                      .read<UserChatCubit>()
-                      .sendChat(chatRoomId, message),
+                  onSendMessage: (message) =>
+                      context.read<UserChatCubit>().sendChat(
+                            chatRoomId,
+                            message.copyWith(receiverName: receiverName),
+                          ),
                 ),
                 loading: () => const Center(
                   child: CircularProgressIndicator(),

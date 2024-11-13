@@ -17,9 +17,9 @@ class ChatItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final user =
         context.read<AuthCubit>().state.whenOrNull(signedIn: (user) => user);
-    final displayName = chatList.senderUsername == user?.displayName
-        ? user?.displayName ?? "Unknown"
-        : chatList.senderUsername;
+    final displayName = [chatList.recipientName, chatList.senderName]
+        .where((name) => name != user?.displayName)
+        .first;
 
     return InkWell(
       onTap: onTap,
@@ -29,7 +29,7 @@ class ChatItemTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              displayName,
+              displayName.trim(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),

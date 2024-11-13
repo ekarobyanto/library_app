@@ -8,7 +8,8 @@ class ChatList with _$ChatList {
   factory ChatList({
     required String id,
     List<String>? participants,
-    required String senderUsername,
+    required String recipientName,
+    required String senderName,
     required String lastMessage,
     required String timestamp,
   }) = _ChatList;
