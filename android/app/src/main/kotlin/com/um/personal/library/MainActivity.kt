@@ -1,4 +1,4 @@
-package com.example.library_app
+package com.um.personal.library
 
 import io.flutter.embedding.android.FlutterActivity
 
