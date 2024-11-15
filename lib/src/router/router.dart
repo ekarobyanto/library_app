@@ -20,6 +20,7 @@ import 'package:library_app/src/features/report/presentation/create_report.dart'
 import 'package:library_app/src/features/report/presentation/report_detail.dart';
 import 'package:library_app/src/features/report/presentation/report_screen.dart';
 import 'package:library_app/src/features/user/presentation/user_screen.dart';
+import 'package:library_app/src/splash_screen.dart';
 import 'package:library_app/src/utils/create_go_route_instance.dart';
 
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -32,6 +33,11 @@ final GoRouter router = GoRouter(
   routes: [
     createGoRouteInstance(
       route: '/',
+      screen: const SplashScreen(),
+    ),
+    createGoRouteInstance(
+      route: '/auth',
+      navigatorKey: _rootNavigatorKey,
       screen: AuthScreen(),
     ),
     ShellRoute(
